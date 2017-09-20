@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - '7'
+
+install:
+  - npm install -g ionic cordova
+  - npm install
+
+script:
+  - ionic build browser
+
+deploy:
+  skip_cleanup: true
+  provider: cloudfoundry
+  username: $CF_USER
+  password: $CF_PASSWORD
+  api: $CF_API
+  organization: sandbox
+  space: TZHWEDA9
+  on:
+    branch: feature/travis
