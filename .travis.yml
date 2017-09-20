@@ -18,4 +18,4 @@ deploy:
   organization: sandbox
   space: TZHWEDA9
   on:
-    branch: feature/travis
+    branch: develop
