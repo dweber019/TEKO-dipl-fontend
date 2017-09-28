@@ -3,9 +3,24 @@ export const FirstRunPage = 'TutorialPage';
 
 // The main page the user will see as they use the app over a long period of time.
 // Change this if not using tabs
-export const MainPage = 'TabsPage';
+export const MainPage = 'DashboardPage';
 
-// The initial root pages for our tabs (remove if not using tabs)
-export const Tab1Root = 'ListMasterPage';
-export const Tab2Root = 'SearchPage';
-export const Tab3Root = 'SettingsPage';
+// Chat pages
+export const ChatDetailPage = 'ChatDetailPage';
+
+// Notifications
+export const NotificationPage = 'NotificationPage';
+
+// Addressbook
+export const AddressPage = 'AddressPage';
+export const AddressPersonDetailPage = 'AddressPersonDetailPage';
+export const AddressGroupDetailPage = 'AddressGroupDetailPage';
+
+// Subject
+export const SubjectDetailPage = 'SubjectDetailPage';
+
+// Lesson
+export const LessonDetailPage = 'LessonDetailPage';
+
+// Task
+export const TaskDetailPage = 'TaskDetailPage';

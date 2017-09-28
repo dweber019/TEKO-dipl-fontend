@@ -1,0 +1,38 @@
+<!--
+  Generated template for the SubjectDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>SubjectDetail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    tab: {{ tab }}
+    <div [ngSwitch]="tab">
+      <compnent-subject-lesson *ngSwitchCase="'lesson'"></compnent-subject-lesson>
+      <component-subject-student *ngSwitchCase="'student'"></component-subject-student>
+      <component-subject-grade *ngSwitchCase="'grade'"></component-subject-grade>
+    </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="lesson" checked>
+        Unterricht
+      </ion-segment-button>
+      <ion-segment-button value="student">
+        Studenten
+      </ion-segment-button>
+      <ion-segment-button value="grade">
+        Noten
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

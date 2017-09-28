@@ -1,0 +1,42 @@
+<!--
+  Generated template for the TaskDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>TaskDetail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  tab: {{ tab }}
+  <div [ngSwitch]="tab">
+    <compnent-task-item *ngSwitchCase="'task'"></compnent-task-item>
+    <component-task-result *ngSwitchCase="'result'"></component-task-result>
+    <component-note *ngSwitchCase="'note'"></component-note>
+    <component-comment *ngSwitchCase="'comment'"></component-comment>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="task" checked>
+        Aufgabe
+      </ion-segment-button>
+      <ion-segment-button value="result">
+        Resultat
+      </ion-segment-button>
+      <ion-segment-button value="note">
+        Notizen
+      </ion-segment-button>
+      <ion-segment-button value="comment">
+        Kommentare
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>
