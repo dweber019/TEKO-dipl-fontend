@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { NotificationReadPage, NotificationUnreadPage } from './../pages';
+
 /**
  * Generated class for the NotificationPage page.
  *
@@ -24,8 +26,8 @@ export class NotificationPage {
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-    this.notificationReadTab = 'NotificationReadPage';
-    this.notificationUnreadTab = 'NotificationUnreadPage';
+    this.notificationReadTab = NotificationReadPage;
+    this.notificationUnreadTab = NotificationUnreadPage;
   }
 
   ionViewDidLoad() {

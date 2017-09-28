@@ -10,3 +10,5 @@ export const ChatDetailPage = 'ChatDetailPage';
 
 // Notifications
 export const NotificationPage = 'NotificationPage';
+export const NotificationReadPage = 'NotificationReadPage';
+export const NotificationUnreadPage = 'NotificationUnreadPage';
