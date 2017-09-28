@@ -12,9 +12,27 @@
 
 </ion-header>
 
+<ion-content>
+  tab: {{ tab }}
+  <div [ngSwitch]="tab">
+    <component-lesson-task *ngSwitchCase="'task'"></component-lesson-task>
+    <component-note *ngSwitchCase="'note'"></component-note>
+    <component-comment *ngSwitchCase="'comment'"></component-comment>
+  </div>
+</ion-content>
 
-<ion-tabs>
-  <ion-tab tabTitle="Aufgaben" [root]="lessonTaskTab" [rootParams]="navData" [tabUrlPath]="'lessonTaskTab'"></ion-tab>
-  <ion-tab tabTitle="Notizen" [root]="lessonNoteTab" [rootParams]="navData" [tabUrlPath]="'lessonNoteTab'"></ion-tab>
-  <ion-tab tabTitle="Kommentare" [root]="lessonCommentTab" [rootParams]="navData" [tabUrlPath]="'lessonCommentTab'"></ion-tab>
-</ion-tabs>
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="task" checked>
+        Aufgaben
+      </ion-segment-button>
+      <ion-segment-button value="note">
+        Notizen
+      </ion-segment-button>
+      <ion-segment-button value="comment">
+        Kommentare
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { SubjectLessonPage, SubjectStudentPage, SubjectGradePage } from './../pages';
-
 /**
  * Generated class for the SubjectDetailPage page.
  *
@@ -17,9 +15,7 @@ import { SubjectLessonPage, SubjectStudentPage, SubjectGradePage } from './../pa
 })
 export class SubjectDetailPage {
 
-  public subjectLessonTab: string;
-  public subjectStudentTab: string;
-  public subjectGradeTab: string;
+  public tab: string = 'lesson';
 
   public navData;
 
@@ -27,14 +23,6 @@ export class SubjectDetailPage {
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-    this.subjectLessonTab = SubjectLessonPage;
-    this.subjectStudentTab = SubjectStudentPage;
-    this.subjectGradeTab = SubjectGradePage;
-
-    this.navData = {
-      navCtrl: (page, params) => this.navCtrl.push(page, params),
-      data: ''
-    };
   }
 
   ionViewDidLoad() {

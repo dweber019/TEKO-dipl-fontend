@@ -12,7 +12,23 @@
 
 </ion-header>
 
-<ion-tabs>
-  <ion-tab tabTitle="Gelesen" [root]="notificationReadTab" [rootParams]="tabParam"></ion-tab>
-  <ion-tab tabTitle="Ungelesen" [root]="notificationUnreadTab" [rootParams]="tabParam"></ion-tab>
-</ion-tabs>
+<ion-content>
+  tab: {{ tab }}
+  <div [ngSwitch]="tab">
+    <component-notification-read *ngSwitchCase="'read'"></component-notification-read>
+    <component-notification-unread *ngSwitchCase="'unread'"></component-notification-unread>
+  </div>
+</ion-content>>
+
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="read" checked>
+        Gelesen
+      </ion-segment-button>
+      <ion-segment-button value="unread">
+        Ungelesen
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

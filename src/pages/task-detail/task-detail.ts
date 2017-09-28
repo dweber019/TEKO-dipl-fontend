@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { TaskItemPage, NotePage, CommentPage } from './../pages';
-
 /**
  * Generated class for the TaskDetailPage page.
  *
@@ -17,17 +15,12 @@ import { TaskItemPage, NotePage, CommentPage } from './../pages';
 })
 export class TaskDetailPage {
 
-  public TaskItemTab: string;
-  public TaskNoteTab: string;
-  public TaskCommentTab: string;
+  public tab: string = 'task';
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-    this.TaskItemTab = TaskItemPage;
-    this.TaskNoteTab = NotePage;
-    this.TaskCommentTab = CommentPage;
   }
 
   ionViewDidLoad() {

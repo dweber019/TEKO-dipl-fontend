@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { NotificationReadPage, NotificationUnreadPage } from './../pages';
-
 /**
  * Generated class for the NotificationPage page.
  *
@@ -17,17 +15,12 @@ import { NotificationReadPage, NotificationUnreadPage } from './../pages';
 })
 export class NotificationPage {
 
-  public notificationReadTab: string;
-  public notificationUnreadTab: string;
-
-  public tabParam = 'Params from tabs root page';
+  public tab: string = 'read';
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-    this.notificationReadTab = NotificationReadPage;
-    this.notificationUnreadTab = NotificationUnreadPage;
   }
 
   ionViewDidLoad() {

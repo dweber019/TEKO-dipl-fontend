@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { LessonTaskPage, NotePage, CommentPage } from './../pages';
-
 /**
  * Generated class for the LessonDetailPage page.
  *
@@ -17,24 +15,12 @@ import { LessonTaskPage, NotePage, CommentPage } from './../pages';
 })
 export class LessonDetailPage {
 
-  public lessonTaskTab: string;
-  public lessonNoteTab: string;
-  public lessonCommentTab: string;
-
-  public navData;
+  public tab: string = 'task';
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-    this.lessonTaskTab = LessonTaskPage;
-    this.lessonNoteTab = NotePage;
-    this.lessonCommentTab = CommentPage;
-
-    this.navData = {
-      navCtrl: (page, params) => this.navCtrl.push(page, params),
-      data: ''
-    };
   }
 
   ionViewDidLoad() {

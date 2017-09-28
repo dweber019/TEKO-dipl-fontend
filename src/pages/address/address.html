@@ -15,17 +15,11 @@
   </ion-navbar>
 </ion-header>
 
-
-<!-- <ion-tabs>
-  <ion-tab tabTitle="Personen" [root]="addressPersonTab" [rootParams]="navData"></ion-tab>
-  <ion-tab tabTitle="Gruppen" [root]="addressGroupTab" [rootParams]="navData"></ion-tab>
-</ion-tabs> -->
-
 <ion-content>
   tab: {{ tab }}
   <div [ngSwitch]="tab">
-    <page-address-person *ngSwitchCase="'person'"></page-address-person>
-    <page-address-group *ngSwitchCase="'group'"></page-address-group>
+    <component-address-person *ngSwitchCase="'person'"></component-address-person>
+    <component-address-group *ngSwitchCase="'group'"></component-address-group>
   </div>
 </ion-content>
 

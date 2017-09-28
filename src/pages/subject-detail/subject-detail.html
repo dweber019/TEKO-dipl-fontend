@@ -12,9 +12,27 @@
 
 </ion-header>
 
+<ion-content>
+    tab: {{ tab }}
+    <div [ngSwitch]="tab">
+      <compnent-subject-lesson *ngSwitchCase="'lesson'"></compnent-subject-lesson>
+      <component-subject-student *ngSwitchCase="'student'"></component-subject-student>
+      <component-subject-grade *ngSwitchCase="'grade'"></component-subject-grade>
+    </div>
+</ion-content>
 
-<ion-tabs>
-  <ion-tab tabTitle="Unterricht" [root]="subjectLessonTab" [rootParams]="navData" [tabUrlPath]="'subjectLessonTab'"></ion-tab>
-  <ion-tab tabTitle="Schüler" [root]="subjectStudentTab" [rootParams]="navData" [tabUrlPath]="'subjectStudentTab'"></ion-tab>
-  <ion-tab tabTitle="Noten" [root]="subjectGradeTab" [rootParams]="navData" [tabUrlPath]="'subjectGradeTab'"></ion-tab>
-</ion-tabs>
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="lesson" checked>
+        Unterricht
+      </ion-segment-button>
+      <ion-segment-button value="student">
+        Studenten
+      </ion-segment-button>
+      <ion-segment-button value="grade">
+        Noten
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>
