@@ -7,3 +7,6 @@ export const MainPage = 'DashboardPage';
 
 // Chat pages
 export const ChatDetailPage = 'ChatDetailPage';
+
+// Notifications
+export const NotificationPage = 'NotificationPage';

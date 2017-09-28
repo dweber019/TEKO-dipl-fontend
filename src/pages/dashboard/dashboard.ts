@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { NotificationPage } from './../pages';
+
 /**
  * Generated class for the DashboardPage page.
  *
@@ -20,6 +22,10 @@ export class DashboardPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DashboardPage');
+  }
+
+  public openNotifications(): void {
+    this.navCtrl.push(NotificationPage);
   }
 
 }
