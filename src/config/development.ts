@@ -1,5 +1,5 @@
 export const devVariables = {
-  apiEndpoint: 'https://dipl-backend.scapp.io/api/',
+  apiEndpoint: 'http://localhost:8000/api/',
   environmentName: 'Development Environment',
   ionicEnvName: 'dev'
 };
