@@ -12,3 +12,10 @@ export const ChatDetailPage = 'ChatDetailPage';
 export const NotificationPage = 'NotificationPage';
 export const NotificationReadPage = 'NotificationReadPage';
 export const NotificationUnreadPage = 'NotificationUnreadPage';
+
+// Addressbook
+export const AddressPage = 'AddressPage';
+export const AddressPersonPage = 'AddressPersonPage';
+export const AddressGroupPage = 'AddressGroupPage';
+export const AddressPersonDetailPage = 'AddressPersonDetailPage';
+export const AddressGroupDetailPage = 'AddressGroupDetailPage';

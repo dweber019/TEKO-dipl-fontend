@@ -16,6 +16,7 @@
 </ion-header>
 
 
-<ion-content padding>
-  <h1>Adressbuch</h1>
-</ion-content>
+<ion-tabs>
+  <ion-tab tabTitle="Personen" [root]="addressPersonTab" [rootParams]="navCtrl"></ion-tab>
+  <ion-tab tabTitle="Gruppen" [root]="addressGroupTab" [rootParams]="navCtrl"></ion-tab>
+</ion-tabs>
