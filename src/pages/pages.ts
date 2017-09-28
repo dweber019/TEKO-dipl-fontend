@@ -19,3 +19,19 @@ export const AddressPersonPage = 'AddressPersonPage';
 export const AddressGroupPage = 'AddressGroupPage';
 export const AddressPersonDetailPage = 'AddressPersonDetailPage';
 export const AddressGroupDetailPage = 'AddressGroupDetailPage';
+
+// Subject
+export const SubjectDetailPage = 'SubjectDetailPage';
+export const SubjectLessonPage = 'SubjectLessonPage';
+export const SubjectStudentPage = 'SubjectStudentPage';
+export const SubjectGradePage = 'SubjectGradePage';
+
+// Lesson
+export const LessonDetailPage = 'LessonDetailPage';
+export const LessonTaskPage = 'LessonTaskPage';
+
+// Comment
+export const CommentPage = 'CommentPage';
+
+// Note
+export const NotePage = 'NotePage';

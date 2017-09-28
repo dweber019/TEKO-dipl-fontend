@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { SubjectDetailPage } from './../pages';
+
 /**
  * Generated class for the SubjectPage page.
  *
@@ -15,11 +17,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SubjectPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SubjectPage');
+  }
+
+  public goToDetail(): void {
+    this.navCtrl.push(SubjectDetailPage, 'subjectId');
   }
 
 }
