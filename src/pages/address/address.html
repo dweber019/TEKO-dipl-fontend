@@ -16,7 +16,28 @@
 </ion-header>
 
 
-<ion-tabs>
-  <ion-tab tabTitle="Personen" [root]="addressPersonTab" [rootParams]="navCtrl"></ion-tab>
-  <ion-tab tabTitle="Gruppen" [root]="addressGroupTab" [rootParams]="navCtrl"></ion-tab>
-</ion-tabs>
+<!-- <ion-tabs>
+  <ion-tab tabTitle="Personen" [root]="addressPersonTab" [rootParams]="navData"></ion-tab>
+  <ion-tab tabTitle="Gruppen" [root]="addressGroupTab" [rootParams]="navData"></ion-tab>
+</ion-tabs> -->
+
+<ion-content>
+  tab: {{ tab }}
+  <div [ngSwitch]="tab">
+    <page-address-person *ngSwitchCase="'person'"></page-address-person>
+    <page-address-group *ngSwitchCase="'group'"></page-address-group>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="person" checked>
+        Personen
+      </ion-segment-button>
+      <ion-segment-button value="group">
+        Gruppen
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

@@ -30,6 +30,11 @@ export const SubjectGradePage = 'SubjectGradePage';
 export const LessonDetailPage = 'LessonDetailPage';
 export const LessonTaskPage = 'LessonTaskPage';
 
+// Task
+export const TaskDetailPage = 'TaskDetailPage';
+export const TaskItemPage = 'TaskItemPage';
+export const TaskResultPage = 'TaskResultPage';
+
 // Comment
 export const CommentPage = 'CommentPage';
 

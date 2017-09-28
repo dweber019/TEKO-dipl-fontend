@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { AddressPersonPage, AddressGroupPage } from './../pages';
-
 /**
  * Generated class for the AddressPage page.
  *
@@ -17,15 +15,12 @@ import { AddressPersonPage, AddressGroupPage } from './../pages';
 })
 export class AddressPage {
 
-  public addressPersonTab: string;
-  public addressGroupTab: string;
+  public tab: string = 'person';
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-    this.addressPersonTab = AddressPersonPage;
-    this.addressGroupTab = AddressGroupPage;
   }
 
   ionViewDidLoad() {

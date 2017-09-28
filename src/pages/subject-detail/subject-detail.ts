@@ -32,7 +32,7 @@ export class SubjectDetailPage {
     this.subjectGradeTab = SubjectGradePage;
 
     this.navData = {
-      navCtrl: this.navCtrl,
+      navCtrl: (page, params) => this.navCtrl.push(page, params),
       data: ''
     };
   }

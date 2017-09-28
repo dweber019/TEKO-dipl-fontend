@@ -14,7 +14,7 @@
 
 
 <ion-tabs>
-  <ion-tab tabTitle="Unterricht" [root]="subjectLessonTab" [rootParams]="navData"></ion-tab>
-  <ion-tab tabTitle="Schüler" [root]="subjectStudentTab" [rootParams]="navData"></ion-tab>
-  <ion-tab tabTitle="Noten" [root]="subjectGradeTab" [rootParams]="navData"></ion-tab>
+  <ion-tab tabTitle="Unterricht" [root]="subjectLessonTab" [rootParams]="navData" [tabUrlPath]="'subjectLessonTab'"></ion-tab>
+  <ion-tab tabTitle="Schüler" [root]="subjectStudentTab" [rootParams]="navData" [tabUrlPath]="'subjectStudentTab'"></ion-tab>
+  <ion-tab tabTitle="Noten" [root]="subjectGradeTab" [rootParams]="navData" [tabUrlPath]="'subjectGradeTab'"></ion-tab>
 </ion-tabs>

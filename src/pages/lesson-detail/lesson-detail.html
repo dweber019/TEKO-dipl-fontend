@@ -1,0 +1,20 @@
+<!--
+  Generated template for the LessonDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>LessonDetail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-tabs>
+  <ion-tab tabTitle="Aufgaben" [root]="lessonTaskTab" [rootParams]="navData" [tabUrlPath]="'lessonTaskTab'"></ion-tab>
+  <ion-tab tabTitle="Notizen" [root]="lessonNoteTab" [rootParams]="navData" [tabUrlPath]="'lessonNoteTab'"></ion-tab>
+  <ion-tab tabTitle="Kommentare" [root]="lessonCommentTab" [rootParams]="navData" [tabUrlPath]="'lessonCommentTab'"></ion-tab>
+</ion-tabs>

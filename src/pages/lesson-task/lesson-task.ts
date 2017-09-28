@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { LessonDetailPage } from './../pages';
+import { TaskDetailPage } from './../pages';
 
 /**
- * Generated class for the SubjectLessonPage page.
+ * Generated class for the LessonTaskPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,10 +12,10 @@ import { LessonDetailPage } from './../pages';
 
 @IonicPage()
 @Component({
-  selector: 'page-subject-lesson',
-  templateUrl: 'subject-lesson.html',
+  selector: 'page-lesson-task',
+  templateUrl: 'lesson-task.html',
 })
-export class SubjectLessonPage {
+export class LessonTaskPage {
 
   constructor(
     public navCtrl: NavController,
@@ -24,11 +24,11 @@ export class SubjectLessonPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SubjectLessonPage');
+    console.log('ionViewDidLoad LessonTaskPage');
   }
 
   public goToDetail(): void {
-    this.navParams.data.navCtrl(LessonDetailPage, 'subjectId');
+    this.navParams.data.navCtrl(TaskDetailPage, 'TaskId');
   }
 
 }
