@@ -36,7 +36,7 @@ export class MyApp {
   ) {
     this.initTranslate();
 
-    console.log(envVariables);
+    console.log('Env variables', envVariables);
   }
 
   ionViewDidLoad() {
