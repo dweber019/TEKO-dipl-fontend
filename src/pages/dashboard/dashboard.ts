@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { NotificationPage } from './../pages';
+import { AgendaProvider, Agenda } from './../../providers/api-services/agenda';
 
 /**
  * Generated class for the DashboardPage page.
@@ -17,14 +18,21 @@ import { NotificationPage } from './../pages';
 })
 export class DashboardPage {
 
+  public agendas: Agenda[];
+
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private agendaProvider: AgendaProvider
   ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DashboardPage');
+    this.agendaProvider.getAgenda()
+      .subscribe(
+        data => this.agendas = data,
+        err => console.log(err)
+      );
   }
 
   public openNotifications(): void {

@@ -22,5 +22,16 @@
 
 
 <ion-content padding>
-  <h1>Dashboard</h1>
+
+  <ion-card *ngFor="let agenda of agendas">
+    <ion-card-header>
+      {{ agenda.name }} {{ agenda.startDate.format() }}
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ agenda.location }}</p>
+      <p>{{ agenda.room }}</p>
+      <p>{{ agenda.endDate.format() }}</p>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

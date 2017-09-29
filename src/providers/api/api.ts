@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -17,23 +18,23 @@ export class Api {
     this.url = this.envVariables.apiEndpoint;
   }
 
-  get(endpoint: string, params?: any, options?) {
-    return this.httpClient.get(this.url + '/' + endpoint, options);
+  get<T>(endpoint: string, params?: any, options?): Observable<T> {
+    return this.httpClient.get(this.url + endpoint, options) as any;
   }
 
-  post(endpoint: string, body: any, options) {
-    return this.httpClient.post(this.url + '/' + endpoint, body, options);
+  post<T>(endpoint: string, body: any, options): Observable<T> {
+    return this.httpClient.post(this.url + endpoint, body, options) as any;
   }
 
-  put(endpoint: string, body: any, options?) {
-    return this.httpClient.put(this.url + '/' + endpoint, body, options);
+  put<T>(endpoint: string, body: any, options?): Observable<T> {
+    return this.httpClient.put(this.url + endpoint, body, options) as any;
   }
 
-  delete(endpoint: string, options?) {
-    return this.httpClient.delete(this.url + '/' + endpoint, options);
+  delete<T>(endpoint: string, options?): Observable<T> {
+    return this.httpClient.delete(this.url + endpoint, options) as any;
   }
 
-  patch(endpoint: string, body: any, options?) {
-    return this.httpClient.put(this.url + '/' + endpoint, body, options);
+  patch<T>(endpoint: string, body: any, options?): Observable<T> {
+    return this.httpClient.put(this.url + endpoint, body, options) as any;
   }
 }

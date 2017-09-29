@@ -10,12 +10,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { EnvironmentsModule } from '../modules/environment-variables/environment-variables.module';
-import { Items } from '../mocks/providers/items';
-import { User } from '../providers/providers';
-import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
-import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { ApiInterceptor } from './../providers/api/api-interceptor';
+import { prodviders } from './../providers/providers';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -46,9 +43,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MyApp
   ],
   providers: [
-    Api,
-    Items,
-    User,
+    ...prodviders,
     SplashScreen,
     StatusBar,
     InAppBrowser,
@@ -56,7 +51,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
-    AuthenticationProvider
   ]
 })
 export class AppModule { }
