@@ -1,5 +1,5 @@
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,6 +15,7 @@ import { User } from '../providers/providers';
 import { Api } from '../providers/providers';
 import { MyApp } from './app.component';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
+import { ApiInterceptor } from './../providers/api/api-interceptor';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -54,6 +55,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     NativeStorage,
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
     AuthenticationProvider
   ]
 })
