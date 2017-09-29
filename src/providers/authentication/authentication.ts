@@ -1,4 +1,4 @@
-import { App, NavController } from 'ionic-angular';
+import { App, NavController, Platform } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Injectable, Inject } from '@angular/core';
 import * as jwtDecode from 'jwt-decode';
@@ -22,7 +22,8 @@ export class AuthenticationProvider {
     private app: App,
     @Inject(EnvVariables) private envVariables: IEnvVariables,
     private nativeStorage: NativeStorage,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private platform: Platform
   ) {
     console.log('Hello AuthenticationProvider Provider');
   }
@@ -30,15 +31,19 @@ export class AuthenticationProvider {
   public authenticate(): void {
     this.logoutPreActions();
 
-    const oauthBrowserInstance = this.iab.create(this.getAuthorizationUrl());
+    let target = '';
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      target = '_blank';
+    }
+
+    const oauthBrowserInstance = this.iab.create(this.getAuthorizationUrl(), target, 'location=no');
     oauthBrowserInstance.on('loadstart').subscribe(event => {
-      console.log('event url: ', event.url);
+      if (this.isRedirectUrl(event.url)) {
+        this.saveToken(this.extractTokenFromHash(event.url));
+        this.goToDashBoard();
+        oauthBrowserInstance.close();
+      }
     });
-      // if (this.isRedirectUrl(event.url)) {
-      //   this.logger.debug('authenticate: isRedirectURL', event.url);
-      //   this.router.navigate('/login/&access_token=' + this.extractTokenFromHash(event.url));
-      //   oauthBrowserInstance.close();
-      // }
   }
 
   public checkAuth(): boolean {
@@ -104,20 +109,21 @@ export class AuthenticationProvider {
   }
 
   private extractTokenFromHash(url?: string): string {
-    const parseUrl = url ? url : window.location.hash.substring(1);
+    const parseUrl = url ? url.replace('http://localhost:8100/#', '') : window.location.hash.substring(1);
     const accessToken = queryString.parse(parseUrl).access_token;
     return accessToken;
   }
 
-  private getAuthorizationUrl(locationOrigin?: string): string {
+  private getAuthorizationUrl(): string {
+    const origin = window.location.origin === 'file://' ? 'http://localhost:8100' : window.location.origin;
+
     const queryParams = queryString.stringify({
-      // We have to comment all standart oAuth params as the UAM is not oAuth compliant
       response_type: 'token',
       client_id: this.envVariables.oauth.clientID,
       client_secret: this.envVariables.oauth.clientSecret,
       scope: this.envVariables.oauth.scope,
       audience: this.envVariables.oauth.audience,
-      redirect_uri: window.location.origin
+      redirect_uri: origin
     });
     return `https://${this.envVariables.oauth.domain}/authorize?${queryParams}`;
   }

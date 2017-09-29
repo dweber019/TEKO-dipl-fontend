@@ -1,4 +1,3 @@
-import { AuthenticationProvider } from './../../providers/authentication/authentication';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -20,8 +19,7 @@ export class DashboardPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    private authenticationProvider: AuthenticationProvider
+    public navParams: NavParams
   ) {
   }
 
