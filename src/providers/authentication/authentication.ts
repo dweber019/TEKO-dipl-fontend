@@ -32,18 +32,22 @@ export class AuthenticationProvider {
     this.logoutPreActions();
 
     let target = '';
+    console.log(this.platform.is('ios'));
     if (this.platform.is('ios') || this.platform.is('android')) {
       target = '_blank';
     }
 
     const oauthBrowserInstance = this.iab.create(this.getAuthorizationUrl(), target, 'location=no');
-    oauthBrowserInstance.on('loadstart').subscribe(event => {
-      if (this.isRedirectUrl(event.url)) {
-        this.saveToken(this.extractTokenFromHash(event.url));
-        this.goToDashBoard();
-        oauthBrowserInstance.close();
-      }
-    });
+
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      oauthBrowserInstance.on('loadstart').subscribe(event => {
+        if (this.isRedirectUrl(event.url)) {
+          this.saveToken(this.extractTokenFromHash(event.url));
+          this.goToDashBoard();
+          oauthBrowserInstance.close();
+        }
+      });
+    }
   }
 
   public checkAuth(): boolean {
@@ -74,7 +78,7 @@ export class AuthenticationProvider {
   }
 
   public goToLogin(): void {
-    this.navCtrl.setRoot(LoginPage);
+    setTimeout(() => this.navCtrl.setRoot(LoginPage));
   }
 
   public goToDashBoard(): void {

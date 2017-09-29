@@ -55,7 +55,6 @@ export class MyApp {
         });
       } else {
         if (!this.authenticationProvider.checkAuth()) {
-          console.log('no redirect');
           // Check if token is expiered
           this.authenticationProvider.isTokenExpired().then(shouldGoToLogin => {
             if (shouldGoToLogin) {

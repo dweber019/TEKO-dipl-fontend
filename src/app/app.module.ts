@@ -13,6 +13,7 @@ import { EnvironmentsModule } from '../modules/environment-variables/environment
 import { MyApp } from './app.component';
 import { ApiInterceptor } from './../providers/api/api-interceptor';
 import { prodviders } from './../providers/providers';
+import { NativeStorageMock } from './../native-mocks';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -47,7 +48,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     SplashScreen,
     StatusBar,
     InAppBrowser,
-    NativeStorage,
+    { provide: NativeStorage, useClass: NativeStorageMock }, // Has to be changed in the feature
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
