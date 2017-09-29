@@ -7,14 +7,6 @@
 </ion-header>
 
 
-<ion-content>
-  <form (submit)="doLogin()">
-    <ion-list>
-
-      <div padding>
-        <button ion-button color="primary" block (click)="doLogin()">{{ 'LOGIN_BUTTON' | translate }}</button>
-      </div>
-
-    </ion-list>
-  </form>
+<ion-content padding>
+  <button ion-button color="primary" block (click)="doLogin()">{{ 'LOGIN_BUTTON' | translate }}</button>
 </ion-content>

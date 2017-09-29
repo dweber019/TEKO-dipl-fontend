@@ -1,3 +1,4 @@
+import { AuthenticationProvider } from './../../providers/authentication/authentication';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -17,7 +18,11 @@ import { NotificationPage } from './../pages';
 })
 export class DashboardPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private authenticationProvider: AuthenticationProvider
+  ) {
   }
 
   ionViewDidLoad() {

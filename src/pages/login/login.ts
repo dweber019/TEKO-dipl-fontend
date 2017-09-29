@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
-// import { MainPage } from '../pages';
+import { AuthenticationProvider } from './../../providers/authentication/authentication';
 
 @IonicPage()
 @Component({
@@ -24,7 +24,8 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public toastCtrl: ToastController,
-    public translateService: TranslateService
+    public translateService: TranslateService,
+    private authenticationProvider: AuthenticationProvider
   ) {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
@@ -32,9 +33,13 @@ export class LoginPage {
     })
   }
 
-  // Attempt to login in through our User service
-  doLogin() {
+  public ionViewDidLoad() {
+    console.log('ionViewDidLoad LoginPage');
+    this.authenticationProvider.checkAuth();
+  }
+
+  public doLogin() {
     console.log('doLogin');
-    this.toastCtrl.create({ message: 'Login' });
+    this.authenticationProvider.authenticate();
   }
 }
