@@ -1,16 +1,21 @@
 import 'rxjs/add/operator/map';
-
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http, RequestOptions, URLSearchParams } from '@angular/http';
+
+import { EnvVariables, IEnvVariables } from './../../modules/environment-variables/environment-variables.token';
 
 /**
  * Api is a generic REST Api handler. Set your API url first.
  */
 @Injectable()
 export class Api {
-  url: string = 'https://example.com/api/v1';
+  url: string;
 
-  constructor(public http: Http) {
+  constructor(
+    public http: Http,
+    @Inject(EnvVariables) private envVariables: IEnvVariables,
+  ) {
+    this.url = this.envVariables.apiEndpoint;
   }
 
   get(endpoint: string, params?: any, options?: RequestOptions) {
