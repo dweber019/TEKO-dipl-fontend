@@ -5,6 +5,9 @@ export const FirstRunPage = 'TutorialPage';
 // Change this if not using tabs
 export const MainPage = 'DashboardPage';
 
+// Login
+export const LoginPage = 'LoginPage';
+
 // Chat pages
 export const ChatDetailPage = 'ChatDetailPage';
 
