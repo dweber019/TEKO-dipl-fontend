@@ -3,6 +3,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
+import * as moment from 'moment';
 
 import { FirstRunPage } from '../pages/pages';
 import { EnvVariables } from '../modules/environment-variables/environment-variables.token';
@@ -35,11 +36,12 @@ export class MyApp {
     private authenticationProvider: AuthenticationProvider
   ) {
     this.initTranslate();
+    this.initMoment();
 
     console.log('Env variables', envVariables);
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.platform.ready().then((source) => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -66,7 +68,7 @@ export class MyApp {
     });
   }
 
-  initTranslate() {
+  public initTranslate(): void {
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang('de');
 
@@ -75,7 +77,11 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
+  private initMoment(): void {
+    moment.locale('de');
+  }
+
+  public openPage(page): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
