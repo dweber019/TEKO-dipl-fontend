@@ -38,6 +38,11 @@ ion-list {
     .item {
       border-bottom: $ion-list-table-border-size solid rgba(0, 0, 0, 0.14);
     }
+
+    &.list-ios {
+      border-top: none;
+      border-bottom: none;
+    }
   }
 }
 
