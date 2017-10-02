@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, MenuController, NavController, Platform } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { MainPage } from '../pages';
 
@@ -16,15 +17,17 @@ export interface Slide {
   templateUrl: 'tutorial.html'
 })
 export class TutorialPage {
-  slides: Slide[];
-  showSkip = true;
-  dir: string = 'ltr';
+
+  public slides: Slide[];
+  public showSkip = true;
+  public dir: string = 'ltr';
 
   constructor(
-    public navCtrl: NavController,
-    public menu: MenuController,
-    translate: TranslateService,
-    public platform: Platform
+    private navCtrl: NavController,
+    private menu: MenuController,
+    private translate: TranslateService,
+    private platform: Platform,
+    private nativeStorage: NativeStorage,
   ) {
     this.dir = platform.dir();
     translate.get(["TUTORIAL_SLIDE1_TITLE",
@@ -53,27 +56,39 @@ export class TutorialPage {
           }
         ];
       });
+
+
   }
 
-  startApp() {
-    this.navCtrl.setRoot(MainPage, {}, {
-      animate: true,
-      direction: 'forward'
-    });
-  }
-
-  onSlideChangeStart(slider) {
-    this.showSkip = !slider.isEnd();
-  }
-
-  ionViewDidEnter() {
+  public ionViewDidEnter(): void {
     // the root left menu should be disabled on the tutorial page
     this.menu.enable(false);
   }
 
-  ionViewWillLeave() {
+  public ionViewWillLeave(): void {
     // enable the root left menu when leaving the tutorial page
     this.menu.enable(true);
+  }
+
+  public startApp(): void {
+    this.goToMainPage();
+  }
+
+  public startAppRemember(): void {
+    this.nativeStorage.setItem('hideTutorial', true);
+
+    this.goToMainPage();
+  }
+
+  public onSlideChangeStart(slider): void {
+    this.showSkip = !slider.isEnd();
+  }
+
+  private goToMainPage(): void {
+    this.navCtrl.setRoot(MainPage, {}, {
+      animate: true,
+      direction: 'forward'
+    });
   }
 
 }

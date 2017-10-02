@@ -7,7 +7,7 @@ import * as queryString from 'query-string';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 import { EnvVariables, IEnvVariables } from './../../modules/environment-variables/environment-variables.token';
-import { MainPage, LoginPage } from './../../pages/pages';
+import { TutorialPage, LoginPage, DashboardPage } from './../../pages/pages';
 
 /*
   Generated class for the AuthenticationProvider provider.
@@ -42,7 +42,7 @@ export class AuthenticationProvider {
       oauthBrowserInstance.on('loadstart').subscribe(event => {
         if (this.isRedirectUrl(event.url)) {
           this.saveToken(this.extractTokenFromHash(event.url));
-          this.goToDashBoard();
+          this.goToMainPage();
           oauthBrowserInstance.close();
         }
       });
@@ -52,7 +52,7 @@ export class AuthenticationProvider {
   public checkAuth(): boolean {
     if (this.isRedirectUrl()) {
       this.saveToken(this.extractTokenFromHash());
-      this.goToDashBoard();
+      this.goToMainPage();
       return true;
     }
     return false;
@@ -80,8 +80,14 @@ export class AuthenticationProvider {
     setTimeout(() => this.navCtrl.setRoot(LoginPage), 300);
   }
 
-  public goToDashBoard(): void {
-    this.navCtrl.setRoot(MainPage);
+  public goToMainPage(): void {
+    this.nativeStorage.getItem('hideTutorial').then(hide => {
+      if (hide) {
+        this.navCtrl.setRoot(DashboardPage);
+      } else {
+        this.navCtrl.setRoot(TutorialPage);
+      }
+    });
   }
 
   public async isTokenExpired(): Promise<boolean> {
