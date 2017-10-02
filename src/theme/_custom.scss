@@ -1,0 +1,49 @@
+/**
+ * ion-item border
+ */
+$ion-item-border-size: 4px;
+
+ion-item {
+  &.line-primary {
+    border-top: $ion-item-border-size solid color($colors, primary, base);
+  }
+  &.line-secondary {
+    border-top: $ion-item-border-size solid color($colors, secondary, base);
+  }
+  &.line-danger {
+    border-top: $ion-item-border-size solid color($colors, danger, base);
+  }
+  &.line-dark {
+    border-top: $ion-item-border-size solid color($colors, dark, base);
+  }
+}
+
+/**
+ * text muted
+ */
+.text-muted {
+  opacity: 0.5;
+}
+
+/**
+ * List table
+ */
+$ion-list-table-border-size: 1px;
+
+ion-list {
+  &.table {
+    margin-top: $ion-list-table-border-size;
+    border: $ion-list-table-border-size solid rgba(0, 0, 0, 0.14);
+
+    .item {
+      border-bottom: $ion-list-table-border-size solid rgba(0, 0, 0, 0.14);
+    }
+  }
+}
+
+/**
+ * Text size
+ */
+.h1 {
+  font-size: 2.4rem;
+}

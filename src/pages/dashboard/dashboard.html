@@ -24,13 +24,14 @@
 <ion-content padding>
 
   <ion-card *ngFor="let agenda of agendas">
-    <ion-card-header>
-      {{ agenda.name }} {{ agenda.startDate.format() }}
-    </ion-card-header>
+    <ion-item class="line-danger">
+      <h1 ion-text color="danger">{{ agenda.name }}</h1>
+      <h2>{{ agenda.startDate.format('lll') }} - {{ agenda.endDate.format('LT') }}</h2>
+      <ion-icon name="checkmark-circle" item-end color="secondary"></ion-icon>
+    </ion-item>
     <ion-card-content>
-      <p>{{ agenda.location }}</p>
-      <p>{{ agenda.room }}</p>
-      <p>{{ agenda.endDate.format() }}</p>
+      <p class="text-muted">{{ agenda.location }}</p>
+      <p class="text-muted">{{ agenda.room }}</p>
     </ion-card-content>
   </ion-card>
 
