@@ -4,7 +4,7 @@ import { SubjectPage } from './subject';
 
 @NgModule({
   declarations: [
-    SubjectPage,
+    SubjectPage
   ],
   imports: [
     IonicPageModule.forChild(SubjectPage),

@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  ActionSheetController,
+  ModalController
+} from 'ionic-angular';
 
 import { SubjectDetailPage } from './../pages';
+import { SubjectModalPage } from './../subject-modal/subject-modal';
 
 /**
  * Generated class for the SubjectPage page.
@@ -18,17 +24,40 @@ import { SubjectDetailPage } from './../pages';
 export class SubjectPage {
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private actionSheetController: ActionSheetController,
+    private modalController: ModalController
   ) {
   }
 
-  ionViewDidLoad() {
+  public ionViewDidLoad() {
     console.log('ionViewDidLoad SubjectPage');
+
+    this.presentModal();
   }
 
   public goToDetail(): void {
     this.navCtrl.push(SubjectDetailPage, 'subjectId');
+  }
+
+  public openActions(): void {
+    let actionSheet = this.actionSheetController.create({
+      title: 'More Actions',
+      buttons: [
+        {
+          text: 'New Subject',
+          handler: () => {
+            this.presentModal();
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  private presentModal(): void {
+    let modal = this.modalController.create(SubjectModalPage);
+    modal.present();
   }
 
 }

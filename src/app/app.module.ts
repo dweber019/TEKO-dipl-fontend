@@ -15,6 +15,8 @@ import { ApiInterceptor } from './../providers/api/api-interceptor';
 import { prodviders } from './../providers/providers';
 import { NativeStorageMock } from './../native-mocks';
 
+import { SubjectModalPage } from './../pages/subject-modal/subject-modal';
+
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -24,7 +26,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    SubjectModalPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    SubjectModalPage
   ],
   providers: [
     ...prodviders,
