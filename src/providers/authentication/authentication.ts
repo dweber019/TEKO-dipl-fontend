@@ -31,8 +31,7 @@ export class AuthenticationProvider {
   public authenticate(): void {
     this.logoutPreActions();
 
-    let target = '';
-    console.log(this.platform.is('ios'));
+    let target = '_self';
     if (this.platform.is('ios') || this.platform.is('android')) {
       target = '_blank';
     }
@@ -78,7 +77,7 @@ export class AuthenticationProvider {
   }
 
   public goToLogin(): void {
-    setTimeout(() => this.navCtrl.setRoot(LoginPage));
+    setTimeout(() => this.navCtrl.setRoot(LoginPage), 300);
   }
 
   public goToDashBoard(): void {
