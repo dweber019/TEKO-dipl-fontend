@@ -17,7 +17,6 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class SubjectModalPage {
 
   public subjectForm: FormGroup;
-  public submitAttempt: boolean = false;
 
   constructor(
     private navParams: NavParams,
@@ -40,12 +39,6 @@ export class SubjectModalPage {
   }
 
   public save(): void {
-    console.log('save');
-    console.log('Form is valid: ', this.subjectForm.valid);
-    console.log('Value firstName: ', this.subjectForm.get('firstName'));
-
-    this.submitAttempt = true;
-
     if (this.subjectForm.valid) {
       this.viewController.dismiss();
     }

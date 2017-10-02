@@ -14,7 +14,7 @@
     </ion-buttons>
     <ion-title>New Subject</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="save()">
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
           <ion-icon name="checkmark"></ion-icon>
         </button>
     </ion-buttons>
@@ -31,12 +31,7 @@
       <ion-label floating>First Name</ion-label>
       <ion-input type="text" formControlName="firstName"></ion-input>
     </ion-item>
-    <ion-item no-lines>
-      {{ subjectForm.controls.firstName.valid }}
-      {{ subjectForm.controls.firstName.dirty }}
-      submitAttempt: {{ submitAttempt }}
-    </ion-item>
-    <ion-item *ngIf="!subjectForm.controls.firstName.valid  && (subjectForm.controls.firstName.touched || submitAttempt)" no-lines>
+    <ion-item *ngIf="!subjectForm.controls.firstName.valid  && subjectForm.controls.firstName.touched" no-lines>
       <p ion-text color="danger">Please enter a valid first name.</p>
     </ion-item>
 
@@ -44,11 +39,9 @@
       <ion-label floating>Last Name</ion-label>
       <ion-input type="text" formControlName="lastName"></ion-input>
     </ion-item>
-    <ion-item *ngIf="!subjectForm.controls.lastName.valid  && (subjectForm.controls.lastName.touched || submitAttempt)" no-lines>
+    <ion-item *ngIf="!subjectForm.controls.lastName.valid  && subjectForm.controls.lastName.touched" no-lines>
       <p ion-text color="danger">Please enter a valid last name.</p>
     </ion-item>
-
-    <button ion-button type="submit" [disabled]="!subjectForm.valid">Submit</button>
 
   </form>
 
