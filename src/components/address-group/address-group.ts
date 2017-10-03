@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { AddressGroupDetailPage } from './../../pages/pages';
+import { GroupProvider, Group } from './../../providers/api-services/groups';
 
 @Component({
   selector: 'component-address-group',
@@ -9,12 +10,20 @@ import { AddressGroupDetailPage } from './../../pages/pages';
 })
 export class AddressGroupComonent {
 
+  public groups: Group[];
+
   constructor(
-    public navCtrl: NavController
+    private navCtrl: NavController,
+    private groupProvider: GroupProvider
   ) { }
 
-  public goToDetail(): void {
-    this.navCtrl.push(AddressGroupDetailPage, 'Data from AddressGroupPage');
+  public ngOnInit(): void {
+    this.groupProvider.getAll()
+      .subscribe(data => this.groups = data);
+  }
+
+  public goToDetail(group: Group): void {
+    this.navCtrl.push(AddressGroupDetailPage, group);
   }
 
 }

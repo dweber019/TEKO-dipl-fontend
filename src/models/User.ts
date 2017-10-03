@@ -10,6 +10,7 @@ export class User extends BaseModel {
     public lastname: string,
     public type: string,
     public calenderToken: string,
+    public picture: string,
     public createdAt: moment.Moment,
     public updatedAt: moment.Moment,
   ) {

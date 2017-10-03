@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the AddressPersonDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AddressPage, AddressGroupDetailPage } from '../../pages/pages';
+import { UserProvider, User, Group } from './../../providers/api-services/users';
 
 @IonicPage()
 @Component({
@@ -15,17 +11,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AddressPersonDetailPage {
 
-  public paramData: string;
+  public user: User;
+  public groups: Group[];
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private userProvider: UserProvider,
   ) {
-    this.paramData = navParams.data;
+    this.user = navParams.data;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddressPersonDetailPage');
+  public ionViewDidLoad(): void {
+    if (!this.user.id) {
+      this.navCtrl.setRoot(AddressPage);
+    } else {
+      this.userProvider.getGroups(this.user.id)
+        .subscribe(data => this.groups = data);
+    }
+  }
+
+  public goToGroup(group: Group): void {
+    this.navCtrl.push(AddressGroupDetailPage, group);
   }
 
 }

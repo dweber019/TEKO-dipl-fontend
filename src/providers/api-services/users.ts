@@ -4,9 +4,11 @@ import * as moment from 'moment';
 
 import { Api } from './../api/api';
 import { User } from './../../models/User';
+import { GroupProvider, Group } from './groups';
 
 export {
-  User
+  User,
+  Group
 };
 
 export interface IUserCreate {
@@ -56,14 +58,19 @@ export class UserProvider {
     return this.api.delete<void>(UserProvider.RESOURCE + '/' + id);
   }
 
+  public getGroups(id: number): Observable<Group[]> {
+    return this.api.get<Group[]>(UserProvider.RESOURCE + '/' + id + '/' + GroupProvider.RESOURCE)
+      .map(data => data.map(item => GroupProvider.toModel(item)));
+  }
+
   public static toModel(json: User): User {
-    console.log(json);
     return new User(
       json.id,
       json.firstname,
       json.lastname,
       json.type,
       json.calenderToken,
+      json.picture,
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),
     );

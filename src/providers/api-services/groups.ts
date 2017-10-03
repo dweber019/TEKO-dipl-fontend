@@ -4,10 +4,11 @@ import * as moment from 'moment';
 
 import { Api } from './../api/api';
 import { Group } from './../../models/Group';
-import { UserProvider } from './users';
+import { UserProvider, User } from './users';
 
 export {
-  Group
+  Group,
+  User,
 };
 
 @Injectable()
@@ -45,6 +46,11 @@ export class GroupProvider {
     return this.api.delete<void>(GroupProvider.RESOURCE + '/' + id);
   }
 
+  public getUsers(id: number): Observable<User[]> {
+    return this.api.get<User[]>(GroupProvider.RESOURCE + '/' + id + '/' + UserProvider.RESOURCE)
+      .map(data => data.map(item => UserProvider.toModel(item)));
+  }
+
   public addUser(groupId: number, userId: number): Observable<void> {
     return this.api.post<void>(GroupProvider.RESOURCE + '/' + groupId + '/' + UserProvider.RESOURCE + '/' + userId, null);
   }
@@ -54,7 +60,6 @@ export class GroupProvider {
   }
 
   public static toModel(json: Group): Group {
-    console.log(json);
     return new Group(
       json.id,
       json.name,

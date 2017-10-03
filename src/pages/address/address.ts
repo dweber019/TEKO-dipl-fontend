@@ -21,10 +21,10 @@ export class AddressPage {
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddressPage');
+    console.log(this.navParams.data);
+    if (this.navParams.data.segment) {
+      this.tab = this.navParams.data.segment;
+    }
   }
 
 }

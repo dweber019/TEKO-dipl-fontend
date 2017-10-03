@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the AddressGroupDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AddressPage, AddressPersonDetailPage } from '../../pages/pages';
+import { GroupProvider, Group, User } from './../../providers/api-services/groups';
 
 @IonicPage()
 @Component({
@@ -15,17 +11,38 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AddressGroupDetailPage {
 
-  public paramData: string;
+  public group: Group;
+  public users: User[];
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private groupProvider: GroupProvider,
   ) {
-    this.paramData = navParams.data;
+    this.group = navParams.data;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddressGroupDetailPage');
+  public ionViewDidLoad(): void {
+    if (!this.group.id) {
+      this.navCtrl.push(AddressPage, { segment: 'group' });
+    } else {
+      this.loadUser();
+    }
+  }
+
+  public goToUser(user: User): void {
+    this.navCtrl.push(AddressPersonDetailPage, user);
+  }
+
+  public removeUser($event: Event, user: User): void {
+    $event.stopPropagation();
+    this.groupProvider.removeUser(this.group.id, user.id)
+      .subscribe(() => this.loadUser());
+  }
+
+  private loadUser(): void {
+    this.groupProvider.getUsers(this.group.id)
+      .subscribe(data => this.users = data);
   }
 
 }
