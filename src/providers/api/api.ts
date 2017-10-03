@@ -22,7 +22,7 @@ export class Api {
     return this.httpClient.get(this.url + endpoint, options) as any;
   }
 
-  post<T>(endpoint: string, body: any, options): Observable<T> {
+  post<T>(endpoint: string, body: any, options?): Observable<T> {
     return this.httpClient.post(this.url + endpoint, body, options) as any;
   }
 

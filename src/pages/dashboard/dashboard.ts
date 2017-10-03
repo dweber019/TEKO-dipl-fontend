@@ -26,7 +26,7 @@ export class DashboardPage {
   ) {
   }
 
-  ionViewDidLoad() {
+  public ionViewDidEnter(): void {
     console.log('ionViewDidLoad DashboardPage');
     this.agendaProvider.getAgenda()
       .subscribe(

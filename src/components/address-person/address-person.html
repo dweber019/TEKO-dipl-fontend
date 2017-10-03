@@ -1,1 +1,5 @@
-<button ion-button (click)="goToDetail()">To person detail</button>
+<ion-list>
+  <button ion-item *ngFor="let user of users" (click)="goToDetail(user)">
+      {{ user.firstname }} {{ user.lastname }}
+    </button>
+</ion-list>
