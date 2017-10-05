@@ -9,12 +9,6 @@ export {
   Agenda
 };
 
-/*
-  Generated class for the AgendaProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AgendaProvider {
 
@@ -42,7 +36,7 @@ export class AgendaProvider {
       !!json.canceled,
       json.type,
       json.subjectId,
-      !!json.status,
+      json.status,
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),
     );

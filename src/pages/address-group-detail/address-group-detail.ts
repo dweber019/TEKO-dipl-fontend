@@ -22,7 +22,7 @@ export class AddressGroupDetailPage {
     this.group = navParams.data;
   }
 
-  public ionViewDidLoad(): void {
+  public ionViewDidEnter(): void {
     if (!this.group.id) {
       this.navCtrl.push(AddressPage, { segment: 'group' });
     } else {

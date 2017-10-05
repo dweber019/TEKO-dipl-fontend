@@ -8,13 +8,7 @@ import {
 
 import { SubjectDetailPage } from './../pages';
 import { SubjectModalPage } from './../subject-modal/subject-modal';
-
-/**
- * Generated class for the SubjectPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
 
 @IonicPage()
 @Component({
@@ -23,21 +17,22 @@ import { SubjectModalPage } from './../subject-modal/subject-modal';
 })
 export class SubjectPage {
 
+  public subjects: Subject[];
+
   constructor(
     private navCtrl: NavController,
     private actionSheetController: ActionSheetController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private subjectProvider: SubjectProvider,
   ) {
   }
 
-  public ionViewDidLoad() {
-    console.log('ionViewDidLoad SubjectPage');
-
-    this.presentModal();
+  public ionViewDidEnter(): void {
+    this.loadSubjects();
   }
 
-  public goToDetail(): void {
-    this.navCtrl.push(SubjectDetailPage, 'subjectId');
+  public goToDetail(subject: Subject): void {
+    this.navCtrl.push(SubjectDetailPage, subject);
   }
 
   public openActions(): void {
@@ -58,6 +53,11 @@ export class SubjectPage {
   private presentModal(): void {
     let modal = this.modalController.create(SubjectModalPage);
     modal.present();
+  }
+
+  private loadSubjects(): void {
+    this.subjectProvider.getAll()
+      .subscribe(data => this.subjects = data);
   }
 
 }

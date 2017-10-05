@@ -7,13 +7,12 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>SubjectDetail</ion-title>
+    <ion-title>{{ subject?.name }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-    tab: {{ tab }}
     <div [ngSwitch]="tab">
       <compnent-subject-lesson *ngSwitchCase="'lesson'"></compnent-subject-lesson>
       <component-subject-student *ngSwitchCase="'student'"></component-subject-student>

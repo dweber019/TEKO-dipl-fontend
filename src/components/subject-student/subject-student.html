@@ -1,1 +1,9 @@
-<h1>Schüler</h1>
+<ion-list>
+  <button ion-item *ngFor="let user of users" (click)="goToDetail(user)">
+    <ion-avatar item-start>
+      <img src="{{ user.picture }}">
+    </ion-avatar>
+    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+    <p>{{ user.type }}</p>
+  </button>
+</ion-list>

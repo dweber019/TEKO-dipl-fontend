@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 
-import { NotificationPage } from './../pages';
+import { NotificationPage, SubjectDetailPage } from './../pages';
 import { AgendaProvider, Agenda } from './../../providers/api-services/agenda';
 
 /**
@@ -37,6 +37,11 @@ export class DashboardPage {
 
   public openNotifications(): void {
     this.navCtrl.push(NotificationPage);
+  }
+
+  public goToDetail(agenda: Agenda): void {
+    // go to lesson
+    // this.navCtrl.push(SubjectDetailPage, );
   }
 
 }

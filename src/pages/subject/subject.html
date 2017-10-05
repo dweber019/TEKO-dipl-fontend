@@ -22,6 +22,11 @@
 
 
 <ion-content padding>
-  <h1>Fächer</h1>
-  <button ion-button (click)="goToDetail()">To subject detail</button>
+  <ion-card *ngFor="let subject of subjects" (click)="goToDetail(subject)">
+    <ion-item [ngClass]="'line-' + subject.getStatusColor()">
+      <h1 ion-text [color]="subject.getStatusColor()">{{ subject.name }}</h1>
+      <h2>Archiviert: {{ subject.archived }}</h2>
+      <ion-icon name="checkmark-circle" item-end [color]="subject.getStatusColor()"></ion-icon>
+    </ion-item>
+  </ion-card>
 </ion-content>

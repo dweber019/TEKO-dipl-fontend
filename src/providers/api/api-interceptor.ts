@@ -20,7 +20,6 @@ export class ApiInterceptor implements HttpInterceptor {
     // Observable from getToken promise
     const observable = Observable.fromPromise(this.authenticationProvider.getToken());
 
-
     return observable
       // switch the token with the next.hanlde method (avoid nested observables)
       .switchMap(token => {
@@ -29,7 +28,7 @@ export class ApiInterceptor implements HttpInterceptor {
           setHeaders: {
             Authorization: `Bearer ${token}`,
             Accept: 'applicaiton/json',
-            'Content-Type': 'applicaiton/json'
+            'Content-Type': 'applicaiton/json',
           }
         });
 
