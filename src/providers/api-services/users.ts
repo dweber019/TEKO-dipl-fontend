@@ -4,11 +4,13 @@ import * as moment from 'moment';
 
 import { Api } from './../api/api';
 import { User } from './../../models/User';
+import { ChatProvider, Chat } from './chats';
 import { GroupProvider, Group } from './groups';
 
 export {
   User,
-  Group
+  Group,
+  Chat,
 };
 
 export interface IUserCreate {
@@ -16,6 +18,12 @@ export interface IUserCreate {
   lastname: string;
   type: string;
   inviteEmail: string;
+}
+
+export interface IChatCreate {
+  senderId: number;
+  receiverId: number;
+  message: string;
 }
 
 @Injectable()
@@ -61,6 +69,24 @@ export class UserProvider {
   public getGroups(id: number): Observable<Group[]> {
     return this.api.get<Group[]>(UserProvider.RESOURCE + '/' + id + '/' + GroupProvider.RESOURCE)
       .map(data => data.map(item => GroupProvider.toModel(item)));
+  }
+
+  public getChats(id: number): Observable<Chat[]> {
+    return this.api.get<Chat[]>(UserProvider.RESOURCE + '/' + id + '/' + ChatProvider.RESOURCE)
+      .map(data => data.map(item => ChatProvider.toModel(item)));
+  }
+
+  public createChat(chat: IChatCreate): Observable<Chat> {
+    return this.api.post<Chat>(UserProvider.RESOURCE + '/' + chat.senderId + '/' + ChatProvider.RESOURCE, chat)
+      .map(data => ChatProvider.toModel(data));
+  }
+
+  public destoryChat(id: number, id2: number): Observable<void> {
+    return this.api.delete<void>(UserProvider.RESOURCE + '/' + id + '/' + ChatProvider.RESOURCE + '/' + id2);
+  }
+
+  public chatsRead(user1: number, user2: number): Observable<void> {
+    return this.api.post<void>(UserProvider.RESOURCE + '/' + user1 + '/' + ChatProvider.RESOURCE + '/' + user2, null);
   }
 
   public static toModel(json: User): User {

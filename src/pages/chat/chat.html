@@ -1,9 +1,3 @@
-<!--
-  Generated template for the ChatPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle icon-only>
@@ -16,9 +10,15 @@
 </ion-header>
 
 
-<ion-content padding>
-  <h1>Chat</h1>
-
-  <button ion-button (click)="goToChat()">To chat detail</button>
-
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let chat of chats" (click)="goToChat(chat)">
+      <ion-avatar item-start>
+        <img src="{{ chat.partner.picture }}">
+      </ion-avatar>
+      <h2>{{ chat.partner.firstname }} {{ chat.partner.lastname }}</h2>
+      <p>{{ chat.partner.type }}</p>
+      <ion-badge *ngIf="chat.count > 0" item-end>{{ chat.count }}</ion-badge>
+    </button>
+  </ion-list>
 </ion-content>

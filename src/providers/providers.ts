@@ -4,6 +4,7 @@ import { AgendaProvider } from './api-services/agenda';
 import { UserProvider } from './api-services/users';
 import { GroupProvider } from './api-services/groups';
 import { SubjectProvider } from './api-services/subjects';
+import { ChatProvider } from './api-services/chats';
 
 export const prodviders = [
   AuthenticationProvider,
@@ -12,4 +13,5 @@ export const prodviders = [
   UserProvider,
   GroupProvider,
   SubjectProvider,
+  ChatProvider,
 ];
