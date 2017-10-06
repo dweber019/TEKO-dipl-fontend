@@ -21,6 +21,7 @@ export class ChatPage {
 
   public chats: IChat[] = [];
   public userId: number;
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -41,12 +42,13 @@ export class ChatPage {
   }
 
   private loadChats(): void {
+    this.loading = true;
+    this.chats = [];
     this.userProvider.getMe().map(user => {
       this.userId = user.id;
       this.userProvider.getChats(user.id)
         .subscribe(data => {
           const ids = _.uniq(_.flatten(_.map(data, item => [ item.senderId, item.receiverId ])).filter(item => item !== user.id));
-          this.chats = [];
           ids.forEach(id => {
             const chats = _.sortBy(data.filter(chat => chat.receiverId === id || chat.senderId === id), chat => chat.createdAt);
             const partnerSender = chats.find(chat => chat.senderId === id);
@@ -59,6 +61,7 @@ export class ChatPage {
               count
             });
           });
+          this.loading = false;
         });
     }).subscribe();
   }

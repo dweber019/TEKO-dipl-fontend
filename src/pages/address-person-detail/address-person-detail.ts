@@ -13,6 +13,7 @@ export class AddressPersonDetailPage {
 
   public user: User;
   public groups: Group[];
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -26,8 +27,13 @@ export class AddressPersonDetailPage {
     if (!this.user.id) {
       this.navCtrl.setRoot(AddressPage);
     } else {
+      this.groups = [];
+      this.loading = true;
       this.userProvider.getGroups(this.user.id)
-        .subscribe(data => this.groups = data);
+        .subscribe(data => {
+          this.loading = false;
+          this.groups = data;
+        });
     }
   }
 

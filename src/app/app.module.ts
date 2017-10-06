@@ -14,6 +14,7 @@ import { MyApp } from './app.component';
 import { ApiInterceptor } from './../providers/api/api-interceptor';
 import { prodviders } from './../providers/providers';
 import { NativeStorageMock } from './../native-mocks';
+import { ComponentsModule } from './../components/components.module';
 
 import { SubjectModalPage } from './../pages/subject-modal/subject-modal';
 
@@ -40,7 +41,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     }),
     IonicModule.forRoot(MyApp),
-    EnvironmentsModule
+    EnvironmentsModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

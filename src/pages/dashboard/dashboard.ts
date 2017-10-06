@@ -19,6 +19,7 @@ import { AgendaProvider, Agenda } from './../../providers/api-services/agenda';
 export class DashboardPage {
 
   public agendas: Agenda[];
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -27,12 +28,13 @@ export class DashboardPage {
   }
 
   public ionViewDidEnter(): void {
-    console.log('ionViewDidLoad DashboardPage');
+    this.agendas = [];
+    this.loading = true;
     this.agendaProvider.getAgenda()
-      .subscribe(
-        data => this.agendas = data,
-        err => console.log(err)
-      );
+      .subscribe(data => {
+        this.loading = false;
+        this.agendas = data;
+      });
   }
 
   public openNotifications(): void {

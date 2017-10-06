@@ -13,6 +13,7 @@ export class AddressGroupDetailPage {
 
   public group: Group;
   public users: User[];
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -41,8 +42,13 @@ export class AddressGroupDetailPage {
   }
 
   private loadUser(): void {
+    this.users = [];
+    this.loading = true;
     this.groupProvider.getUsers(this.group.id)
-      .subscribe(data => this.users = data);
+      .subscribe(data => {
+        this.loading = false;
+        this.users = data;
+      });
   }
 
 }

@@ -32,6 +32,7 @@
     "@ionic-native/status-bar": "4.3.0",
     "@ngx-translate/core": "8.0.0",
     "@ngx-translate/http-loader": "2.0.0",
+    "clipboard": "^1.7.1",
     "cordova-android": "^6.3.0",
     "cordova-browser": "^5.0.0",
     "cordova-ios": "^4.5.1",

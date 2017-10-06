@@ -21,4 +21,5 @@
       <ion-badge *ngIf="chat.count > 0" item-end>{{ chat.count }}</ion-badge>
     </button>
   </ion-list>
+  <loader *ngIf="loading"></loader>
 </ion-content>

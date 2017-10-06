@@ -11,6 +11,7 @@ import { GroupProvider, Group } from './../../providers/api-services/groups';
 export class AddressGroupComonent {
 
   public groups: Group[];
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -18,8 +19,12 @@ export class AddressGroupComonent {
   ) { }
 
   public ngOnInit(): void {
+    this.loading = true;
     this.groupProvider.getAll()
-      .subscribe(data => this.groups = data);
+      .subscribe(data => {
+        this.loading = false;
+        this.groups = data;
+      });
   }
 
   public goToDetail(group: Group): void {

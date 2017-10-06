@@ -18,6 +18,7 @@ import { SubjectProvider, Subject } from './../../providers/api-services/subject
 export class SubjectPage {
 
   public subjects: Subject[];
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -56,8 +57,13 @@ export class SubjectPage {
   }
 
   private loadSubjects(): void {
+    this.subjects = [];
+    this.loading = true;
     this.subjectProvider.getAll()
-      .subscribe(data => this.subjects = data);
+      .subscribe(data => {
+        this.loading = false;
+        this.subjects = data;
+      });
   }
 
 }

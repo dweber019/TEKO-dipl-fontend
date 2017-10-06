@@ -11,6 +11,7 @@ import { UserProvider, User } from './../../providers/api-services/users';
 export class AddressPersonComponent {
 
   public users: User[];
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -19,8 +20,12 @@ export class AddressPersonComponent {
   }
 
   public ngOnInit(): void {
+    this.loading = true;
     this.userProvider.getAll()
-      .subscribe(data => this.users = data);
+      .subscribe(data => {
+        this.loading = false;
+        this.users = data;
+      });
   }
 
   public goToDetail(user: User): void {

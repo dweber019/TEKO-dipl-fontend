@@ -3,7 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { LessonDetailPage } from './lesson-detail';
 
 import { LessonTaskCompnent } from './../../components/lesson-task/lesson-task';
-import { NoteCommentModule } from './../../components/note-comment.module';
+import { ComponentsModule } from './../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,7 @@ import { NoteCommentModule } from './../../components/note-comment.module';
   ],
   imports: [
     IonicPageModule.forChild(LessonDetailPage),
-    NoteCommentModule
+    ComponentsModule
   ],
 })
 export class LessonDetailPageModule {}
