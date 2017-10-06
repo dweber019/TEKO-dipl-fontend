@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ActionSheetController } from 'ionic-angular';
 
 import { UserProvider, Chat } from './../../providers/api-services/users';
 import { ChatPage } from './../pages';
@@ -23,6 +23,7 @@ export class ChatDetailPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private userProvider: UserProvider,
+    private actionSheetController: ActionSheetController,
   ) {
     this.userId = navParams.data.userId;
     this.chat = navParams.data.chat;
@@ -54,6 +55,26 @@ export class ChatDetailPage {
   public delete(): void {
     this.userProvider.destoryChat(this.userId, this.chat.partner.id)
       .subscribe(() => this.navCtrl.setRoot(ChatPage));
+  }
+
+  public openActions(): void {
+    let actionSheet = this.actionSheetController.create({
+      title: 'More Actions',
+      buttons: [
+        {
+          text: 'Delete Chat',
+          role: 'destructive',
+          handler: () => {
+            this.delete();
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => void 0
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   public isItMe(chat: Chat): boolean {
