@@ -18,22 +18,18 @@
 
 <ion-content padding>
 
-  <ion-card>
-    <ion-item class="line-danger">
-      <h1 ion-text color="danger">Englisch</h1>
-      <ion-badge name="checkmark-circle" item-end color="danger" class="h1">5.5</ion-badge>
+  <ion-card *ngFor="let meatGrade of metaGrades">
+    <ion-item [ngClass]="'line-' + meatGrade.color">
+      <h1 ion-text [color]="meatGrade.color">{{ meatGrade.name }}</h1>
+      <p>{{ meatGrade.teacher.firstname }} {{ meatGrade.teacher.lastname }}</p>
+      <ion-badge name="checkmark-circle" item-end [color]="meatGrade.color" class="h1">{{ meatGrade.grade }}</ion-badge>
     </ion-item>
 
     <ion-card-content>
       <ion-list class="table">
 
-        <button ion-item>
-          24.07.2017
-          <ion-icon md="md-arrow-forward" item-end></ion-icon>
-        </button>
-
-        <button ion-item>
-          24.07.2017
+        <button ion-item *ngFor="let grade of meatGrade.grades" (click)="goToSubject(grade)">
+          {{ grade.gradeDate.format('L') }}
           <ion-icon md="md-arrow-forward" item-end></ion-icon>
         </button>
 
@@ -41,5 +37,6 @@
 
     </ion-card-content>
   </ion-card>
+  <loader *ngIf="loading"></loader>
 
 </ion-content>

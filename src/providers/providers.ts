@@ -5,6 +5,7 @@ import { UserProvider } from './api-services/users';
 import { GroupProvider } from './api-services/groups';
 import { SubjectProvider } from './api-services/subjects';
 import { ChatProvider } from './api-services/chats';
+import { GradeProvider } from './api-services/grades';
 
 export const prodviders = [
   AuthenticationProvider,
@@ -14,4 +15,5 @@ export const prodviders = [
   GroupProvider,
   SubjectProvider,
   ChatProvider,
+  GradeProvider,
 ];

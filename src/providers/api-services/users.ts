@@ -6,11 +6,13 @@ import { Api } from './../api/api';
 import { User } from './../../models/User';
 import { ChatProvider, Chat } from './chats';
 import { GroupProvider, Group } from './groups';
+import { GradeProvider, Grade } from './grades';
 
 export {
   User,
   Group,
   Chat,
+  Grade,
 };
 
 export interface IUserCreate {
@@ -87,6 +89,11 @@ export class UserProvider {
 
   public chatsRead(user1: number, user2: number): Observable<void> {
     return this.api.post<void>(UserProvider.RESOURCE + '/' + user1 + '/' + ChatProvider.RESOURCE + '/' + user2 + '/read', null);
+  }
+
+  public getGrades(id: number): Observable<Grade[]> {
+    return this.api.get<Grade[]>(UserProvider.RESOURCE + '/' + id + '/' + GradeProvider.RESOURCE)
+      .map(data => data.map(item => GradeProvider.toSubjectModel(item)));
   }
 
   public static toModel(json: User): User {
