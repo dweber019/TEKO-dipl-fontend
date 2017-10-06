@@ -1,3 +1,115 @@
 page-chat-detail {
+  .chat-history {
 
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .message-data {
+      margin-bottom: 15px;
+    }
+
+    .message-data-time {
+      color: lightgray;
+      padding-left: 6px;
+    }
+
+    .message {
+      color: white;
+      padding: 18px 20px;
+      line-height: 26px;
+      font-size: 16px;
+      border-radius: 7px;
+      margin-bottom: 30px;
+      width: 90%;
+      position: relative;
+
+      &:after {
+        bottom: 100%;
+        left: 7%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-bottom-color: color($colors, secondary, base);
+        border-width: 10px;
+        margin-left: -10px;
+      }
+    }
+
+    .my-message {
+      background: color($colors, secondary, base);
+    }
+
+    .other-message {
+      background: color($colors, primary, base);
+
+      &:after {
+        border-bottom-color: color($colors, primary, base);
+        left: 93%;
+      }
+    }
+
+  }
+
+  .chat-message {
+    padding: 30px;
+
+    textarea {
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      font: 14px/22px "Lato", Arial, sans-serif;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      resize: none;
+
+    }
+
+    .fa-file-o, .fa-file-image-o {
+      font-size: 16px;
+      color: gray;
+      cursor: pointer;
+
+    }
+
+    button {
+      float: right;
+      color: color($colors, primary, base);
+      font-size: 16px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      background: #F2F5F8;
+
+      &:hover {
+        color: darken(color($colors, primary, base), 7%);
+      }
+    }
+  }
+
+  .align-left {
+    text-align: left;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .float-right {
+    float: right;
+  }
+
+  .clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
 }

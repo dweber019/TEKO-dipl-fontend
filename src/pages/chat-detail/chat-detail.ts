@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 
-import { UserProvider } from './../../providers/api-services/users';
+import { UserProvider, Chat } from './../../providers/api-services/users';
 import { ChatPage } from './../pages';
 import { IChat } from './../chat/chat';
 
@@ -11,6 +11,8 @@ import { IChat } from './../chat/chat';
   templateUrl: 'chat-detail.html',
 })
 export class ChatDetailPage {
+
+  @ViewChild(Content) public content: Content;
 
   private userId: number;
 
@@ -29,6 +31,8 @@ export class ChatDetailPage {
   public ionViewDidEnter(): void {
     if (!this.userId) {
       this.navCtrl.setRoot(ChatPage);
+    } else {
+      this.content.scrollToBottom();
     }
   }
 
@@ -42,6 +46,7 @@ export class ChatDetailPage {
       .subscribe(chat => {
         this.chat.chats.push(chat);
         this.clearMessage();
+        setTimeout(() => this.content.scrollToBottom());
       });
     }
   }
@@ -49,6 +54,10 @@ export class ChatDetailPage {
   public delete(): void {
     this.userProvider.destoryChat(this.userId, this.chat.partner.id)
       .subscribe(() => this.navCtrl.setRoot(ChatPage));
+  }
+
+  public isItMe(chat: Chat): boolean {
+    return chat.senderId === this.userId;
   }
 
   private clearMessage(): void {
