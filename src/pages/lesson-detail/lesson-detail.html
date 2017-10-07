@@ -6,7 +6,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <div [ngSwitch]="tab">
     <component-lesson-task *ngSwitchCase="'task'"></component-lesson-task>
     <component-note *ngSwitchCase="'note'" entity="lesson"></component-note>

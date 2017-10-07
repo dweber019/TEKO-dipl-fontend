@@ -6,6 +6,8 @@ import { GroupProvider } from './api-services/groups';
 import { SubjectProvider } from './api-services/subjects';
 import { ChatProvider } from './api-services/chats';
 import { GradeProvider } from './api-services/grades';
+import { LessonProvider } from './api-services/lessons';
+import { NoteProvider } from './api-services/notes';
 
 export const prodviders = [
   AuthenticationProvider,
@@ -16,4 +18,6 @@ export const prodviders = [
   SubjectProvider,
   ChatProvider,
   GradeProvider,
+  LessonProvider,
+  NoteProvider,
 ];

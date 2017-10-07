@@ -1,1 +1,10 @@
-<h1>Note</h1>
+<loader *ngIf="loading"></loader>
+
+<ckeditor
+  *ngIf="showEditor"
+  [(ngModel)]="ckeditorContent"
+  [config]="{height: '420'}"
+  [readonly]="false"
+  (change)="onChange($event)"
+  debounce="500">
+</ckeditor>
