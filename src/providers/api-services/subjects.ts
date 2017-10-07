@@ -62,6 +62,7 @@ export class SubjectProvider {
       json.name,
       !!json.archived,
       json.status,
+      json.teacher && UserProvider.toModel(json.teacher),
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),
     );

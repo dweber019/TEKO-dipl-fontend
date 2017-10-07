@@ -1,2 +1,15 @@
-<h1>SubjectLesson</h1>
+<ion-grid>
+  <ion-row>
+    <ion-col col-auto>
+      Lehrperson:
+    </ion-col>
+    <ion-col text-right>
+        {{ subject?.teacher?.firstname }} {{ subject?.teacher?.lastname }}
+      </ion-col>
+  </ion-row>
+</ion-grid>
+
+<h1>Unterricht</h1>
+
+
 <button ion-button (click)="goToDetail()">To lesson detail</button>

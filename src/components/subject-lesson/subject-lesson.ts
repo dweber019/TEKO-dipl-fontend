@@ -3,20 +3,25 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { LessonDetailPage } from './../../pages/pages';
 
+import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
+
 @Component({
   selector: 'compnent-subject-lesson',
   templateUrl: 'subject-lesson.html',
 })
 export class SubjectLessonComponent {
 
+  public subject: Subject;
+
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private navParams: NavParams
   ) {
+    this.subject = this.navParams.data;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SubjectLessonPage');
+  public ionViewDidEnter(): void {
+
   }
 
   public goToDetail(): void {
