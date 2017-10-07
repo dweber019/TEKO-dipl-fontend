@@ -23,7 +23,7 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let agenda of agendas" (click)="goToDetail(agenda)">
+  <ion-card *ngFor="let agenda of agendas" (click)="goToLesson(agenda)">
     <ion-item [ngClass]="'line-' + agenda.getStatusColor()">
       <h1 ion-text [color]="agenda.getStatusColor()">{{ agenda.name }}</h1>
       <h2>{{ agenda.startDate.format('lll') }} - {{ agenda.endDate.format('LT') }}</h2>

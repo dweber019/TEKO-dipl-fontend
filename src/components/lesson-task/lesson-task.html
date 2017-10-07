@@ -1,2 +1,38 @@
-<h1>Lesson Task list</h1>
-<button ion-button (click)="goToDetail()">To task detail</button>
+<ion-grid>
+  <ion-row>
+    <ion-col col-auto>
+      Datum:
+    </ion-col>
+    <ion-col text-right>
+      {{ lesson?.startDate.format('LL') }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-auto>
+      Zeit:
+    </ion-col>
+    <ion-col text-right>
+      {{ lesson?.startDate.format('LT') }} bis {{ lesson?.endDate.format('LT') }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-auto>
+      Raum:
+    </ion-col>
+    <ion-col text-right>
+      {{ lesson?.room }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-auto>
+      Ort:
+    </ion-col>
+    <ion-col text-right>
+      {{ lesson?.location }}
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<h1>Aufgaben</h1>
+
+
