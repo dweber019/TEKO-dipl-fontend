@@ -12,6 +12,7 @@ export class SubjectStudentCompnent {
 
   public subject: Subject;
   public users: User[];
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -31,8 +32,13 @@ export class SubjectStudentCompnent {
 
   private loadUsers(): void {
     if (this.subject.id) {
+      this.users = [];
+      this.loading = true;
       this.subjectProvider.getUsers(this.subject.id)
-        .subscribe(data => this.users = data);
+        .subscribe(data => {
+          this.loading = false;
+          this.users = data;
+        });
 
     }
   }
