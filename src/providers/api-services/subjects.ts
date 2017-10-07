@@ -6,11 +6,13 @@ import { Api } from './../api/api';
 import { Subject } from './../../models/Subject';
 import { UserProvider, User } from './../../providers/api-services/users';
 import { GradeProvider, GradeUser } from './grades';
+import { LessonProvider, Lesson } from './lessons';
 
 export {
   Subject,
   User,
   GradeUser,
+  Lesson
 };
 
 @Injectable()
@@ -54,6 +56,11 @@ export class SubjectProvider {
   public getGrades(id: number): Observable<GradeUser[]> {
     return this.api.get<GradeUser[]>(SubjectProvider.RESOURCE + '/' + id + '/' + GradeProvider.RESOURCE)
       .map(data => data.map(item => GradeProvider.toUserModel(item)));
+  }
+
+  public getLessons(id: number): Observable<Lesson[]> {
+    return this.api.get<Lesson[]>(SubjectProvider.RESOURCE + '/' + id + '/' + LessonProvider.RESOURCE)
+      .map(data => data.map(item => LessonProvider.toModel(item)));
   }
 
   public static toModel(json: Subject): Subject {

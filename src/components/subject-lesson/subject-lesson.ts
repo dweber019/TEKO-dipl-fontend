@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { LessonDetailPage } from './../../pages/pages';
 
-import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
+import { SubjectProvider, Subject, Lesson } from './../../providers/api-services/subjects';
 
 @Component({
   selector: 'compnent-subject-lesson',
@@ -12,20 +12,36 @@ import { SubjectProvider, Subject } from './../../providers/api-services/subject
 export class SubjectLessonComponent {
 
   public subject: Subject;
+  public lessons: Lesson[];
+  public loading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private subjectProvider: SubjectProvider,
   ) {
     this.subject = this.navParams.data;
   }
 
-  public ionViewDidEnter(): void {
-
+  public ngOnInit(): void {
+    if (this.subject.id) {
+      this.loadLessons();
+    }
   }
 
-  public goToDetail(): void {
-    this.navCtrl.push(LessonDetailPage, 'subjectId');
+  public goToLesson(lesson: Lesson): void {
+    this.navCtrl.push(LessonDetailPage, lesson);
+  }
+
+  private loadLessons(): void {
+    this.lessons = [];
+    this.loading = true;
+    this.subjectProvider.getLessons(this.subject.id)
+      .subscribe(data => {
+        console.log(data);
+        this.loading = false;
+        this.lessons = data;
+      })
   }
 
 }

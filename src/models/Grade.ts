@@ -25,6 +25,7 @@ export class Grade extends BaseModel{
       this.name,
       this.archived,
       null,
+      this.teacher,
       this.createdAt,
       this.updatedAt
     )
