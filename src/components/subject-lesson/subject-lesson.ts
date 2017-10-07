@@ -30,7 +30,7 @@ export class SubjectLessonComponent {
   }
 
   public goToLesson(lesson: Lesson): void {
-    this.navCtrl.push(LessonDetailPage, lesson);
+    this.navCtrl.push(LessonDetailPage, { name: this.subject.name, lesson });
   }
 
   private loadLessons(): void {

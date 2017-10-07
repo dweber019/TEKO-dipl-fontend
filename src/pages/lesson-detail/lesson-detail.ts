@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the LessonDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SubjectPage } from './../pages';
+import { Lesson } from './../../models/Lesson';
 
 @IonicPage()
 @Component({
@@ -16,15 +12,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class LessonDetailPage {
 
   public tab: string = 'task';
+  public lesson: Lesson;
+  public subjectName: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
+    this.subjectName = this.navParams.get('name');
+    this.lesson = this.navParams.get('lesson');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LessonDetailPage');
+  public ionViewDidEnter(): void {
+    if (!this.lesson) {
+      this.navCtrl.setRoot(SubjectPage);
+    }
   }
 
 }
