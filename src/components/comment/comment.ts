@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, Input } from '@angular/core';
+import { NavParams } from 'ionic-angular';
+
+import { LessonProvider, Comment, Lesson } from './../../providers/api-services/lessons';
 
 @Component({
   selector: 'component-comment',
@@ -7,11 +9,32 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class CommentComponent {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  @Input() entity: string;
+  public loading: boolean = false;
+  public lesson: Lesson;
+  public comments: Comment[];
+  public message: string;
+
+  constructor(
+    public navParams: NavParams,
+    private lessonProvider: LessonProvider,
+  ) {
+    this.lesson = this.navParams.get('lesson');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CommentPage');
+  public ngOnInit(): void {
+    this.loadComments();
+  }
+
+  private loadComments(): void {
+    this.loading = true;
+    if (this.entity === 'lesson') {
+      this.lessonProvider.getComments(this.lesson.id)
+        .subscribe(data => {
+          this.loading = false;
+          this.comments = data;
+        })
+    }
   }
 
 }

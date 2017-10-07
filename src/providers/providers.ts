@@ -8,6 +8,7 @@ import { ChatProvider } from './api-services/chats';
 import { GradeProvider } from './api-services/grades';
 import { LessonProvider } from './api-services/lessons';
 import { NoteProvider } from './api-services/notes';
+import { CommentProvider } from './api-services/comments';
 
 export const prodviders = [
   AuthenticationProvider,
@@ -20,4 +21,5 @@ export const prodviders = [
   GradeProvider,
   LessonProvider,
   NoteProvider,
+  CommentProvider,
 ];

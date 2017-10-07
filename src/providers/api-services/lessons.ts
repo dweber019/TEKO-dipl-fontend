@@ -5,10 +5,12 @@ import * as moment from 'moment';
 import { Api } from './../api/api';
 import { Lesson } from './../../models/Lesson';
 import { NoteProvider, Note } from './notes';
+import { CommentProvider, Comment } from './comments';
 
 export {
   Lesson,
   Note,
+  Comment,
 };
 
 @Injectable()
@@ -28,6 +30,16 @@ export class LessonProvider {
   public updateNote(id: number, note: string): Observable<Note> {
     return this.api.put<Note>(LessonProvider.RESOURCE + '/' + id + '/' + NoteProvider.RESOURCE, { note })
       .map(data => NoteProvider.toModel(data));
+  }
+
+  public getComments(id: number): Observable<Comment[]> {
+    return this.api.get<Comment[]>(LessonProvider.RESOURCE + '/' + id + '/' + CommentProvider.RESOURCE)
+      .map(data => data.map(item => CommentProvider.toModel(item)));
+  }
+
+  public createComment(id: number, message: string): Observable<Comment> {
+    return this.api.post<Comment>(LessonProvider.RESOURCE + '/' + id + '/' + CommentProvider.RESOURCE, { message })
+      .map(data => CommentProvider.toModel(data));
   }
 
   public static toModel(json: Lesson): Lesson {
