@@ -9,6 +9,7 @@ import { GradeProvider } from './api-services/grades';
 import { LessonProvider } from './api-services/lessons';
 import { NoteProvider } from './api-services/notes';
 import { CommentProvider } from './api-services/comments';
+import { TaskProvider } from './api-services/tasks';
 
 export const prodviders = [
   AuthenticationProvider,
@@ -22,4 +23,5 @@ export const prodviders = [
   LessonProvider,
   NoteProvider,
   CommentProvider,
+  TaskProvider,
 ];

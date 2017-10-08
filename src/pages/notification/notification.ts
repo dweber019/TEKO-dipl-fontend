@@ -23,8 +23,4 @@ export class NotificationPage {
   ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificationPage');
-  }
-
 }

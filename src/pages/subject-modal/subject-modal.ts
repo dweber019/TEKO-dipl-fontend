@@ -29,12 +29,7 @@ export class SubjectModalPage {
     });
   }
 
-  public ionViewDidLoad() {
-    console.log('ionViewDidLoad SubjectModalPage');
-  }
-
   public close(): void {
-    console.log('dismiss');
     this.viewController.dismiss();
   }
 

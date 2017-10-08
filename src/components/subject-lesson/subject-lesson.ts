@@ -38,7 +38,6 @@ export class SubjectLessonComponent {
     this.loading = true;
     this.subjectProvider.getLessons(this.subject.id)
       .subscribe(data => {
-        console.log(data);
         this.loading = false;
         this.lessons = data;
       })

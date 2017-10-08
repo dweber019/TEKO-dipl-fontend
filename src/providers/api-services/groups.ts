@@ -18,9 +18,7 @@ export class GroupProvider {
 
   constructor(
     private api: Api
-  ) {
-    console.log('Hello GroupProvider Provider');
-  }
+  ) { }
 
   public getAll(): Observable<Group[]> {
     return this.api.get<Group[]>(GroupProvider.RESOURCE)

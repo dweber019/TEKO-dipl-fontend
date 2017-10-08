@@ -36,7 +36,7 @@
 <h1>Aufgaben</h1>
 
 <loader *ngIf="loading"></loader>
-<ion-card *ngFor="let task of tasks" (click)="goToTask(agenda)">
+<ion-card *ngFor="let task of tasks" (click)="goToTask(task)">
   <ion-item [ngClass]="'line-' + task.getStatusColor()">
     <h1 ion-text [color]="task.getStatusColor()">{{ task.name }}</h1>
     <h2 class="text-muted">{{ task?.dueDate.format('L') }}</h2>

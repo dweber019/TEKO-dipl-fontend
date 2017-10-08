@@ -16,9 +16,7 @@ export class AgendaProvider {
 
   constructor(
     private api: Api
-  ) {
-    console.log('Hello AgendaProvider Provider');
-  }
+  ) { }
 
   public getAgenda(): Observable<Agenda[]> {
     return this.api.get<Agenda[]>(AgendaProvider.RESOURCE)

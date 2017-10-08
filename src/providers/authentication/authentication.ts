@@ -24,9 +24,7 @@ export class AuthenticationProvider {
     private nativeStorage: NativeStorage,
     private iab: InAppBrowser,
     private platform: Platform
-  ) {
-    console.log('Hello AuthenticationProvider Provider');
-  }
+  ) { }
 
   public authenticate(): void {
     this.logoutPreActions();
@@ -138,7 +136,6 @@ export class AuthenticationProvider {
   }
 
   private saveToken(token: string): void {
-    console.log('token', token);
     this.nativeStorage.setItem('token', token);
   }
 

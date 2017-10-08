@@ -3,7 +3,7 @@
 <ckeditor
   *ngIf="showEditor"
   [(ngModel)]="ckeditorContent"
-  [config]="{height: '420'}"
+  [config]="{height: '420', extraPlugins: 'divarea'}"
   [readonly]="false"
   (change)="onChange($event)"
   debounce="500">

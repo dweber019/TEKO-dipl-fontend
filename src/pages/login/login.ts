@@ -33,12 +33,7 @@ export class LoginPage {
     })
   }
 
-  public ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-
   public doLogin() {
-    console.log('doLogin');
     this.authenticationProvider.authenticate();
   }
 }

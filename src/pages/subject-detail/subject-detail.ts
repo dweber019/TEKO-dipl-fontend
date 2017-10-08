@@ -16,8 +16,8 @@ export class SubjectDetailPage {
   public subject: Subject;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private navParams: NavParams
   ) {
     this.subject = this.navParams.data;
   }

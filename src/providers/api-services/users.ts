@@ -35,9 +35,7 @@ export class UserProvider {
 
   constructor(
     private api: Api
-  ) {
-    console.log('Hello UserProvider Provider');
-  }
+  ) { }
 
   public getAll(): Observable<User[]> {
     return this.api.get<User[]>(UserProvider.RESOURCE)
