@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { TaskDetailPage } from './../../pages/pages';
-import { LessonProvider, Lesson } from './../../providers/api-services/lessons';
+import { LessonProvider, Lesson, Task } from './../../providers/api-services/lessons';
 
 @Component({
   selector: 'component-lesson-task',
@@ -11,6 +11,8 @@ import { LessonProvider, Lesson } from './../../providers/api-services/lessons';
 export class LessonTaskCompnent {
 
   public lesson: Lesson;
+  public tasks: Task[];
+  public loading: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -20,12 +22,24 @@ export class LessonTaskCompnent {
     this.lesson = this.navParams.get('lesson');
   }
 
-  public ionViewDidEnter(): void {
-
+  public ngOnInit(): void {
+    if (this.lesson) {
+      this.loadTasks();
+    }
   }
 
-  public goToDetail(): void {
-    this.navCtrl.push(TaskDetailPage, 'TaskId');
+  public goToTask(task: Task): void {
+    this.navCtrl.push(TaskDetailPage, task);
+  }
+
+  private loadTasks(): void {
+    this.tasks = [];
+    this.loading = true;
+    this.lessonProvider.getTasks(this.lesson.id)
+      .subscribe(data => {
+        this.loading = false;
+        this.tasks = data;
+      })
   }
 
 }

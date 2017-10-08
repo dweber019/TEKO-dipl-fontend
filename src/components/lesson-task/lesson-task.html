@@ -35,4 +35,14 @@
 
 <h1>Aufgaben</h1>
 
-
+<loader *ngIf="loading"></loader>
+<ion-card *ngFor="let task of tasks" (click)="goToTask(agenda)">
+  <ion-item [ngClass]="'line-' + task.getStatusColor()">
+    <h1 ion-text [color]="task.getStatusColor()">{{ task.name }}</h1>
+    <h2 class="text-muted">{{ task?.dueDate.format('L') }}</h2>
+    <ion-icon name="checkmark-circle" item-end [color]="task.getStatusColor()"></ion-icon>
+  </ion-item>
+  <ion-card-content>
+    <p *ngIf="task?.description">{{ task?.description | slice:0:100 }}...</p>
+  </ion-card-content>
+</ion-card>

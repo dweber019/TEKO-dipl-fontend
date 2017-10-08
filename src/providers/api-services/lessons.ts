@@ -6,11 +6,13 @@ import { Api } from './../api/api';
 import { Lesson } from './../../models/Lesson';
 import { NoteProvider, Note } from './notes';
 import { CommentProvider, Comment } from './comments';
+import { TaskProvider, Task } from './tasks';
 
 export {
   Lesson,
   Note,
   Comment,
+  Task,
 };
 
 @Injectable()
@@ -40,6 +42,11 @@ export class LessonProvider {
   public createComment(id: number, message: string): Observable<Comment> {
     return this.api.post<Comment>(LessonProvider.RESOURCE + '/' + id + '/' + CommentProvider.RESOURCE, { message })
       .map(data => CommentProvider.toModel(data));
+  }
+
+  public getTasks(id: number): Observable<Task[]> {
+    return this.api.get<Task[]>(LessonProvider.RESOURCE + '/' + id + '/' + TaskProvider.RESOURCE)
+      .map(data => data.map(item => TaskProvider.toModel(item)));
   }
 
   public static toModel(json: Lesson): Lesson {
