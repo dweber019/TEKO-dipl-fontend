@@ -6,9 +6,13 @@ import { Api } from './../api/api';
 import { Task } from './../../models/task';
 import { NoteProvider, Note } from './notes';
 import { CommentProvider, Comment } from './comments';
+import { TaskItemProvider, TaskItem } from './taskitems';
 
 export {
   Task,
+  Note,
+  Comment,
+  TaskItem,
 };
 
 @Injectable()
@@ -38,6 +42,11 @@ export class TaskProvider {
   public createComment(id: number, message: string): Observable<Comment> {
     return this.api.post<Comment>(TaskProvider.RESOURCE + '/' + id + '/' + CommentProvider.RESOURCE, { message })
       .map(data => CommentProvider.toModel(data));
+  }
+
+  public getTaskItems(id: number): Observable<TaskItem[]> {
+    return this.api.get<TaskItem[]>(TaskProvider.RESOURCE + '/' + id + '/' + TaskItemProvider.RESOURCE)
+      .map(data => data.map(item => TaskItemProvider.toModel(item)));
   }
 
   public static toModel(json: Task): Task {
