@@ -3,6 +3,7 @@ import { IonicPage, NavController } from 'ionic-angular';
 
 import { NotificationPage, LessonDetailPage } from './../pages';
 import { AgendaProvider, Agenda } from './../../providers/api-services/agenda';
+import { UserProvider } from './../../providers/api-services/users';
 
 @IonicPage()
 @Component({
@@ -13,10 +14,12 @@ export class DashboardPage {
 
   public agendas: Agenda[];
   public loading: boolean = false;
+  public notificationCount: number = 0;
 
   constructor(
     private navCtrl: NavController,
-    private agendaProvider: AgendaProvider
+    private agendaProvider: AgendaProvider,
+    private userProvider: UserProvider
   ) {
   }
 
@@ -28,6 +31,8 @@ export class DashboardPage {
         this.loading = false;
         this.agendas = data;
       });
+
+    this.userProvider.getNotifications().subscribe(notifications => this.notificationCount = notifications.filter(item => item.read === false).length);
   }
 
   public openNotifications(): void {

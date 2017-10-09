@@ -48,17 +48,16 @@ export class NotificationPage {
   public loadNotifications(): void {
     this.loading = true;
     this.unreadNotifications = this.readNotifications = [];
-    this.userProvider.getMe().subscribe(user => this.userProvider.getNotifications(user.id)
+    this.userProvider.getNotifications()
       .subscribe(data => {
         this.unreadNotifications = data.filter(notification => notification.read === false);
         this.readNotifications = data.filter(notification => notification.read === true);
         this.loading = false;
-      })
-    );
+      });
   }
 
   public goToDetailAndClear(notification: Notification): void {
-
+    this.userProvider.notificationRead(notification.id).subscribe();
     this.goToDetail(notification);
   }
 

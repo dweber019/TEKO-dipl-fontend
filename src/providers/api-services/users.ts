@@ -91,14 +91,18 @@ export class UserProvider {
     return this.api.post<void>(UserProvider.RESOURCE + '/' + user1 + '/' + ChatProvider.RESOURCE + '/' + user2 + '/read', null);
   }
 
-  public getGrades(id: number): Observable<Grade[]> {
-    return this.api.get<Grade[]>(UserProvider.RESOURCE + '/' + id + '/' + GradeProvider.RESOURCE)
+  public getGrades(): Observable<Grade[]> {
+    return this.api.get<Grade[]>(UserProvider.RESOURCE + '/me/' + GradeProvider.RESOURCE)
       .map(data => data.map(item => GradeProvider.toSubjectModel(item)));
   }
 
-  public getNotifications(id: number): Observable<Notification[]> {
-    return this.api.get<Notification[]>(UserProvider.RESOURCE + '/' + id + '/' + NotificationProvider.RESOURCE)
+  public getNotifications(): Observable<Notification[]> {
+    return this.api.get<Notification[]>(UserProvider.RESOURCE + '/me/' + NotificationProvider.RESOURCE)
       .map(data => data.map(item => NotificationProvider.toModel(item)));
+  }
+
+  public notificationRead(notificationId: number): Observable<void> {
+    return this.api.post<void>(UserProvider.RESOURCE + '/me/' + NotificationProvider.RESOURCE + '/' + notificationId + '/read', null);
   }
 
   public static toModel(json: User): User {
