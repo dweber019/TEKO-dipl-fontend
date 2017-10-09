@@ -24,6 +24,11 @@ export class LessonProvider {
     private api: Api
   ) { }
 
+  public get(id: number): Observable<Lesson> {
+    return this.api.get<Lesson>(LessonProvider.RESOURCE + '/' + id)
+      .map(data => LessonProvider.toModel(data));
+  }
+
   public getNote(id: number): Observable<Note> {
     return this.api.get<Note>(LessonProvider.RESOURCE + '/' + id + '/' + NoteProvider.RESOURCE)
       .map(data => NoteProvider.toModel(data));
@@ -59,6 +64,7 @@ export class LessonProvider {
       !!json.canceled,
       json.type,
       json.status,
+      json.subjectId,
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),
     );

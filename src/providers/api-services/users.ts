@@ -7,12 +7,14 @@ import { User } from './../../models/User';
 import { ChatProvider, Chat } from './chats';
 import { GroupProvider, Group } from './groups';
 import { GradeProvider, Grade } from './grades';
+import { NotificationProvider, Notification } from './notifications';
 
 export {
   User,
   Group,
   Chat,
   Grade,
+  Notification,
 };
 
 export interface IUserCreate {
@@ -92,6 +94,11 @@ export class UserProvider {
   public getGrades(id: number): Observable<Grade[]> {
     return this.api.get<Grade[]>(UserProvider.RESOURCE + '/' + id + '/' + GradeProvider.RESOURCE)
       .map(data => data.map(item => GradeProvider.toSubjectModel(item)));
+  }
+
+  public getNotifications(id: number): Observable<Notification[]> {
+    return this.api.get<Notification[]>(UserProvider.RESOURCE + '/' + id + '/' + NotificationProvider.RESOURCE)
+      .map(data => data.map(item => NotificationProvider.toModel(item)));
   }
 
   public static toModel(json: User): User {

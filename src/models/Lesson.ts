@@ -19,6 +19,7 @@ export class Lesson extends BaseModel {
     public canceled: boolean,
     public type: LessonType,
     public status: Status,
+    public subjectId: number,
     public createdAt: moment.Moment,
     public updatedAt: moment.Moment,
   ) {

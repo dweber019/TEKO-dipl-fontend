@@ -24,6 +24,11 @@ export class TaskProvider {
     private api: Api
   ) { }
 
+  public get(id: number): Observable<Task> {
+    return this.api.get<Task>(TaskProvider.RESOURCE + '/' + id)
+      .map(data => TaskProvider.toModel(data));
+  }
+
   public getNote(id: number): Observable<Note> {
     return this.api.get<Note>(TaskProvider.RESOURCE + '/' + id + '/' + NoteProvider.RESOURCE)
       .map(data => NoteProvider.toModel(data));

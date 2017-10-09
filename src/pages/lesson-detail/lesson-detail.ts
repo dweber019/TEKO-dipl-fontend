@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { SubjectPage } from './../pages';
 import { Lesson } from './../../models/Lesson';
+import { SubjectProvider } from './../../providers/api-services/subjects';
 
 @IonicPage()
 @Component({
@@ -16,8 +17,9 @@ export class LessonDetailPage {
   public subjectName: string;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private subjectProvider: SubjectProvider,
   ) {
     this.subjectName = this.navParams.get('name');
     this.lesson = this.navParams.get('lesson');
@@ -26,6 +28,9 @@ export class LessonDetailPage {
   public ionViewDidEnter(): void {
     if (!this.lesson) {
       this.navCtrl.setRoot(SubjectPage);
+    } else if (!this.subjectName) {
+      this.subjectProvider.get(this.lesson.subjectId)
+        .subscribe(subject => this.subjectName = subject.name);
     }
   }
 

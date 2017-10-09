@@ -34,6 +34,7 @@ export class Agenda extends BaseModel{
       this.canceled,
       this.type,
       this.status,
+      this.subjectId,
       this.createdAt,
       this.updatedAt,
     );
