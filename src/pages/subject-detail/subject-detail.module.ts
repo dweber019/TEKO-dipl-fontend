@@ -5,6 +5,7 @@ import { SubjectDetailPage } from './subject-detail';
 import { SubjectLessonComponent } from './../../components/subject-lesson/subject-lesson';
 import { SubjectGradeComponent } from './../../components/subject-grade/subject-grade';
 import { SubjectStudentCompnent } from './../../components/subject-student/subject-student';
+import { ComponentsModule } from './../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SubjectStudentCompnent } from './../../components/subject-student/subje
   ],
   imports: [
     IonicPageModule.forChild(SubjectDetailPage),
+    ComponentsModule,
   ],
 })
 export class SubjectDetailPageModule {}

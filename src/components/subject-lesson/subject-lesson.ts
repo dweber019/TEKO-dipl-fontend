@@ -3,24 +3,44 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { LessonDetailPage } from './../../pages/pages';
 
+import { SubjectProvider, Subject, Lesson } from './../../providers/api-services/subjects';
+
 @Component({
   selector: 'compnent-subject-lesson',
   templateUrl: 'subject-lesson.html',
 })
 export class SubjectLessonComponent {
 
+  public subject: Subject;
+  public lessons: Lesson[];
+  public loading: boolean = false;
+
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private subjectProvider: SubjectProvider,
   ) {
+    this.subject = this.navParams.data;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SubjectLessonPage');
+  public ngOnInit(): void {
+    if (this.subject.id) {
+      this.loadLessons();
+    }
   }
 
-  public goToDetail(): void {
-    this.navCtrl.push(LessonDetailPage, 'subjectId');
+  public goToLesson(lesson: Lesson): void {
+    this.navCtrl.push(LessonDetailPage, { name: this.subject.name, lesson });
+  }
+
+  private loadLessons(): void {
+    this.lessons = [];
+    this.loading = true;
+    this.subjectProvider.getLessons(this.subject.id)
+      .subscribe(data => {
+        this.loading = false;
+        this.lessons = data;
+      })
   }
 
 }

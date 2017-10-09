@@ -1,2 +1,48 @@
-<h1>Lesson Task list</h1>
-<button ion-button (click)="goToDetail()">To task detail</button>
+<ion-grid>
+  <ion-row>
+    <ion-col col-auto>
+      Datum:
+    </ion-col>
+    <ion-col text-right>
+      {{ lesson?.startDate.format('LL') }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-auto>
+      Zeit:
+    </ion-col>
+    <ion-col text-right>
+      {{ lesson?.startDate.format('LT') }} bis {{ lesson?.endDate.format('LT') }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-auto>
+      Raum:
+    </ion-col>
+    <ion-col text-right>
+      {{ lesson?.room }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-auto>
+      Ort:
+    </ion-col>
+    <ion-col text-right>
+      {{ lesson?.location }}
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<h1>Aufgaben</h1>
+
+<loader *ngIf="loading"></loader>
+<ion-card *ngFor="let task of tasks" (click)="goToTask(task)">
+  <ion-item [ngClass]="'line-' + task.getStatusColor()">
+    <h1 ion-text [color]="task.getStatusColor()">{{ task.name }}</h1>
+    <h2 class="text-muted">{{ task?.dueDate.format('L') }}</h2>
+    <ion-icon name="checkmark-circle" item-end [color]="task.getStatusColor()"></ion-icon>
+  </ion-item>
+  <ion-card-content>
+    <p *ngIf="task?.description">{{ task?.description | slice:0:100 }}...</p>
+  </ion-card-content>
+</ion-card>

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  ActionSheetController,
+  ModalController
+} from 'ionic-angular';
 
 import { SubjectDetailPage } from './../pages';
-
-/**
- * Generated class for the SubjectPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { SubjectModalPage } from './../subject-modal/subject-modal';
+import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
 
 @IonicPage()
 @Component({
@@ -17,18 +17,53 @@ import { SubjectDetailPage } from './../pages';
 })
 export class SubjectPage {
 
+  public subjects: Subject[];
+  public loading: boolean = false;
+
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private actionSheetController: ActionSheetController,
+    private modalController: ModalController,
+    private subjectProvider: SubjectProvider,
   ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SubjectPage');
+  public ionViewDidEnter(): void {
+    this.loadSubjects();
   }
 
-  public goToDetail(): void {
-    this.navCtrl.push(SubjectDetailPage, 'subjectId');
+  public goToDetail(subject: Subject): void {
+    this.navCtrl.push(SubjectDetailPage, subject);
+  }
+
+  public openActions(): void {
+    let actionSheet = this.actionSheetController.create({
+      title: 'More Actions',
+      buttons: [
+        {
+          text: 'New Subject',
+          handler: () => {
+            this.presentModal();
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  private presentModal(): void {
+    let modal = this.modalController.create(SubjectModalPage);
+    modal.present();
+  }
+
+  private loadSubjects(): void {
+    this.subjects = [];
+    this.loading = true;
+    this.subjectProvider.getAll()
+      .subscribe(data => {
+        this.loading = false;
+        this.subjects = data;
+      });
   }
 
 }

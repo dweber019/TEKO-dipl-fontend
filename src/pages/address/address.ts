@@ -21,10 +21,9 @@ export class AddressPage {
     public navCtrl: NavController,
     public navParams: NavParams
   ) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddressPage');
+    if (this.navParams.data.segment) {
+      this.tab = this.navParams.data.segment;
+    }
   }
 
 }

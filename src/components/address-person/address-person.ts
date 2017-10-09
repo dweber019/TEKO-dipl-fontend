@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { AddressPersonDetailPage } from './../../pages/pages';
+import { UserProvider, User } from './../../providers/api-services/users';
 
 @Component({
   selector: 'component-address-person',
@@ -9,13 +10,26 @@ import { AddressPersonDetailPage } from './../../pages/pages';
 })
 export class AddressPersonComponent {
 
+  public users: User[];
+  public loading: boolean = false;
+
   constructor(
-    public navCtrl: NavController
+    private navCtrl: NavController,
+    private userProvider: UserProvider
   ) {
   }
 
-  public goToDetail(): void {
-    this.navCtrl.push(AddressPersonDetailPage, 'Data from AddressPersonPage');
+  public ngOnInit(): void {
+    this.loading = true;
+    this.userProvider.getAll()
+      .subscribe(data => {
+        this.loading = false;
+        this.users = data;
+      });
+  }
+
+  public goToDetail(user: User): void {
+    this.navCtrl.push(AddressPersonDetailPage, user);
   }
 
 }

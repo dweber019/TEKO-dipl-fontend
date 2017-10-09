@@ -22,5 +22,18 @@
 
 
 <ion-content padding>
-  <h1>Dashboard</h1>
+
+  <ion-card *ngFor="let agenda of agendas" (click)="goToLesson(agenda)">
+    <ion-item [ngClass]="'line-' + agenda.getStatusColor()">
+      <h1 ion-text [color]="agenda.getStatusColor()">{{ agenda.name }}</h1>
+      <h2>{{ agenda.startDate.format('lll') }} - {{ agenda.endDate.format('LT') }}</h2>
+      <ion-icon name="checkmark-circle" item-end [color]="agenda.getStatusColor()"></ion-icon>
+    </ion-item>
+    <ion-card-content>
+      <p class="text-muted">{{ agenda.location }}</p>
+      <p class="text-muted">{{ agenda.room }}</p>
+    </ion-card-content>
+  </ion-card>
+  <loader *ngIf="loading"></loader>
+
 </ion-content>

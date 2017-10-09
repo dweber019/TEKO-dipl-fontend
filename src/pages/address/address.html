@@ -16,7 +16,6 @@
 </ion-header>
 
 <ion-content>
-  tab: {{ tab }}
   <div [ngSwitch]="tab">
     <component-address-person *ngSwitchCase="'person'"></component-address-person>
     <component-address-group *ngSwitchCase="'group'"></component-address-group>

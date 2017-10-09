@@ -4,7 +4,7 @@ import { TaskDetailPage } from './task-detail';
 
 import { TaskResultComponent } from './../../components/task-result/task-result';
 import { TaskItemCompnent } from './../../components/task-item/task-item';
-import { NoteCommentModule } from './../../components/note-comment.module';
+import { ComponentsModule } from './../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { NoteCommentModule } from './../../components/note-comment.module';
   ],
   imports: [
     IonicPageModule.forChild(TaskDetailPage),
-    NoteCommentModule
+    ComponentsModule
   ],
 })
 export class TaskDetailPageModule {}

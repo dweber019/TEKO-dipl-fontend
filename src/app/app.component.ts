@@ -3,8 +3,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
+import * as moment from 'moment';
+import { NativeStorage } from '@ionic-native/native-storage';
 
-import { FirstRunPage } from '../pages/pages';
+import {
+  TutorialPage,
+  DashboardPage,
+  SubjectPage,
+  GradePage,
+  ChatPage,
+  AddressPage,
+  SettingsPage
+} from '../pages/pages';
 import { EnvVariables } from '../modules/environment-variables/environment-variables.token';
 import { AuthenticationProvider } from './../providers/authentication/authentication';
 
@@ -12,17 +22,19 @@ import { AuthenticationProvider } from './../providers/authentication/authentica
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = FirstRunPage;
 
-  @ViewChild(Nav) nav: Nav;
+  public rootPage;
 
-  pages: any[] = [
-    { title: 'Dashboard', component: 'DashboardPage' },
-    { title: 'Fächer', component: 'SubjectPage' },
-    { title: 'Noten', component: 'GradePage' },
-    { title: 'Chat', component: 'ChatPage' },
-    { title: 'Adressbuch', component: 'AddressPage' },
-    { title: 'Einstellungen', component: 'SettingsPage' },
+  @ViewChild(Nav) public nav: Nav;
+
+  public pages: any[] = [
+    { title: 'Dashboard', component: DashboardPage },
+    { title: 'Fächer', component: SubjectPage },
+    { title: 'Noten', component: GradePage },
+    { title: 'Chat', component: ChatPage },
+    { title: 'Adressbuch', component: AddressPage },
+    { title: 'Einstellungen', component: SettingsPage },
+    { title: 'Tutorial', component: TutorialPage },
   ]
 
   constructor(
@@ -31,15 +43,25 @@ export class MyApp {
     private config: Config,
     private statusBar: StatusBar,
     private splashScreen: SplashScreen,
-    @Inject(EnvVariables) public envVariables,
-    private authenticationProvider: AuthenticationProvider
+    @Inject(EnvVariables) private envVariables,
+    private authenticationProvider: AuthenticationProvider,
+    private nativeStorage: NativeStorage,
   ) {
     this.initTranslate();
+    this.initMoment();
 
     console.log('Env variables', envVariables);
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
+    this.nativeStorage.getItem('hideTutorial').then(hide => {
+      if (hide) {
+        this.rootPage = DashboardPage;
+      } else {
+        this.rootPage = TutorialPage;
+      }
+    });
+
     this.platform.ready().then((source) => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -55,7 +77,6 @@ export class MyApp {
         });
       } else {
         if (!this.authenticationProvider.checkAuth()) {
-          console.log('no redirect');
           // Check if token is expiered
           this.authenticationProvider.isTokenExpired().then(shouldGoToLogin => {
             if (shouldGoToLogin) {
@@ -67,7 +88,7 @@ export class MyApp {
     });
   }
 
-  initTranslate() {
+  public initTranslate(): void {
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang('de');
 
@@ -76,7 +97,11 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
+  private initMoment(): void {
+    moment.locale('de');
+  }
+
+  public openPage(page): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);

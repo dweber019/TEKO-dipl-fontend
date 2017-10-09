@@ -1,1 +1,10 @@
-<h1>TaskItem</h1>
+<h4>Beschreibung</h4>
+<p>{{ task?.description }}</p>
+
+<h4>DueDate</h4>
+<p>{{ task?.dueDate?.format('L') }}</p>
+
+<br><br>
+
+<loader *ngIf="loading"></loader>
+{{ taskItems | json }}

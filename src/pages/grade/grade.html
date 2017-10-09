@@ -17,5 +17,26 @@
 
 
 <ion-content padding>
-  <h1>Noten</h1>
+
+  <ion-card *ngFor="let meatGrade of metaGrades">
+    <ion-item [ngClass]="'line-' + meatGrade.color">
+      <h1 ion-text [color]="meatGrade.color">{{ meatGrade.name }}</h1>
+      <p>{{ meatGrade.teacher.firstname }} {{ meatGrade.teacher.lastname }}</p>
+      <ion-badge name="checkmark-circle" item-end [color]="meatGrade.color" class="h1">{{ meatGrade.grade }}</ion-badge>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-list class="table">
+
+        <button ion-item *ngFor="let grade of meatGrade.grades" (click)="goToSubject(grade)">
+          {{ grade.gradeDate.format('L') }}
+          <ion-icon md="md-arrow-forward" item-end></ion-icon>
+        </button>
+
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+  <loader *ngIf="loading"></loader>
+
 </ion-content>

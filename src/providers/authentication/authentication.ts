@@ -7,7 +7,7 @@ import * as queryString from 'query-string';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 import { EnvVariables, IEnvVariables } from './../../modules/environment-variables/environment-variables.token';
-import { MainPage, LoginPage } from './../../pages/pages';
+import { TutorialPage, LoginPage, DashboardPage } from './../../pages/pages';
 
 /*
   Generated class for the AuthenticationProvider provider.
@@ -24,32 +24,33 @@ export class AuthenticationProvider {
     private nativeStorage: NativeStorage,
     private iab: InAppBrowser,
     private platform: Platform
-  ) {
-    console.log('Hello AuthenticationProvider Provider');
-  }
+  ) { }
 
   public authenticate(): void {
     this.logoutPreActions();
 
-    let target = '';
+    let target = '_self';
     if (this.platform.is('ios') || this.platform.is('android')) {
       target = '_blank';
     }
 
     const oauthBrowserInstance = this.iab.create(this.getAuthorizationUrl(), target, 'location=no');
-    oauthBrowserInstance.on('loadstart').subscribe(event => {
-      if (this.isRedirectUrl(event.url)) {
-        this.saveToken(this.extractTokenFromHash(event.url));
-        this.goToDashBoard();
-        oauthBrowserInstance.close();
-      }
-    });
+
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      oauthBrowserInstance.on('loadstart').subscribe(event => {
+        if (this.isRedirectUrl(event.url)) {
+          this.saveToken(this.extractTokenFromHash(event.url));
+          this.goToMainPage();
+          oauthBrowserInstance.close();
+        }
+      });
+    }
   }
 
   public checkAuth(): boolean {
     if (this.isRedirectUrl()) {
       this.saveToken(this.extractTokenFromHash());
-      this.goToDashBoard();
+      this.goToMainPage();
       return true;
     }
     return false;
@@ -74,11 +75,17 @@ export class AuthenticationProvider {
   }
 
   public goToLogin(): void {
-    this.navCtrl.setRoot(LoginPage);
+    setTimeout(() => this.navCtrl.setRoot(LoginPage), 300);
   }
 
-  public goToDashBoard(): void {
-    this.navCtrl.setRoot(MainPage);
+  public goToMainPage(): void {
+    this.nativeStorage.getItem('hideTutorial').then(hide => {
+      if (hide) {
+        this.navCtrl.setRoot(DashboardPage);
+      } else {
+        this.navCtrl.setRoot(TutorialPage);
+      }
+    });
   }
 
   public async isTokenExpired(): Promise<boolean> {
@@ -129,7 +136,6 @@ export class AuthenticationProvider {
   }
 
   private saveToken(token: string): void {
-    console.log('token', token);
     this.nativeStorage.setItem('token', token);
   }
 

@@ -1,2 +1,22 @@
-<h1>SubjectLesson</h1>
-<button ion-button (click)="goToDetail()">To lesson detail</button>
+<ion-grid>
+  <ion-row>
+    <ion-col col-auto>
+      Lehrperson:
+    </ion-col>
+    <ion-col text-right>
+      {{ subject?.teacher?.firstname }} {{ subject?.teacher?.lastname }}
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<h1>Unterricht</h1>
+
+<ion-card *ngFor="let lesson of lessons" (click)="goToLesson(lesson)">
+  <ion-item [ngClass]="'line-' + lesson.getStatusColor()">
+    <h1 ion-text [color]="lesson.getStatusColor()">{{ lesson.startDate.format('lll') }} - {{ lesson.endDate.format('LT') }}</h1>
+    <p class="text-muted">{{ lesson.location }}</p>
+    <p class="text-muted">{{ lesson.room }}</p>
+    <ion-icon name="checkmark-circle" item-end [color]="lesson.getStatusColor()"></ion-icon>
+  </ion-item>
+</ion-card>
+<loader *ngIf="loading"></loader>

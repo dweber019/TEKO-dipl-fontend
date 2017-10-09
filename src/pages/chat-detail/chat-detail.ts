@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content, ActionSheetController } from 'ionic-angular';
 
-/**
- * Generated class for the ChatDetailPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { UserProvider, Chat } from './../../providers/api-services/users';
+import { ChatPage } from './../pages';
+import { IChat } from './../chat/chat';
 
 @IonicPage()
 @Component({
@@ -15,17 +12,77 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ChatDetailPage {
 
-  public paramData: string;
+  @ViewChild(Content) public content: Content;
+
+  private userId: number;
+
+  public chat: IChat;
+  public message: string;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams
+    private navCtrl: NavController,
+    private navParams: NavParams,
+    private userProvider: UserProvider,
+    private actionSheetController: ActionSheetController,
   ) {
-    this.paramData = navParams.data;
+    this.userId = navParams.data.userId;
+    this.chat = navParams.data.chat;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ChatDetailPage');
+  public ionViewDidEnter(): void {
+    if (!this.userId) {
+      this.navCtrl.setRoot(ChatPage);
+    } else {
+      this.content.scrollToBottom();
+    }
+  }
+
+  public send(): void {
+    if (this.message.length > 0) {
+      this.userProvider.createChat({
+        senderId: this.userId,
+        receiverId: this.chat.partner.id,
+        message: this.message
+      })
+      .subscribe(chat => {
+        this.chat.chats.push(chat);
+        this.clearMessage();
+        setTimeout(() => this.content.scrollToBottom());
+      });
+    }
+  }
+
+  public delete(): void {
+    this.userProvider.destoryChat(this.userId, this.chat.partner.id)
+      .subscribe(() => this.navCtrl.setRoot(ChatPage));
+  }
+
+  public openActions(): void {
+    let actionSheet = this.actionSheetController.create({
+      title: 'More Actions',
+      buttons: [
+        {
+          text: 'Delete Chat',
+          role: 'destructive',
+          handler: () => {
+            this.delete();
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => void 0
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  public isItMe(chat: Chat): boolean {
+    return chat.senderId === this.userId;
+  }
+
+  private clearMessage(): void {
+    this.message = '';
   }
 
 }
