@@ -17,6 +17,7 @@ import {
 } from '../pages/pages';
 import { EnvVariables } from '../modules/environment-variables/environment-variables.token';
 import { AuthenticationProvider } from './../providers/authentication/authentication';
+import { UserInfoProvider } from './../providers/user-info';
 
 @Component({
   templateUrl: 'app.html'
@@ -46,11 +47,13 @@ export class MyApp {
     @Inject(EnvVariables) private envVariables,
     private authenticationProvider: AuthenticationProvider,
     private nativeStorage: NativeStorage,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.initTranslate();
     this.initMoment();
 
-    console.log('Env variables', envVariables);
+    this.userInfoProvider.loadUser()
+      .subscribe();
   }
 
   public ngOnInit(): void {

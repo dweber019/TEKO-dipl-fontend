@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>New Group</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.name.valid  && subjectForm.controls.name.touched" no-lines>
+      <p ion-text color="danger">Please enter a valid name.</p>
+    </ion-item>
+
+  </form>
+
+</ion-content>

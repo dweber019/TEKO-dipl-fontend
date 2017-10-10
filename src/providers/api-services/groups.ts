@@ -30,7 +30,7 @@ export class GroupProvider {
       .map(data => GroupProvider.toModel(data));
   }
 
-  public create(group: Group): Observable<Group> {
+  public create(group: { name: string }): Observable<Group> {
     return this.api.post<Group>(GroupProvider.RESOURCE, group)
       .map(data => GroupProvider.toModel(data));
   }

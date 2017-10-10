@@ -67,7 +67,8 @@ export class ChatDetailPage {
           handler: () => {
             this.delete();
           }
-        },{
+        },
+        {
           text: 'Cancel',
           role: 'cancel',
           handler: () => void 0

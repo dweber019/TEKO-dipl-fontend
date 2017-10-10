@@ -10,6 +10,7 @@ import { LessonProvider } from './api-services/lessons';
 import { NoteProvider } from './api-services/notes';
 import { CommentProvider } from './api-services/comments';
 import { TaskProvider } from './api-services/tasks';
+import { UserInfoProvider } from './user-info';
 
 export const prodviders = [
   AuthenticationProvider,
@@ -24,4 +25,5 @@ export const prodviders = [
   NoteProvider,
   CommentProvider,
   TaskProvider,
+  UserInfoProvider,
 ];

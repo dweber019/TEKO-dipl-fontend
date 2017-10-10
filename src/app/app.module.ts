@@ -8,14 +8,16 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+
 import { EnvironmentsModule } from '../modules/environment-variables/environment-variables.module';
 import { MyApp } from './app.component';
 import { ApiInterceptor } from './../providers/api/api-interceptor';
 import { prodviders } from './../providers/providers';
 import { NativeStorageMock } from './../native-mocks';
 import { ComponentsModule } from './../components/components.module';
-
 import { SubjectModalPage } from './../pages/subject-modal/subject-modal';
+import { AddressPersonModalPage } from './../pages/address-person-modal/address-person-modal';
+import { AddressGroupModalPage } from './../pages/address-group-modal/address-group-modal';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -27,7 +29,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
-    SubjectModalPage
+    SubjectModalPage,
+    AddressPersonModalPage,
+    AddressGroupModalPage,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    SubjectModalPage
+    SubjectModalPage,
+    AddressPersonModalPage,
+    AddressGroupModalPage,
   ],
   providers: [
     ...prodviders,

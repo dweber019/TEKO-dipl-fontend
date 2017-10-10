@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ActionSheetController
+} from 'ionic-angular';
 
 import { AddressPage, AddressPersonDetailPage } from '../../pages/pages';
 import { GroupProvider, Group, User } from './../../providers/api-services/groups';
@@ -19,6 +24,7 @@ export class AddressGroupDetailPage {
     private navCtrl: NavController,
     private navParams: NavParams,
     private groupProvider: GroupProvider,
+    private actionSheetController: ActionSheetController,
   ) {
     this.group = navParams.data;
   }
@@ -39,6 +45,28 @@ export class AddressGroupDetailPage {
     $event.stopPropagation();
     this.groupProvider.removeUser(this.group.id, user.id)
       .subscribe(() => this.loadUser());
+  }
+
+  public openActions(): void {
+    let actionSheet = this.actionSheetController.create({
+      buttons: [
+        {
+          text: 'Delete group',
+          role: 'destructive',
+          icon: 'trash',
+          handler: () => {
+            //this.presentModal();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          icon: 'close',
+          handler: () => void 0
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   private loadUser(): void {
