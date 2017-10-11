@@ -6,7 +6,7 @@ import { Api } from './../api/api';
 import { Subject } from './../../models/Subject';
 import { UserProvider, User } from './../../providers/api-services/users';
 import { GradeProvider, GradeUser } from './grades';
-import { LessonProvider, Lesson } from './lessons';
+import { LessonProvider, Lesson, ILessonPost } from './lessons';
 
 export {
   Subject,
@@ -77,6 +77,11 @@ export class SubjectProvider {
   public getLessons(id: number): Observable<Lesson[]> {
     return this.api.get<Lesson[]>(SubjectProvider.RESOURCE + '/' + id + '/' + LessonProvider.RESOURCE)
       .map(data => data.map(item => LessonProvider.toModel(item)));
+  }
+
+  public createLesson(id: number, lesson: ILessonPost): Observable<Lesson> {
+    return this.api.post<Lesson>(SubjectProvider.RESOURCE + '/' + id + '/' + LessonProvider.RESOURCE, lesson)
+      .map(data => LessonProvider.toModel(data));
   }
 
   public static toModel(json: Subject): Subject {

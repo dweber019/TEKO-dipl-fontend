@@ -14,6 +14,7 @@ import { SubjectModalPage } from './../subject-modal/subject-modal';
 import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
 import { SubjectAddPersonModalPage } from './../subject-add-person-modal/subject-add-person-modal';
 import { SubjectAddGradeModalPage } from './../subject-add-grade-modal/subject-add-grade-modal';
+import { LessonModalPage } from './../lesson-modal/lesson-modal';
 
 @IonicPage()
 @Component({
@@ -81,13 +82,19 @@ export class SubjectDetailPage {
     modal.present();
   }
 
+  private presentNewLessonModal(): void {
+    let modal = this.modalController.create(LessonModalPage, { subject: this.subject });
+    modal.onDidDismiss(() => this.ngRadio.cast('subject:lesson:add'));
+    modal.present();
+  }
+
   private getActionsheetButtons(): ActionSheetButton[] {
     if (this.tab === 'lesson') {
       return [
         {
           text: 'New lesson',
           handler: () => {
-            // this.presentSubjectEditModal();
+            this.presentNewLessonModal();
           }
         },
       ];

@@ -24,6 +24,7 @@ import { AddressGroupAddPersonModalPage } from './../pages/address-group-add-per
 import { SubjectAddPersonModalPage } from './../pages/subject-add-person-modal/subject-add-person-modal';
 import { SubjectAddGradeModalPage } from './../pages/subject-add-grade-modal/subject-add-grade-modal';
 import { ChatModalPage } from './../pages/chat-modal/chat-modal';
+import { LessonModalPage } from './../pages/lesson-modal/lesson-modal';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ChatModalPage,
     SubjectAddPersonModalPage,
     SubjectAddGradeModalPage,
+    LessonModalPage,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ChatModalPage,
     SubjectAddPersonModalPage,
     SubjectAddGradeModalPage,
+    LessonModalPage,
   ],
   providers: [
     ...prodviders,

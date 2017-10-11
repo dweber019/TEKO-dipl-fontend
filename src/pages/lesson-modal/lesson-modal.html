@@ -1,0 +1,72 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>Lesson</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating>Start date</ion-label>
+      <ion-datetime displayFormat="DD.MM.YYYY HH:mm" [min]="now" formControlName="startDate"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.startDate.valid  && subjectForm.controls.startDate.touched" no-lines>
+      <p ion-text color="danger">Please select select a start date.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>End date</ion-label>
+      <ion-datetime displayFormat="DD.MM.YYYY HH:mm" [min]="now" formControlName="endDate"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.endDate.valid  && subjectForm.controls.endDate.touched" no-lines>
+      <p ion-text color="danger">Please select select a end date.</p>
+    </ion-item>
+    <ion-item *ngIf="subjectForm.errors && subjectForm.errors.endDateLessThanStartDate" no-lines>
+      <p ion-text color="danger">Please select select a end date after start date.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Location</ion-label>
+      <ion-input type="text" formControlName="location"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Room</ion-label>
+      <ion-input type="text" formControlName="room"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Canceled</ion-label>
+      <ion-toggle [checked]="canceled" formControlName="canceled"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Type</ion-label>
+      <ion-select formControlName="type">
+        <ion-option value="lesson">Lesson</ion-option>
+        <ion-option value="exam">Exam</ion-option>
+        <ion-option value="reminder">Reminder</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.type.valid  && subjectForm.controls.type.touched" no-lines>
+      <p ion-text color="danger">Please select select a type.</p>
+    </ion-item>
+
+  </form>
+
+</ion-content>

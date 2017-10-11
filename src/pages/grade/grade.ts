@@ -38,7 +38,7 @@ export class GradePage {
         ids.forEach(id => {
           const grades = data.filter(item => item.id === id);
           const grade = _.meanBy(grades, item => item.grade);
-          const color = grade > 5 && 'secondary' || grade > 4 && 'primary' || 'danger';
+          const color = grade >= 5 && 'secondary' || grade >= 4 && 'primary' || 'danger';
           this.metaGrades.push({
             name: grades[0].name,
             grade: grade.toFixed(2),
