@@ -23,8 +23,8 @@ export class AddressPersonModalPage {
     this.user = this.navParams.data;
 
     this.subjectForm = this.formBuilder.group({
-      firstName: new FormControl(this.user.firstname, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])),
-      lastName: new FormControl(this.user.lastname, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])),
+      firstName: new FormControl(this.user.firstname, Validators.compose([Validators.maxLength(150), Validators.required])),
+      lastName: new FormControl(this.user.lastname, Validators.compose([Validators.maxLength(150), Validators.required])),
       type: new FormControl(this.user.type || 'student', Validators.compose([Validators.required])),
     });
 

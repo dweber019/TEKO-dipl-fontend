@@ -13,6 +13,7 @@ export class GradeUser extends BaseModel {
     public type: UserType,
     public calenderToken: string,
     public picture: string,
+    public gradeId: number,
     public grade: number,
     public gradeDate: moment.Moment,
     public createdAt: moment.Moment,

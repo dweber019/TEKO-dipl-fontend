@@ -37,6 +37,7 @@ export class GradeProvider {
       json.type,
       json.calenderToken,
       json.picture,
+      json.gradeId,
       json.grade,
       json.gradeDate && moment(json.gradeDate),
       json.createdAt && moment(json.createdAt),

@@ -23,7 +23,7 @@ export class AddressGroupModalPage {
     this.group = this.navParams.data;
 
     this.subjectForm = this.formBuilder.group({
-      name: new FormControl(this.group.name, Validators.compose([Validators.maxLength(30), Validators.required])),
+      name: new FormControl(this.group.name, Validators.compose([Validators.maxLength(150), Validators.required])),
     });
   }
 

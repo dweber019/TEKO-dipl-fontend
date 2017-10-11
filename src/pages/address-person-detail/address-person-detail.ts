@@ -83,7 +83,13 @@ export class AddressPersonDetailPage {
 
   private presentPersonModal(): void {
     let modal = this.modalController.create(AddressPersonModalPage, this.user);
+    modal.onDidDismiss(() => this.reloadUser());
     modal.present();
+  }
+
+  private reloadUser(): void {
+    this.userProvider.get(this.user.id)
+      .subscribe(user => this.user = user);
   }
 
 }

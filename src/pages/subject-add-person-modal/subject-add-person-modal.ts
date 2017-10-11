@@ -3,29 +3,29 @@ import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { GroupProvider, Group } from './../../providers/api-services/groups';
+import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
 import { UserProvider, User } from './../../providers/api-services/users';
 import { UserType } from './../../models/UserType';
 
 @IonicPage()
 @Component({
-  selector: 'page-address-group-add-person-modal',
-  templateUrl: 'address-group-add-person-modal.html',
+  selector: 'page-subject-add-person-modal',
+  templateUrl: 'subject-add-person-modal.html',
 })
-export class AddressGroupAddPersonModalPage {
+export class SubjectAddPersonModalPage {
 
   public subjectForm: FormGroup;
-  public group: Group;
+  public subject: Subject;
   public users: User[];
 
   constructor(
     private navParams: NavParams,
     private viewController: ViewController,
     private formBuilder: FormBuilder,
-    private groupProvider: GroupProvider,
+    private subjectProvider: SubjectProvider,
     private userProvider: UserProvider,
   ) {
-    this.group = this.navParams.data;
+    this.subject = this.navParams.data;
 
     this.userProvider.getAll()
       .subscribe(data => this.users = data.filter(item => item.type === UserType.STUDENT));
@@ -43,12 +43,9 @@ export class AddressGroupAddPersonModalPage {
     if (this.subjectForm.valid) {
       let obs = [];
       this.subjectForm.get('persons').value.forEach(element => {
-        obs.push(this.groupProvider.addUser(this.group.id, element));
+        obs.push(this.subjectProvider.addUser(this.subject.id, element));
       });
-      Observable.forkJoin(obs)
-        .subscribe(
-          () => this.viewController.dismiss()
-        );
+      Observable.forkJoin(obs).subscribe(() => this.viewController.dismiss());
     }
   }
 

@@ -41,6 +41,12 @@ export class AddressGroupDetailPage {
     }
   }
 
+  public removeUser($event: Event, user: User): void {
+    $event.stopPropagation();
+    this.groupProvider.removeUser(this.group.id, user.id)
+      .subscribe(() => this.loadUser());
+  }
+
   public goToUser(user: User): void {
     this.navCtrl.push(AddressPersonDetailPage, user);
   }
@@ -94,12 +100,19 @@ export class AddressGroupDetailPage {
 
   private presentGroupModal(): void {
     let modal = this.modalController.create(AddressGroupModalPage, this.group);
+    modal.onDidDismiss(() => this.reloadGroup());
     modal.present();
   }
 
   private presentGroupAddPersonModal(): void {
     let modal = this.modalController.create(AddressGroupAddPersonModalPage, this.group);
+    modal.onDidDismiss(() => this.loadUser());
     modal.present();
+  }
+
+  private reloadGroup(): void {
+    this.groupProvider.get(this.group.id)
+      .subscribe(group => this.group = group);
   }
 
 }

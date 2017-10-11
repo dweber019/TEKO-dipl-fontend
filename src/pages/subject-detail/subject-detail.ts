@@ -4,12 +4,16 @@ import {
   NavController,
   NavParams,
   ActionSheetController,
+  ActionSheetButton,
   ModalController
 } from 'ionic-angular';
+import { NgRadio } from 'ng-radio';
 
 import { SubjectPage } from './../pages';
 import { SubjectModalPage } from './../subject-modal/subject-modal';
 import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
+import { SubjectAddPersonModalPage } from './../subject-add-person-modal/subject-add-person-modal';
+import { SubjectAddGradeModalPage } from './../subject-add-grade-modal/subject-add-grade-modal';
 
 @IonicPage()
 @Component({
@@ -28,6 +32,7 @@ export class SubjectDetailPage {
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
     private subjectProvider: SubjectProvider,
+    private ngRadio: NgRadio,
   ) {
     this.subject = this.navParams.data;
   }
@@ -47,6 +52,7 @@ export class SubjectDetailPage {
             this.presentSubjectEditModal();
           }
         },
+        ...this.getActionsheetButtons(),
         {
           text: 'Cancel',
           role: 'cancel',
@@ -61,6 +67,51 @@ export class SubjectDetailPage {
     let modal = this.modalController.create(SubjectModalPage, this.subject);
     modal.onDidDismiss(() => this.reloadSubject());
     modal.present();
+  }
+
+  private presentNewStudentModal(): void {
+    let modal = this.modalController.create(SubjectAddPersonModalPage, this.subject);
+    modal.onDidDismiss(() => this.ngRadio.cast('subject:student:add'));
+    modal.present();
+  }
+
+  private presentNewGradeModal(): void {
+    let modal = this.modalController.create(SubjectAddGradeModalPage, this.subject);
+    modal.onDidDismiss(() => this.ngRadio.cast('subject:grade:add'));
+    modal.present();
+  }
+
+  private getActionsheetButtons(): ActionSheetButton[] {
+    if (this.tab === 'lesson') {
+      return [
+        {
+          text: 'New lesson',
+          handler: () => {
+            // this.presentSubjectEditModal();
+          }
+        },
+      ];
+    }
+    if (this.tab === 'student') {
+      return [
+        {
+          text: 'Add person',
+          handler: () => {
+            this.presentNewStudentModal();
+          }
+        },
+      ];
+    }
+    if (this.tab === 'grade') {
+      return [
+        {
+          text: 'New grade',
+          handler: () => {
+            this.presentNewGradeModal();
+          }
+        },
+      ];
+    }
   }
 
   private reloadSubject(): void {

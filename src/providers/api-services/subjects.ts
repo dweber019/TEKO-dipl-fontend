@@ -53,9 +53,25 @@ export class SubjectProvider {
       .map(data => data.map(item => UserProvider.toModel(item)));
   }
 
+  public addUser(subjectId: number, userId: number): Observable<void> {
+    return this.api.post<void>(SubjectProvider.RESOURCE + '/' + subjectId + '/' + UserProvider.RESOURCE + '/' + userId, null, { responseType: 'text' });
+  }
+
+  public removeUser(subjectId: number, userId: number): Observable<void> {
+    return this.api.delete<void>(SubjectProvider.RESOURCE + '/' + subjectId + '/' + UserProvider.RESOURCE + '/' + userId);
+  }
+
   public getGrades(id: number): Observable<GradeUser[]> {
     return this.api.get<GradeUser[]>(SubjectProvider.RESOURCE + '/' + id + '/' + GradeProvider.RESOURCE)
       .map(data => data.map(item => GradeProvider.toUserModel(item)));
+  }
+
+  public addGrade(subjectId: number, userId: number, grade: number): Observable<void> {
+    return this.api.post<void>(SubjectProvider.RESOURCE + '/' + subjectId + '/' + GradeProvider.RESOURCE + '/' + userId, { grade }, { responseType: 'text' });
+  }
+
+  public removeGrade(subjectId: number, userId: number): Observable<void> {
+    return this.api.delete<void>(SubjectProvider.RESOURCE + '/' + subjectId + '/' + GradeProvider.RESOURCE + '/' + userId);
   }
 
   public getLessons(id: number): Observable<Lesson[]> {

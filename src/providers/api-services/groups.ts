@@ -50,7 +50,7 @@ export class GroupProvider {
   }
 
   public addUser(groupId: number, userId: number): Observable<void> {
-    return this.api.post<void>(GroupProvider.RESOURCE + '/' + groupId + '/' + UserProvider.RESOURCE + '/' + userId, null);
+    return this.api.post<void>(GroupProvider.RESOURCE + '/' + groupId + '/' + UserProvider.RESOURCE + '/' + userId, null, { responseType: 'text' });
   }
 
   public removeUser(groupId: number, userId: number): Observable<void> {

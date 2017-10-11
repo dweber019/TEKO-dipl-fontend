@@ -29,7 +29,7 @@
       <ion-list class="table">
 
         <button ion-item *ngFor="let grade of meatGrade.grades" (click)="goToSubject(grade)">
-          {{ grade.gradeDate.format('L') }}
+          {{ grade.grade }} - {{ grade.gradeDate.format('L') }}
           <ion-icon md="md-arrow-forward" item-end></ion-icon>
         </button>
 

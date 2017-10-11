@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import * as _ from 'lodash';
+import { NgRadio } from 'ng-radio';
 
 import { AddressPersonDetailPage } from './../../pages/pages';
 import { SubjectProvider, Subject, GradeUser } from './../../providers/api-services/subjects';
@@ -25,13 +26,17 @@ export class SubjectGradeComponent {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
-    private subjectProvider: SubjectProvider
+    private subjectProvider: SubjectProvider,
+    private ngRadio: NgRadio,
   ) {
     this.subject = this.navParams.data;
   }
 
   public ngOnInit(): void {
     this.loadGrades();
+
+    this.ngRadio.on('subject:grade:*')
+      .subscribe(() => this.loadGrades());
   }
 
   public loadGrades(): void {
@@ -55,6 +60,14 @@ export class SubjectGradeComponent {
           this.loading = false;
         });
     }
+  }
+
+  public removeGrade($event: Event, grade: GradeUser): void {
+    $event.stopPropagation();
+    this.subjectProvider.removeGrade(
+      this.subject.id,
+      grade.gradeId
+    ).subscribe(() => this.loadGrades());
   }
 
   public goToUser(grade: IGradeUser): void {
