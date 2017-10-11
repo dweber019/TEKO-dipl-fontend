@@ -20,6 +20,6 @@ export class BaseModel {
           return 'danger';
       }
     }
-    return;
+    return 'primary';
   }
 }

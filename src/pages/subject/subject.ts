@@ -38,13 +38,17 @@ export class SubjectPage {
 
   public openActions(): void {
     let actionSheet = this.actionSheetController.create({
-      title: 'More Actions',
       buttons: [
         {
           text: 'New Subject',
           handler: () => {
             this.presentModal();
           }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => void 0
         }
       ]
     });
@@ -53,6 +57,7 @@ export class SubjectPage {
 
   private presentModal(): void {
     let modal = this.modalController.create(SubjectModalPage);
+    modal.onDidDismiss(() => this.loadSubjects());
     modal.present();
   }
 

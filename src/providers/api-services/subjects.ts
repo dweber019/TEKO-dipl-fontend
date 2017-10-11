@@ -34,12 +34,12 @@ export class SubjectProvider {
       .map(data => SubjectProvider.toModel(data));
   }
 
-  public create(subject: Subject): Observable<Subject> {
+  public create(subject: { name: string, archived: boolean, teacherId: number }): Observable<Subject> {
     return this.api.post<Subject>(SubjectProvider.RESOURCE, subject)
       .map(data => SubjectProvider.toModel(data));
   }
 
-  public update(subject: Subject): Observable<Subject> {
+  public update(subject: { id: number, name: string, archived: boolean, teacherId: number }): Observable<Subject> {
     return this.api.put<Subject>(SubjectProvider.RESOURCE + '/' + subject.id, subject)
       .map(data => SubjectProvider.toModel(data));
   }
@@ -70,6 +70,7 @@ export class SubjectProvider {
       !!json.archived,
       json.status,
       json.teacher && UserProvider.toModel(json.teacher),
+      json.teacherId,
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),
     );

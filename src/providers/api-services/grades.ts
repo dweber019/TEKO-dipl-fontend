@@ -21,6 +21,7 @@ export class GradeProvider {
       json.name,
       !!json.archived,
       json.teacher && UserProvider.toModel(json.teacher),
+      json.teacherId,
       json.grade,
       json.gradeDate && moment(json.gradeDate),
       json.createdAt && moment(json.createdAt),

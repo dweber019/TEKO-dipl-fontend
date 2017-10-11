@@ -12,6 +12,7 @@ export class Subject extends BaseModel {
     public archived: boolean,
     public status: Status,
     public teacher: User,
+    public teacherId: number,
     public createdAt: moment.Moment,
     public updatedAt: moment.Moment,
   ) {
