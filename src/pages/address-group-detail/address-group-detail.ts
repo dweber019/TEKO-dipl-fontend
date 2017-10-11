@@ -3,11 +3,14 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  ActionSheetController
+  ActionSheetController,
+  ModalController,
 } from 'ionic-angular';
 
 import { AddressPage, AddressPersonDetailPage } from '../../pages/pages';
 import { GroupProvider, Group, User } from './../../providers/api-services/groups';
+import { AddressGroupModalPage } from './../address-group-modal/address-group-modal';
+import { AddressGroupAddPersonModalPage } from './../address-group-add-person-modal/address-group-add-person-modal';
 
 @IonicPage()
 @Component({
@@ -25,13 +28,14 @@ export class AddressGroupDetailPage {
     private navParams: NavParams,
     private groupProvider: GroupProvider,
     private actionSheetController: ActionSheetController,
+    private modalController: ModalController,
   ) {
     this.group = navParams.data;
   }
 
   public ionViewDidEnter(): void {
     if (!this.group.id) {
-      this.navCtrl.push(AddressPage, { segment: 'group' });
+      this.backToGroups();
     } else {
       this.loadUser();
     }
@@ -41,27 +45,32 @@ export class AddressGroupDetailPage {
     this.navCtrl.push(AddressPersonDetailPage, user);
   }
 
-  public removeUser($event: Event, user: User): void {
-    $event.stopPropagation();
-    this.groupProvider.removeUser(this.group.id, user.id)
-      .subscribe(() => this.loadUser());
-  }
-
   public openActions(): void {
     let actionSheet = this.actionSheetController.create({
       buttons: [
         {
+          text: 'Edit group',
+          handler: () => {
+            this.presentGroupModal();
+          }
+        },
+        {
+          text: 'Add person',
+          handler: () => {
+            this.presentGroupAddPersonModal();
+          }
+        },
+        {
           text: 'Delete group',
           role: 'destructive',
-          icon: 'trash',
           handler: () => {
-            //this.presentModal();
+            this.groupProvider.destory(this.group.id)
+              .subscribe(() => this.backToGroups());
           }
         },
         {
           text: 'Cancel',
           role: 'cancel',
-          icon: 'close',
           handler: () => void 0
         }
       ]
@@ -77,6 +86,20 @@ export class AddressGroupDetailPage {
         this.loading = false;
         this.users = data;
       });
+  }
+
+  private backToGroups(): void {
+    this.navCtrl.push(AddressPage, { segment: 'group' });
+  }
+
+  private presentGroupModal(): void {
+    let modal = this.modalController.create(AddressGroupModalPage, this.group);
+    modal.present();
+  }
+
+  private presentGroupAddPersonModal(): void {
+    let modal = this.modalController.create(AddressGroupAddPersonModalPage, this.group);
+    modal.present();
   }
 
 }

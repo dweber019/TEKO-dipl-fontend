@@ -1,4 +1,4 @@
-import { Component, ViewChild, Inject, OnInit } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -52,8 +52,7 @@ export class MyApp {
     this.initTranslate();
     this.initMoment();
 
-    this.userInfoProvider.loadUser()
-      .subscribe();
+    console.info(this.envVariables);
   }
 
   public ngOnInit(): void {
@@ -76,6 +75,8 @@ export class MyApp {
         this.authenticationProvider.isTokenExpired().then(shouldGoToLogin => {
           if (shouldGoToLogin) {
             this.authenticationProvider.goToLogin();
+          } else {
+            this.loadUserInfo();
           }
         });
       } else {
@@ -84,6 +85,8 @@ export class MyApp {
           this.authenticationProvider.isTokenExpired().then(shouldGoToLogin => {
             if (shouldGoToLogin) {
               this.authenticationProvider.goToLogin();
+            } else {
+              this.loadUserInfo();
             }
           });
         }
@@ -100,13 +103,18 @@ export class MyApp {
     });
   }
 
-  private initMoment(): void {
-    moment.locale('de');
-  }
-
   public openPage(page): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  private initMoment(): void {
+    moment.locale('de');
+  }
+
+  private loadUserInfo(): void {
+    this.userInfoProvider.loadUser()
+      .subscribe();
   }
 }

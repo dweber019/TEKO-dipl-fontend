@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
-import { Api } from './../api/api';
 import { Grade } from './../../models/grade';
 import { GradeUser } from './../../models/gradeuser';
-import { UserProvider, User } from './users';
+import { UserProvider } from './users';
 
 export {
-  User,
   Grade,
   GradeUser,
 };
@@ -16,10 +14,6 @@ export {
 export class GradeProvider {
 
   public static RESOURCE = 'grades';
-
-  constructor(
-    // private api: Api
-  ) { }
 
   public static toSubjectModel(json: Grade): Grade {
     return new Grade(

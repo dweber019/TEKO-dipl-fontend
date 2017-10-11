@@ -18,6 +18,7 @@ import { ComponentsModule } from './../components/components.module';
 import { SubjectModalPage } from './../pages/subject-modal/subject-modal';
 import { AddressPersonModalPage } from './../pages/address-person-modal/address-person-modal';
 import { AddressGroupModalPage } from './../pages/address-group-modal/address-group-modal';
+import { AddressGroupAddPersonModalPage } from './../pages/address-group-add-person-modal/address-group-add-person-modal';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -32,6 +33,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     SubjectModalPage,
     AddressPersonModalPage,
     AddressGroupModalPage,
+    AddressGroupAddPersonModalPage,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     SubjectModalPage,
     AddressPersonModalPage,
     AddressGroupModalPage,
+    AddressGroupAddPersonModalPage,
   ],
   providers: [
     ...prodviders,

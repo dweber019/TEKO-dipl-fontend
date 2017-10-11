@@ -3,6 +3,10 @@ import * as moment from 'moment';
 import { BaseModel } from './Base';
 import { UserType } from './UserType';
 
+export {
+  UserType
+}
+
 export class User extends BaseModel {
 
   constructor(

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { Api } from './../api/api';
-import { User } from './../../models/User';
+import { User, UserType } from './../../models/User';
 import { ChatProvider, Chat } from './chats';
 import { GroupProvider, Group } from './groups';
 import { GradeProvider, Grade } from './grades';
@@ -15,6 +15,7 @@ export {
   Chat,
   Grade,
   Notification,
+  UserType,
 };
 
 export interface IUserCreate {
@@ -59,7 +60,7 @@ export class UserProvider {
       .map(data => UserProvider.toModel(data));
   }
 
-  public update(user: User): Observable<User> {
+  public update(user: { id: number, firstname: string, lastname: string, type: string }): Observable<User> {
     return this.api.put<User>(UserProvider.RESOURCE + '/' + user.id, user)
       .map(data => UserProvider.toModel(data));
   }

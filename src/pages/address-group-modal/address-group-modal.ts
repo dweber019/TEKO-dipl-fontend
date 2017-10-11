@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { GroupProvider } from './../../providers/api-services/groups';
+import { GroupProvider, Group } from './../../providers/api-services/groups';
 
 @IonicPage()
 @Component({
@@ -12,6 +12,7 @@ import { GroupProvider } from './../../providers/api-services/groups';
 export class AddressGroupModalPage {
 
   public subjectForm: FormGroup;
+  public group: Group;
 
   constructor(
     private navParams: NavParams,
@@ -19,8 +20,10 @@ export class AddressGroupModalPage {
     private formBuilder: FormBuilder,
     private groupProvider: GroupProvider,
   ) {
+    this.group = this.navParams.data;
+
     this.subjectForm = this.formBuilder.group({
-      name: new FormControl('', Validators.compose([Validators.maxLength(30), Validators.required])),
+      name: new FormControl(this.group.name, Validators.compose([Validators.maxLength(30), Validators.required])),
     });
   }
 
@@ -30,12 +33,29 @@ export class AddressGroupModalPage {
 
   public save(): void {
     if (this.subjectForm.valid) {
-      this.groupProvider.create({
-        name: this.subjectForm.get('name').value,
-      }).subscribe(() => {
-        this.viewController.dismiss();
-      });
+      if (this.group.id) {
+        this.updateGroup();
+      } else {
+        this.createGroup();
+      }
     }
+  }
+
+  private createGroup(): void {
+    this.groupProvider.create({
+      name: this.subjectForm.get('name').value,
+    }).subscribe(() => {
+      this.viewController.dismiss();
+    });
+  }
+
+  private updateGroup(): void {
+    this.groupProvider.update({
+      id: this.group.id,
+      name: this.subjectForm.get('name').value,
+    }).subscribe(() => {
+      this.viewController.dismiss();
+    });
   }
 
 }

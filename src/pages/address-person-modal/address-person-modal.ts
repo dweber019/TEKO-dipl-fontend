@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { UserProvider } from './../../providers/api-services/users';
+import { UserProvider, User } from './../../providers/api-services/users';
 
 @IonicPage()
 @Component({
@@ -12,6 +12,7 @@ import { UserProvider } from './../../providers/api-services/users';
 export class AddressPersonModalPage {
 
   public subjectForm: FormGroup;
+  public user: User;
 
   constructor(
     private navParams: NavParams,
@@ -19,12 +20,17 @@ export class AddressPersonModalPage {
     private formBuilder: FormBuilder,
     private userProvider: UserProvider,
   ) {
+    this.user = this.navParams.data;
+
     this.subjectForm = this.formBuilder.group({
-      firstName: new FormControl('', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])),
-      lastName: new FormControl('', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])),
-      type: new FormControl('student', Validators.compose([Validators.required])),
-      inviteEmail: new FormControl('', Validators.compose([Validators.email])),
+      firstName: new FormControl(this.user.firstname, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])),
+      lastName: new FormControl(this.user.lastname, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])),
+      type: new FormControl(this.user.type || 'student', Validators.compose([Validators.required])),
     });
+
+    if (!this.user.id) {
+      this.subjectForm.addControl('inviteEmail', new FormControl('', Validators.compose([Validators.email])));
+    }
   }
 
   public close(): void {
@@ -33,15 +39,36 @@ export class AddressPersonModalPage {
 
   public save(): void {
     if (this.subjectForm.valid) {
-      this.userProvider.create({
-        firstname: this.subjectForm.get('firstName').value,
-        lastname: this.subjectForm.get('lastName').value,
-        type: this.subjectForm.get('type').value,
-        inviteEmail: this.subjectForm.get('inviteEmail').value,
-      }).subscribe(() => {
-        this.viewController.dismiss();
-      });
+      if (this.user.id) {
+        this.updateUser();
+      } else {
+        this.createUser();
+      }
     }
   }
+
+  private createUser(): void {
+    this.userProvider.create({
+      firstname: this.subjectForm.get('firstName').value,
+      lastname: this.subjectForm.get('lastName').value,
+      type: this.subjectForm.get('type').value,
+      inviteEmail: this.subjectForm.get('inviteEmail').value,
+    }).subscribe(() => {
+      this.viewController.dismiss();
+    });
+  }
+
+  private updateUser(): void {
+    this.userProvider.update({
+      id: this.user.id,
+      firstname: this.subjectForm.get('firstName').value,
+      lastname: this.subjectForm.get('lastName').value,
+      type: this.subjectForm.get('type').value,
+    }).subscribe(() => {
+      this.viewController.dismiss();
+    });
+  }
+
+
 
 }

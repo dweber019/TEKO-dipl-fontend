@@ -35,7 +35,7 @@ export class GroupProvider {
       .map(data => GroupProvider.toModel(data));
   }
 
-  public update(group: Group): Observable<Group> {
+  public update(group: { id: number, name: string }): Observable<Group> {
     return this.api.put<Group>(GroupProvider.RESOURCE + '/' + group.id, group)
       .map(data => GroupProvider.toModel(data));
   }

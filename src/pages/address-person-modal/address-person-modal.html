@@ -39,7 +39,7 @@
 
     <ion-item>
       <ion-label floating>Type</ion-label>
-      <ion-select [(ngModel)]="type" formControlName="type">
+      <ion-select formControlName="type">
         <ion-option value="student">Student</ion-option>
         <ion-option value="teacher">Teacher</ion-option>
         <ion-option value="admin">Admin</ion-option>
@@ -49,11 +49,11 @@
       <p ion-text color="danger">Please select a valid type.</p>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="!user.id">
       <ion-label floating>E-Mail</ion-label>
       <ion-input type="email" formControlName="inviteEmail"></ion-input>
     </ion-item>
-    <ion-item *ngIf="!subjectForm.controls.inviteEmail.valid  && subjectForm.controls.inviteEmail.touched" no-lines>
+    <ion-item *ngIf="!user.id && !subjectForm.controls.inviteEmail.valid  && subjectForm.controls.inviteEmail.touched" no-lines>
       <p ion-text color="danger">Please enter a valid e-mail.</p>
     </ion-item>
 
