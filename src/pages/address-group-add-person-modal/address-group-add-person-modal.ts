@@ -28,7 +28,7 @@ export class AddressGroupAddPersonModalPage {
     this.group = this.navParams.data;
 
     this.userProvider.getAll()
-      .subscribe(data => this.users = data.filter(item => item.type === UserType.STUDENT))
+      .subscribe(data => this.users = data.filter(item => item.type === UserType.STUDENT));
 
     this.subjectForm = this.formBuilder.group({
       persons: new FormControl([], Validators.compose([Validators.min(1), Validators.required])),
