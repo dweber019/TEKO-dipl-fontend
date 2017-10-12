@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { NgRadio } from 'ng-radio';
 
-import { TaskProvider, Task, TaskItem } from './../../providers/api-services/tasks';
+import { TaskProvider, Task } from './../../providers/api-services/tasks';
+import { TaskItemProvider, TaskItem } from './../../providers/api-services/taskitems';
+import { TaskItemModalPage } from './../../pages/task-item-modal/task-item-modal';
 
 @Component({
   selector: 'compnent-task-item',
@@ -19,6 +21,8 @@ export class TaskItemCompnent {
     private navParams: NavParams,
     private taskProvider: TaskProvider,
     private ngRadio: NgRadio,
+    private modalController: ModalController,
+    private taskItemProvider: TaskItemProvider,
   ) {
     this.task = this.navParams.data;
   }
@@ -28,7 +32,19 @@ export class TaskItemCompnent {
       this.loadTaskItems();
 
       this.ngRadio.on('task:edit').subscribe(() => this.realoadTask());
+      this.ngRadio.on('taskitem:add').subscribe(() => this.loadTaskItems());
     }
+  }
+
+  public presentEditModal(taskItem: TaskItem): void {
+    let modal = this.modalController.create(TaskItemModalPage, { taskItem });
+    modal.onDidDismiss(() => this.loadTaskItems());
+    modal.present();
+  }
+
+  public deleteTaskItem(taskItem: TaskItem): void {
+    this.taskItemProvider.destory(taskItem.id)
+      .subscribe(() => this.loadTaskItems());
   }
 
   private loadTaskItems(): void {

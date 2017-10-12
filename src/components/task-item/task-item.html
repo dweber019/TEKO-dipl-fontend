@@ -1,10 +1,47 @@
-<h4>Beschreibung</h4>
-<p>{{ task?.description }}</p>
+<ion-grid>
+  <ion-row>
+    <ion-col col-auto>
+      Beschreibung:
+    </ion-col>
+    <ion-col text-right>
+      {{ task?.description }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-auto>
+      DueDate:
+    </ion-col>
+    <ion-col text-right>
+      {{ task?.dueDate?.format('L') }}
+    </ion-col>
+  </ion-row>
+</ion-grid>
 
-<h4>DueDate</h4>
-<p>{{ task?.dueDate?.format('L') }}</p>
-
-<br><br>
+<h1>Aufgaben</h1>
 
 <loader *ngIf="loading"></loader>
-{{ taskItems | json }}
+
+<ion-card *ngFor="let taskItem of taskItems">
+  <ion-card-content>
+    <h1>{{ taskItem?.title }}</h1>
+    <p>{{ taskItem?.description }}</p>
+
+    <hr>
+
+
+
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small (click)="presentEditModal(taskItem)">
+        <ion-icon name="brush"></ion-icon>
+        <div>Edit</div>
+      </button>
+      <button ion-button icon-left clear small color="danger" (click)="deleteTaskItem(taskItem)">
+        <ion-icon name="trash"></ion-icon>
+        <div>Delete</div>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-card>

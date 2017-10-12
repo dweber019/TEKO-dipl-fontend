@@ -9,14 +9,30 @@ export {
   TaskItem
 };
 
+export interface ITaskItemPost {
+  title: string;
+  description: string;
+  questionType: string;
+  question: string;
+}
+
 @Injectable()
 export class TaskItemProvider {
 
-  public static RESOURCE = 'taskitems';
+  public static RESOURCE = 'taskItems';
 
   constructor(
-    // private api: Api
+    private api: Api
   ) { }
+
+  public update(id: number, taskItem: ITaskItemPost): Observable<TaskItem> {
+    return this.api.put<TaskItem>(TaskItemProvider.RESOURCE + '/' + id, taskItem)
+      .map(data => TaskItemProvider.toModel(data));
+  }
+
+  public destory(id: number): Observable<void> {
+    return this.api.delete<void>(TaskItemProvider.RESOURCE + '/' + id);
+  }
 
   public static toModel(json: TaskItem): TaskItem {
     return new TaskItem(

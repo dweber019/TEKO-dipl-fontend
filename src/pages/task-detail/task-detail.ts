@@ -13,6 +13,7 @@ import { SubjectPage } from './../pages';
 import { TaskProvider, Task } from './../../providers/api-services/tasks';
 import { TaskModalPage } from './../task-modal/task-modal';
 import { CommentModalPage } from './../comment-modal/comment-modal';
+import { TaskItemModalPage } from './../task-item-modal/task-item-modal';
 
 @IonicPage()
 @Component({
@@ -76,13 +77,19 @@ export class TaskDetailPage {
     modal.present();
   }
 
+  private presentNewTaskItemModal(): void {
+    let modal = this.modalController.create(TaskItemModalPage, { task: this.task });
+    modal.onDidDismiss(() => this.ngRadio.cast('taskitem:add'));
+    modal.present();
+  }
+
   private getActionsheetButtons(): ActionSheetButton[] {
     if (this.tab === 'task') {
       return [
         {
-          text: 'Task Items edititeren',
+          text: 'New Task Items',
           handler: () => {
-            // this.presentNewTaskModal();
+            this.presentNewTaskItemModal();
           }
         },
       ];

@@ -27,6 +27,7 @@ import { ChatModalPage } from './../pages/chat-modal/chat-modal';
 import { LessonModalPage } from './../pages/lesson-modal/lesson-modal';
 import { CommentModalPage } from './../pages/comment-modal/comment-modal';
 import { TaskModalPage } from './../pages/task-modal/task-modal';
+import { TaskItemModalPage } from './../pages/task-item-modal/task-item-modal';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -48,6 +49,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LessonModalPage,
     CommentModalPage,
     TaskModalPage,
+    TaskItemModalPage,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +79,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LessonModalPage,
     CommentModalPage,
     TaskModalPage,
+    TaskItemModalPage,
   ],
   providers: [
     ...prodviders,
