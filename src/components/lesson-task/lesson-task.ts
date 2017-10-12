@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { NgRadio } from 'ng-radio';
 
 import { TaskDetailPage } from './../../pages/pages';
 import { LessonProvider, Lesson, Task } from './../../providers/api-services/lessons';
@@ -18,6 +19,7 @@ export class LessonTaskCompnent {
     public navCtrl: NavController,
     public navParams: NavParams,
     private lessonProvider: LessonProvider,
+    private ngRadio: NgRadio,
   ) {
     this.lesson = this.navParams.get('lesson');
   }
@@ -25,6 +27,9 @@ export class LessonTaskCompnent {
   public ngOnInit(): void {
     if (this.lesson) {
       this.loadTasks();
+
+      this.ngRadio.on('lesson:edit').subscribe(() => this.reloadLesson());
+      this.ngRadio.on('lesson:task:*').subscribe(() => this.loadTasks());
     }
   }
 
@@ -40,6 +45,11 @@ export class LessonTaskCompnent {
         this.loading = false;
         this.tasks = data;
       })
+  }
+
+  private reloadLesson(): void {
+    this.lessonProvider.get(this.lesson.id)
+      .subscribe(lesson => this.lesson = lesson);
   }
 
 }

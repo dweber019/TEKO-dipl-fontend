@@ -15,6 +15,12 @@ export {
   TaskItem,
 };
 
+export interface ITaskPost {
+  name: string;
+  description: string;
+  dueDate: string;
+}
+
 @Injectable()
 export class TaskProvider {
 
@@ -27,6 +33,15 @@ export class TaskProvider {
   public get(id: number): Observable<Task> {
     return this.api.get<Task>(TaskProvider.RESOURCE + '/' + id)
       .map(data => TaskProvider.toModel(data));
+  }
+
+  public update(id: number, task: ITaskPost): Observable<Task> {
+    return this.api.put<Task>(TaskProvider.RESOURCE + '/' + id, task)
+      .map(data => TaskProvider.toModel(data));
+  }
+
+  public destory(id: number): Observable<void> {
+    return this.api.delete<void>(TaskProvider.RESOURCE + '/' + id);
   }
 
   public getNote(id: number): Observable<Note> {

@@ -6,7 +6,7 @@ import { Api } from './../api/api';
 import { Lesson, LessonType } from './../../models/Lesson';
 import { NoteProvider, Note } from './notes';
 import { CommentProvider, Comment } from './comments';
-import { TaskProvider, Task } from './tasks';
+import { TaskProvider, Task, ITaskPost } from './tasks';
 
 export {
   Lesson,
@@ -70,6 +70,11 @@ export class LessonProvider {
   public getTasks(id: number): Observable<Task[]> {
     return this.api.get<Task[]>(LessonProvider.RESOURCE + '/' + id + '/' + TaskProvider.RESOURCE)
       .map(data => data.map(item => TaskProvider.toModel(item)));
+  }
+
+  public createTask(id: number, task: ITaskPost): Observable<Task> {
+    return this.api.post<Task>(LessonProvider.RESOURCE + '/' + id + '/' + TaskProvider.RESOURCE, task)
+      .map(data => TaskProvider.toModel(data));
   }
 
   public static toModel(json: Lesson): Lesson {

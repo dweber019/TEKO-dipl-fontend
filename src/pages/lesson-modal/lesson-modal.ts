@@ -1,5 +1,3 @@
-import { Slide } from './../tutorial/tutorial';
-import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -32,8 +30,8 @@ export class LessonModalPage {
     this.lesson = this.navParams.get('lesson') || {};
 
     this.subjectForm = this.formBuilder.group({
-      startDate: new FormControl(this.lesson.startDate && this.lesson.startDate.format('DD.MM.YYYY HH:mm'), Validators.compose([Validators.required])),
-      endDate: new FormControl(this.lesson.endDate && this.lesson.endDate.format('DD.MM.YYYY HH:mm'), Validators.compose([Validators.required])),
+      startDate: new FormControl(this.lesson.startDate && this.lesson.startDate.format('YYYY-MM-DDTHH:mm'), Validators.compose([Validators.required])),
+      endDate: new FormControl(this.lesson.endDate && this.lesson.endDate.format('YYYY-MM-DDTHH:mm'), Validators.compose([Validators.required])),
       location: new FormControl(this.lesson.location, Validators.compose([])),
       room: new FormControl(this.lesson.room, Validators.compose([])),
       canceled: new FormControl(this.lesson.canceled || false, Validators.compose([Validators.required])),
@@ -65,8 +63,8 @@ export class LessonModalPage {
 
   private getLessonObject(): any {
     return {
-      startDate: moment(this.subjectForm.get('startDate').value.slice(0, -1)).format('YYYY-MM-DD HH:mm:ss'),
-      endDate: moment(this.subjectForm.get('endDate').value.slice(0, -1)).format('YYYY-MM-DD HH:mm:ss'),
+      startDate: moment(this.subjectForm.get('startDate').value).format('YYYY-MM-DD HH:mm:ss'),
+      endDate: moment(this.subjectForm.get('endDate').value).format('YYYY-MM-DD HH:mm:ss'),
       location: this.subjectForm.get('location').value,
       room: this.subjectForm.get('room').value,
       canceled: this.subjectForm.get('canceled').value,
