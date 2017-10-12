@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { NgRadio } from 'ng-radio';
 
 import { TaskProvider, Task, TaskItem } from './../../providers/api-services/tasks';
 
@@ -17,6 +18,7 @@ export class TaskItemCompnent {
     private navCtrl: NavController,
     private navParams: NavParams,
     private taskProvider: TaskProvider,
+    private ngRadio: NgRadio,
   ) {
     this.task = this.navParams.data;
   }
@@ -24,6 +26,8 @@ export class TaskItemCompnent {
   public ngOnInit(): void {
     if (this.task.id) {
       this.loadTaskItems();
+
+      this.ngRadio.on('task:edit').subscribe(() => this.realoadTask());
     }
   }
 
@@ -35,6 +39,11 @@ export class TaskItemCompnent {
         this.loading = false;
         this.taskItems = data;
       })
+  }
+
+  private realoadTask(): void {
+    this.taskProvider.get(this.task.id)
+      .subscribe(task => this.task = task);
   }
 
 }
