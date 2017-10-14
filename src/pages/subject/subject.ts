@@ -19,6 +19,7 @@ import { UserInfoProvider } from './../../providers/user-info';
 export class SubjectPage {
 
   public subjects: Subject[];
+  public archivedSubjects: Subject[];
   public loading: boolean = false;
 
   constructor(
@@ -69,11 +70,13 @@ export class SubjectPage {
 
   private loadSubjects(): void {
     this.subjects = [];
+    this.archivedSubjects = [];
     this.loading = true;
     this.subjectProvider.getAll()
       .subscribe(data => {
         this.loading = false;
-        this.subjects = data;
+        this.subjects = data.filter(item => item.archived === false);
+        this.archivedSubjects = data.filter(item => item.archived === true);
       });
   }
 
