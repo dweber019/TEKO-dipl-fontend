@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavParams, ModalController } from 'ionic-angular';
 import { NgRadio } from 'ng-radio';
 
 import { TaskProvider, Task } from './../../providers/api-services/tasks';
@@ -18,7 +18,6 @@ export class TaskItemCompnent {
   public loading: boolean = false;
 
   constructor(
-    private navCtrl: NavController,
     private navParams: NavParams,
     private taskProvider: TaskProvider,
     private ngRadio: NgRadio,

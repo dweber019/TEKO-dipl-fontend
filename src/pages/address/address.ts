@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {
   IonicPage,
-  NavController,
   NavParams,
   ActionSheetController,
   ActionSheetButton,
@@ -22,7 +21,6 @@ export class AddressPage {
   public tab: string = 'person';
 
   constructor(
-    private navCtrl: NavController,
     private navParams: NavParams,
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,

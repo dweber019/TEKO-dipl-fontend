@@ -1,11 +1,9 @@
-import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
-import { UserProvider, User } from './../../providers/api-services/users';
-import { UserType } from './../../models/UserType';
+import { User } from './../../providers/api-services/users';
 
 @IonicPage()
 @Component({
@@ -23,7 +21,6 @@ export class SubjectAddGradeModalPage {
     private viewController: ViewController,
     private formBuilder: FormBuilder,
     private subjectProvider: SubjectProvider,
-    private userProvider: UserProvider,
   ) {
     this.subject = this.navParams.data;
 

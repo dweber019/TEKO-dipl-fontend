@@ -25,8 +25,8 @@ export class ChatDetailPage {
     private userProvider: UserProvider,
     private actionSheetController: ActionSheetController,
   ) {
-    this.userId = navParams.data.userId;
-    this.chat = navParams.data.chat;
+    this.userId = this.navParams.data.userId;
+    this.chat = this.navParams.data.chat;
   }
 
   public ionViewDidEnter(): void {

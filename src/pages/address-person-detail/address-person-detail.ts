@@ -32,7 +32,7 @@ export class AddressPersonDetailPage {
     private modalController: ModalController,
     private userInfoProvider: UserInfoProvider,
   ) {
-    this.user = navParams.data;
+    this.user = this.navParams.data;
   }
 
   public get isAdmin(): boolean {

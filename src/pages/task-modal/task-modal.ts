@@ -5,7 +5,6 @@ import * as moment from 'moment';
 
 import { TaskProvider, Task } from './../../providers/api-services/tasks';
 import { LessonProvider, Lesson } from './../../providers/api-services/lessons';
-import { LessonType } from './../../models/LessonType';
 
 @IonicPage()
 @Component({

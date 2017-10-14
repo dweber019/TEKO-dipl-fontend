@@ -32,7 +32,7 @@ export class AddressGroupDetailPage {
     private modalController: ModalController,
     private userInfoProvider: UserInfoProvider,
   ) {
-    this.group = navParams.data;
+    this.group = this.navParams.data;
   }
 
   public ionViewDidEnter(): void {
