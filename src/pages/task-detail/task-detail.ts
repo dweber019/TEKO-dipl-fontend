@@ -44,15 +44,27 @@ export class TaskDetailPage {
     }
   }
 
+  public get shouldShowMore(): boolean {
+    if (this.tab === 'task' && this.canModifyTask()) {
+      return true;
+    }
+    if (this.tab === 'note' && this.canModifyTask()) {
+      return true;
+    }
+    if (this.tab === 'comment') {
+      return true;
+    }
+
+    return false;
+  }
+
+  public canModifyTask(): boolean {
+    return this.userInfoProvider.isAdmin() || this.userInfoProvider.isTeacher();
+  }
+
   public openActions(): void {
     let actionSheet = this.actionSheetController.create({
       buttons: [
-        {
-          text: 'Edit task',
-          handler: () => {
-            this.presentEditTaskModal();
-          }
-        },
         ...this.getActionsheetButtons(),
         {
           text: 'Cancel',
@@ -90,26 +102,43 @@ export class TaskDetailPage {
   }
 
   private getActionsheetButtons(): ActionSheetButton[] {
-    if (this.tab === 'task') {
-      return [
-        {
-          text: 'New Task Items',
-          handler: () => {
-            this.presentNewTaskItemModal();
-          }
-        },
-      ];
+    let buttons = [];
+    if (this.canModifyTask()) {
+      buttons.push({
+        text: 'Edit task',
+        handler: () => {
+          this.presentEditTaskModal();
+        }
+      });
+      buttons.push({
+        text: 'Delete task',
+        handler: () => {
+          this.taskProvider.destory(this.task.id)
+            .subscribe(() => {
+              this.navCtrl.pop();
+              this.ngRadio.cast('lesson:task:delete');
+            });
+        }
+      });
+    }
+
+    if (this.tab === 'task' && this.canModifyTask()) {
+      buttons.push({
+        text: 'New Task Items',
+        handler: () => {
+          this.presentNewTaskItemModal();
+        }
+      });
     }
     if (this.tab === 'comment') {
-      return [
-        {
-          text: 'Add comment',
-          handler: () => {
-            this.presentNewCommentModal();
-          }
-        },
-      ];
+      buttons.push({
+        text: 'Add comment',
+        handler: () => {
+          this.presentNewCommentModal();
+        }
+      });
     }
+    return buttons;
   }
 
   private realoadTask(): void {

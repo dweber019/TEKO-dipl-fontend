@@ -5,7 +5,7 @@
     </ion-avatar>
     <h2>{{ user.firstname }} {{ user.lastname }}</h2>
     <p>{{ user.type }}</p>
-    <button ion-button clear item-end icon-only color="danger" (click)="removeStudent($event, user)">
+    <button *ngIf="canModifySubject" ion-button clear item-end icon-only color="danger" (click)="removeStudent($event, user)">
       <ion-icon name="trash"></ion-icon>
     </button>
   </button>

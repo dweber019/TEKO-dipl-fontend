@@ -9,6 +9,7 @@ import {
 import { SubjectDetailPage } from './../pages';
 import { SubjectModalPage } from './../subject-modal/subject-modal';
 import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
+import { UserInfoProvider } from './../../providers/user-info';
 
 @IonicPage()
 @Component({
@@ -25,6 +26,7 @@ export class SubjectPage {
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
     private subjectProvider: SubjectProvider,
+    private userInfoProvider: UserInfoProvider,
   ) {
   }
 
@@ -34,6 +36,10 @@ export class SubjectPage {
 
   public goToDetail(subject: Subject): void {
     this.navCtrl.push(SubjectDetailPage, subject);
+  }
+
+  public get canAddSubject(): boolean {
+    return this.userInfoProvider.isTeacherOrAdmin();
   }
 
   public openActions(): void {

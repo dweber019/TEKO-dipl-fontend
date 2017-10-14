@@ -5,6 +5,7 @@ import { NgRadio } from 'ng-radio';
 
 import { AddressPersonDetailPage } from './../../pages/pages';
 import { SubjectProvider, Subject, GradeUser } from './../../providers/api-services/subjects';
+import { UserInfoProvider } from './../../providers/user-info';
 
 export interface IGradeUser {
   name: string;
@@ -28,6 +29,7 @@ export class SubjectGradeComponent {
     private navParams: NavParams,
     private subjectProvider: SubjectProvider,
     private ngRadio: NgRadio,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.subject = this.navParams.data;
   }
@@ -37,6 +39,10 @@ export class SubjectGradeComponent {
 
     this.ngRadio.on('subject:grade:*')
       .subscribe(() => this.loadGrades());
+  }
+
+  public get canModifySubject(): boolean {
+    return this.userInfoProvider.isAdmin() || this.userInfoProvider.isTeacherOf(this.subject.teacherId);
   }
 
   public loadGrades(): void {

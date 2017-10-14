@@ -11,6 +11,7 @@ import { AddressPage, AddressPersonDetailPage } from '../../pages/pages';
 import { GroupProvider, Group, User } from './../../providers/api-services/groups';
 import { AddressGroupModalPage } from './../address-group-modal/address-group-modal';
 import { AddressGroupAddPersonModalPage } from './../address-group-add-person-modal/address-group-add-person-modal';
+import { UserInfoProvider } from './../../providers/user-info';
 
 @IonicPage()
 @Component({
@@ -29,6 +30,7 @@ export class AddressGroupDetailPage {
     private groupProvider: GroupProvider,
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.group = navParams.data;
   }
@@ -39,6 +41,10 @@ export class AddressGroupDetailPage {
     } else {
       this.loadUser();
     }
+  }
+
+  public get isAdmin(): boolean {
+    return this.userInfoProvider.isAdmin();
   }
 
   public removeUser($event: Event, user: User): void {

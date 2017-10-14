@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-title>{{ subject?.name }}</ion-title>
-    <ion-buttons end>
+    <ion-buttons *ngIf="canModifySubject" end>
       <button ion-button icon-only (click)="openActions()">
         <ion-icon name="more"></ion-icon>
       </button>

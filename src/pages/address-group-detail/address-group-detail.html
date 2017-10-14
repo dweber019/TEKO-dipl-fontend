@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>{{ group.name }}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="openActions()">
+      <button *ngIf="isAdmin" ion-button icon-only (click)="openActions()">
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
@@ -22,7 +22,7 @@
       </ion-avatar>
       <h2>{{ user.firstname }} {{ user.lastname }}</h2>
       <p>{{ user.type }}</p>
-      <button ion-button clear item-end icon-only color="danger" (click)="removeUser($event, user)">
+      <button *ngIf="isAdmin" ion-button clear item-end icon-only color="danger" (click)="removeUser($event, user)">
         <ion-icon name="trash"></ion-icon>
       </button>
     </button>

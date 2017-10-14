@@ -10,6 +10,7 @@ import {
 
 import { AddressPersonModalPage } from './../address-person-modal/address-person-modal';
 import { AddressGroupModalPage } from './../address-group-modal/address-group-modal';
+import { UserInfoProvider } from './../../providers/user-info';
 
 @IonicPage()
 @Component({
@@ -25,10 +26,15 @@ export class AddressPage {
     private navParams: NavParams,
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
+    private userInfoProvider: UserInfoProvider,
   ) {
     if (this.navParams.data.segment) {
       this.tab = this.navParams.data.segment;
     }
+  }
+
+  public get canAddPerson(): boolean {
+    return this.userInfoProvider.isAdmin();
   }
 
   public openActions(): void {

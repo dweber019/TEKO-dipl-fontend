@@ -9,7 +9,7 @@
 
       <button ion-item *ngFor="let grade of user.grades">
         {{ grade.grade }} - {{ grade.gradeDate.format('L') }}
-        <button ion-button clear item-end icon-only color="danger" (click)="removeGrade($event, grade)">
+        <button *ngIf="canModifySubject" ion-button clear item-end icon-only color="danger" (click)="removeGrade($event, grade)">
           <ion-icon name="trash"></ion-icon>
         </button>
       </button>

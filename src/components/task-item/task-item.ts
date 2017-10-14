@@ -38,11 +38,19 @@ export class TaskItemCompnent {
     }
   }
 
+  public get canEditTaskItem(): boolean {
+    return this.userInfoProvider.isTeacherOrAdmin();
+  }
+
   public changeTaskItem($event, taskItem: TaskItem): void {
     console.log($event, taskItem, this.userInfoProvider.isStudent());
     if (this.userInfoProvider.isStudent()) {
       this.taskItemProvider.work(taskItem.id, $event).subscribe();
     }
+  }
+
+  public getTaskItemResult(taskItem: TaskItem): string | boolean {
+    return taskItem.users && taskItem.users[0] && taskItem.users[0].result;
   }
 
   public presentEditModal(taskItem: TaskItem): void {

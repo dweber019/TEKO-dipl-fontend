@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-title>{{ subjectName }} - {{ lesson?.startDate.format('lll') }} - {{ lesson?.endDate.format('LT') }}</ion-title>
-    <ion-buttons end>
+    <ion-buttons *ngIf="shouldShowMore" end>
       <button ion-button icon-only (click)="openActions()">
         <ion-icon name="more"></ion-icon>
       </button>

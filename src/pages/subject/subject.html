@@ -6,7 +6,7 @@
     <ion-title>
       Fächer
     </ion-title>
-    <ion-buttons end>
+    <ion-buttons *ngIf="canAddSubject" end>
       <button ion-button icon-only (click)="openActions()">
         <ion-icon name="more"></ion-icon>
       </button>
