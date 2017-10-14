@@ -24,11 +24,34 @@
 <ion-card *ngFor="let taskItem of taskItems">
   <ion-card-content>
     <h1>{{ taskItem?.title }}</h1>
-    <p>{{ taskItem?.description }}</p>
+    <p wrap>{{ taskItem?.description }}</p>
 
     <hr>
 
+    <div [ngSwitch]="taskItem?.questionType">
 
+      <ion-item *ngSwitchCase="'toggle'" no-padding>
+        <ion-label>{{ taskItem?.question }}</ion-label>
+        <ion-toggle [ngModel]="taskItem?.users[0]?.result" (ngModelChange)="changeTaskItem($event, taskItem)" [checked]="taskItem?.users[0]?.result"></ion-toggle>
+      </ion-item>
+
+      <ion-item *ngSwitchCase="'select'" no-padding>
+        <ion-select [ngModel]="taskItem?.users[0]?.result" (ngModelChange)="changeTaskItem($event, taskItem)">
+          <ion-option value="" selected="true">Wähle deine Antwort</ion-option>
+          <ion-option *ngFor="let option of getSelectOptions(taskItem)" [value]="option">{{ option }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngSwitchCase="'file'" no-padding>file</ion-item>
+
+      <ion-item *ngSwitchCase="'input'" no-padding>
+        <ion-input type="text" [ngModel]="taskItem?.users[0]?.result" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-input>
+      </ion-item>
+
+      <ion-item *ngSwitchCase="'text'" no-padding>
+        <ion-textarea autoresize type="text" [ngModel]="taskItem?.users[0]?.result" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-textarea>
+      </ion-item>
+    </div>
 
   </ion-card-content>
 

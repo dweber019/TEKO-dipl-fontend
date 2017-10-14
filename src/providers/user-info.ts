@@ -28,15 +28,15 @@ export class UserInfoProvider {
   }
 
   public isAdmin(): boolean {
-    return this.user.type === UserType.ADMIN;
+    return this.user && this.user.type === UserType.ADMIN;
   }
 
   public isTeacher(): boolean {
-    return this.user.type === UserType.TEACHER;
+    return this.user && this.user.type === UserType.TEACHER;
   }
 
   public isStudent(): boolean {
-    return this.user.type === UserType.STUDENT;
+    return this.user && this.user.type === UserType.STUDENT;
   }
 
 }

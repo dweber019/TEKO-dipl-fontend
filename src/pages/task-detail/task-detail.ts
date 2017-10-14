@@ -14,6 +14,7 @@ import { TaskProvider, Task } from './../../providers/api-services/tasks';
 import { TaskModalPage } from './../task-modal/task-modal';
 import { CommentModalPage } from './../comment-modal/comment-modal';
 import { TaskItemModalPage } from './../task-item-modal/task-item-modal';
+import { UserInfoProvider } from './../../providers/user-info';
 
 @IonicPage()
 @Component({
@@ -32,6 +33,7 @@ export class TaskDetailPage {
     private modalController: ModalController,
     private ngRadio: NgRadio,
     private taskProvider: TaskProvider,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.task = this.navParams.data;
   }
@@ -60,6 +62,10 @@ export class TaskDetailPage {
       ]
     });
     actionSheet.present();
+  }
+
+  public get showResult(): boolean {
+    return this.userInfoProvider.isAdmin() || this.userInfoProvider.isTeacher();
   }
 
   private presentEditTaskModal(): void {

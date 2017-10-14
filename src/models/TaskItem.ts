@@ -2,6 +2,7 @@ import * as moment from 'moment';
 
 import { BaseModel } from './Base';
 import { QuestionType } from './QuestionType';
+import { User } from './User';
 
 export class TaskItem extends BaseModel{
 
@@ -12,6 +13,10 @@ export class TaskItem extends BaseModel{
     public questionType: QuestionType,
     public question: string,
     public order: number,
+    public users: {
+      result: string | boolean,
+      user: User,
+    }[],
     public createdAt: moment.Moment,
     public updatedAt: moment.Moment,
   ) {
