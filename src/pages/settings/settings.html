@@ -3,24 +3,22 @@
     <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
-    <ion-title>
-      Einstellungen
-    </ion-title>
+    <ion-title>{{ 'MENU_SETTINGS' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
   <ion-item>
-    <ion-label stacked>Feed</ion-label>
+    <ion-label stacked translate="FEED"></ion-label>
     <ion-input type="text" [ngModel]="feedUrl" disabled="true"></ion-input>
   </ion-item>
   <br>
-  <button id="feed-btn" ion-button block>Kopieren</button>
+  <button id="feed-btn" ion-button block>{{ 'COPY' | translate }}</button>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-      <button ion-button block (click)="logout()">Logout</button>
+      <button ion-button block (click)="logout()">{{ 'LOGOUT' | translate }}</button>
   </ion-toolbar>
 </ion-footer>

@@ -6,7 +6,7 @@
           <ion-icon name="close"></ion-icon>
         </button>
     </ion-buttons>
-    <ion-title>New chat</ion-title>
+    <ion-title>{{ 'MENU_CHAT' | translate }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
           <ion-icon name="checkmark"></ion-icon>
@@ -22,21 +22,21 @@
   <form [formGroup]="subjectForm">
 
     <ion-item>
-      <ion-label floating>Receiver</ion-label>
+      <ion-label floating translate="RECEIVER"></ion-label>
       <ion-select [(ngModel)]="receiver" formControlName="receiver">
         <ion-option *ngFor="let user of users" [value]="user.id">{{ user?.firstname }} {{ user?.lastname }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="!subjectForm.controls.receiver.valid  && subjectForm.controls.receiver.touched" no-lines>
-      <p ion-text color="danger">Please select select one person</p>
+      <p ion-text color="danger" translate="VALIDATION_SELECT_PERSON"></p>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Message</ion-label>
+      <ion-label floating translate="MESSAGE"></ion-label>
       <ion-textarea autoresize type="text" formControlName="message"></ion-textarea>
     </ion-item>
     <ion-item *ngIf="!subjectForm.controls.message.valid  && subjectForm.controls.message.touched" no-lines>
-      <p ion-text color="danger">Please enter a message.</p>
+      <p ion-text color="danger" translate="VALIDATION_MESSAGE"></p>
     </ion-item>
 
   </form>

@@ -6,7 +6,7 @@
           <ion-icon name="close"></ion-icon>
         </button>
     </ion-buttons>
-    <ion-title>Comment</ion-title>
+    <ion-title>{{ 'COMMENT' | translate }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
           <ion-icon name="checkmark"></ion-icon>
@@ -22,11 +22,11 @@
   <form [formGroup]="subjectForm">
 
     <ion-item>
-      <ion-label floating>Message</ion-label>
+      <ion-label floating translate="MESSAGE"></ion-label>
       <ion-textarea autoresize type="text" formControlName="message"></ion-textarea>
     </ion-item>
     <ion-item *ngIf="!subjectForm.controls.message.valid  && subjectForm.controls.message.touched" no-lines>
-      <p ion-text color="danger">Please enter a message.</p>
+      <p ion-text color="danger" translate="VALIDATION_MESSAGE"></p>
     </ion-item>
 
   </form>

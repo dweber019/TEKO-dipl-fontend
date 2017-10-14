@@ -3,9 +3,7 @@
     <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
-    <ion-title>
-      Fächer
-    </ion-title>
+    <ion-title>{{ 'SUBJECTS' | translate }}</ion-title>
     <ion-buttons *ngIf="canAddSubject" end>
       <button ion-button icon-only (click)="openActions()">
         <ion-icon name="more"></ion-icon>
@@ -28,7 +26,7 @@
   <div *ngIf="!loading">
     <br>
     <br>
-    <h2 padding-left>Archiviert</h2>
+    <h2 padding-left translate="ARCHIVED"></h2>
     <hr margin-left>
     <ion-card *ngFor="let subject of archivedSubjects" (click)="goToDetail(subject)">
       <ion-item [ngClass]="'line-' + subject.getStatusColor()">

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { LessonDetailPage } from './lesson-detail';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { LessonDetailPage } from './lesson-detail';
 import { LessonTaskCompnent } from './../../components/lesson-task/lesson-task';
 import { ComponentsModule } from './../../components/components.module';
 
@@ -12,7 +13,8 @@ import { ComponentsModule } from './../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(LessonDetailPage),
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule.forChild(),
   ],
 })
 export class LessonDetailPageModule {}
