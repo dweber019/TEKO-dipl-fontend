@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, ActionSheetController } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { UserProvider, Chat } from './../../providers/api-services/users';
 import { ChatPage } from './../pages';
@@ -15,6 +16,7 @@ export class ChatDetailPage {
   @ViewChild(Content) public content: Content;
 
   private userId: number;
+  private translation;
 
   public chat: IChat;
   public message: string;
@@ -24,9 +26,15 @@ export class ChatDetailPage {
     private navParams: NavParams,
     private userProvider: UserProvider,
     private actionSheetController: ActionSheetController,
+    private translateService: TranslateService,
   ) {
     this.userId = this.navParams.data.userId;
     this.chat = this.navParams.data.chat;
+
+    this.translateService.get([
+      'CANCEL',
+      'DELETE_CHAT',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public ionViewDidEnter(): void {
@@ -62,14 +70,14 @@ export class ChatDetailPage {
       title: 'More Actions',
       buttons: [
         {
-          text: 'Delete Chat',
+          text: this.translation.DELETE_CHAT,
           role: 'destructive',
           handler: () => {
             this.delete();
           }
         },
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }

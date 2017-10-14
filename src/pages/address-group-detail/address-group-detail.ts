@@ -6,6 +6,7 @@ import {
   ActionSheetController,
   ModalController,
 } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AddressPage, AddressPersonDetailPage } from '../../pages/pages';
 import { GroupProvider, Group, User } from './../../providers/api-services/groups';
@@ -20,6 +21,8 @@ import { UserInfoProvider } from './../../providers/user-info';
 })
 export class AddressGroupDetailPage {
 
+  private translation;
+
   public group: Group;
   public users: User[];
   public loading: boolean = false;
@@ -31,8 +34,16 @@ export class AddressGroupDetailPage {
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
     private userInfoProvider: UserInfoProvider,
+    private translateService: TranslateService,
   ) {
     this.group = this.navParams.data;
+
+    this.translateService.get([
+      'CANCEL',
+      'NEW_PERSON',
+      'EDIT_GROUP',
+      'DELETE_GROUP',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public ionViewDidEnter(): void {
@@ -61,19 +72,19 @@ export class AddressGroupDetailPage {
     let actionSheet = this.actionSheetController.create({
       buttons: [
         {
-          text: 'Edit group',
+          text: this.translation.EDIT_GROUP,
           handler: () => {
             this.presentGroupModal();
           }
         },
         {
-          text: 'Add person',
+          text: this.translation.NEW_PERSON,
           handler: () => {
             this.presentGroupAddPersonModal();
           }
         },
         {
-          text: 'Delete group',
+          text: this.translation.DELETE_GROUP,
           role: 'destructive',
           handler: () => {
             this.groupProvider.destory(this.group.id)
@@ -81,7 +92,7 @@ export class AddressGroupDetailPage {
           }
         },
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }
