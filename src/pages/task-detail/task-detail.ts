@@ -8,6 +8,7 @@ import {
   ModalController
 } from 'ionic-angular';
 import { NgRadio } from 'ng-radio';
+import { TranslateService } from '@ngx-translate/core';
 
 import { SubjectPage } from './../pages';
 import { TaskProvider, Task } from './../../providers/api-services/tasks';
@@ -23,6 +24,8 @@ import { UserInfoProvider } from './../../providers/user-info';
 })
 export class TaskDetailPage {
 
+  private translation;
+
   public tab: string = 'task';
   public task: Task;
 
@@ -34,8 +37,17 @@ export class TaskDetailPage {
     private ngRadio: NgRadio,
     private taskProvider: TaskProvider,
     private userInfoProvider: UserInfoProvider,
+    private translateService: TranslateService,
   ) {
     this.task = this.navParams.data;
+
+    this.translateService.get([
+      'CANCEL',
+      'EDIT_TASK',
+      'DELETE_TASK',
+      'NEW_TASK_ITEM',
+      'NEW_COMMENT',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public ionViewDidEnter(): void {
@@ -67,7 +79,7 @@ export class TaskDetailPage {
       buttons: [
         ...this.getActionsheetButtons(),
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }
@@ -105,13 +117,13 @@ export class TaskDetailPage {
     let buttons = [];
     if (this.canModifyTask()) {
       buttons.push({
-        text: 'Edit task',
+        text: this.translation.EDIT_TASK,
         handler: () => {
           this.presentEditTaskModal();
         }
       });
       buttons.push({
-        text: 'Delete task',
+        text: this.translation.DELETE_TASK,
         handler: () => {
           this.taskProvider.destory(this.task.id)
             .subscribe(() => {
@@ -124,7 +136,7 @@ export class TaskDetailPage {
 
     if (this.tab === 'task' && this.canModifyTask()) {
       buttons.push({
-        text: 'New Task Items',
+        text: this.translation.NEW_TASK_ITEM,
         handler: () => {
           this.presentNewTaskItemModal();
         }
@@ -132,7 +144,7 @@ export class TaskDetailPage {
     }
     if (this.tab === 'comment') {
       buttons.push({
-        text: 'Add comment',
+        text: this.translation.NEW_COMMENT,
         handler: () => {
           this.presentNewCommentModal();
         }

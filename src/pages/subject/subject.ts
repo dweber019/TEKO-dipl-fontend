@@ -5,6 +5,7 @@ import {
   ActionSheetController,
   ModalController
 } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { SubjectDetailPage } from './../pages';
 import { SubjectModalPage } from './../subject-modal/subject-modal';
@@ -18,6 +19,8 @@ import { UserInfoProvider } from './../../providers/user-info';
 })
 export class SubjectPage {
 
+  private translation;
+
   public subjects: Subject[];
   public archivedSubjects: Subject[];
   public loading: boolean = false;
@@ -28,7 +31,12 @@ export class SubjectPage {
     private modalController: ModalController,
     private subjectProvider: SubjectProvider,
     private userInfoProvider: UserInfoProvider,
+    private translateService: TranslateService,
   ) {
+    this.translateService.get([
+      'CANCEL',
+      'NEW_SUBJECT',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public ionViewDidEnter(): void {
@@ -47,13 +55,13 @@ export class SubjectPage {
     let actionSheet = this.actionSheetController.create({
       buttons: [
         {
-          text: 'New Subject',
+          text: this.translation.NEW_SUBJECT,
           handler: () => {
             this.presentModal();
           }
         },
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }

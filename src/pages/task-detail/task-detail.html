@@ -23,18 +23,10 @@
 <ion-footer>
   <ion-toolbar no-border-bottom>
     <ion-segment [(ngModel)]="tab">
-      <ion-segment-button value="task" checked>
-        Aufgabe
-      </ion-segment-button>
-      <ion-segment-button value="result" *ngIf="showResult">
-        Resultat
-      </ion-segment-button>
-      <ion-segment-button value="note">
-        Notizen
-      </ion-segment-button>
-      <ion-segment-button value="comment">
-        Kommentare
-      </ion-segment-button>
+      <ion-segment-button value="task" checked>{{ 'TASK' | translate }}</ion-segment-button>
+      <ion-segment-button value="result" *ngIf="showResult">{{ 'RESULTS' | translate }}</ion-segment-button>
+      <ion-segment-button value="note">{{ 'NOTES' | translate }}</ion-segment-button>
+      <ion-segment-button value="comment">{{ 'COMMENTS' | translate }}</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-footer>

@@ -1,15 +1,25 @@
 <ion-grid>
   <ion-row>
     <ion-col col-auto>
-      Lehrperson:
+      {{ 'TEACHER' | translate }}:
     </ion-col>
     <ion-col text-right>
       {{ subject?.teacher?.firstname }} {{ subject?.teacher?.lastname }}
     </ion-col>
   </ion-row>
+  <ion-row>
+      <ion-col col-auto>
+        {{ 'ARCHIVED' | translate }}:
+      </ion-col>
+      <ion-col text-right>
+        <div *ngIf="subject.archived" translate="YES"></div>
+        <div *ngIf="!subject.archived" translate="NO"></div>
+      </ion-col>
+    </ion-row>
 </ion-grid>
 
-<h1>Unterricht</h1>
+<h1 padding-left translate="LESSON"></h1>
+<hr margin-left>
 
 <ion-card *ngFor="let lesson of lessons" (click)="goToLesson(lesson)">
   <ion-item [ngClass]="'line-' + lesson.getStatusColor()">
@@ -24,7 +34,7 @@
 <div *ngIf="!loading">
   <br>
   <br>
-  <h2 padding-left>Old Lessons</h2>
+  <h2 padding-left translate="LESSON_OLD"></h2>
   <hr margin-left>
   <ion-card *ngFor="let lesson of oldLessons" (click)="goToLesson(lesson)">
     <ion-item [ngClass]="'line-' + lesson.getStatusColor()">

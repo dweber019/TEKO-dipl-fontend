@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Notifications</ion-title>
+    <ion-title>{{ 'NOTIFICATIONS' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -30,12 +30,8 @@
 <ion-footer>
   <ion-toolbar no-border-bottom>
     <ion-segment [(ngModel)]="tab">
-      <ion-segment-button value="read" checked>
-        Gelesen
-      </ion-segment-button>
-      <ion-segment-button value="unread">
-        Ungelesen
-      </ion-segment-button>
+      <ion-segment-button value="read" checked>{{ 'NOTIFICATION_READ' | translate }}</ion-segment-button>
+      <ion-segment-button value="unread">{{ 'NOTIFICATION_UNREAD' | translate }}</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-footer>

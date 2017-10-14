@@ -13,19 +13,21 @@
 
 
 <ion-content padding>
-  <h1>Personen</h1>
+  <h1 padding-left translate="PERSONS"></h1>
 
-  <ion-list class="table">
-    <button ion-item *ngFor="let user of users" (click)="goToUser(user)">
-      <ion-avatar item-start>
-        <img src="{{ user.picture }}">
-      </ion-avatar>
-      <h2>{{ user.firstname }} {{ user.lastname }}</h2>
-      <p>{{ user.type }}</p>
-      <button *ngIf="isAdmin" ion-button clear item-end icon-only color="danger" (click)="removeUser($event, user)">
-        <ion-icon name="trash"></ion-icon>
+  <div padding-left>
+    <ion-list class="table">
+      <button ion-item *ngFor="let user of users" (click)="goToUser(user)">
+        <ion-avatar item-start>
+          <img src="{{ user.picture }}">
+        </ion-avatar>
+        <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+        <p>{{ user.type }}</p>
+        <button *ngIf="isAdmin" ion-button clear item-end icon-only color="danger" (click)="removeUser($event, user)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
       </button>
-    </button>
-  </ion-list>
-  <loader *ngIf="loading"></loader>
+    </ion-list>
+    <loader *ngIf="loading"></loader>
+  </div>
 </ion-content>

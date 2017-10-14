@@ -6,7 +6,7 @@
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Task Item</ion-title>
+    <ion-title>{{ 'TASK_ITEM' | translate }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
         <ion-icon name="checkmark"></ion-icon>
@@ -22,41 +22,41 @@
   <form [formGroup]="subjectForm">
 
     <ion-item>
-      <ion-label floating>Title</ion-label>
+      <ion-label floating translate="TITLE"></ion-label>
       <ion-input type="text" formControlName="title"></ion-input>
     </ion-item>
     <ion-item *ngIf="!subjectForm.controls.title.valid  && subjectForm.controls.title.touched" no-lines>
-      <p ion-text color="danger">Please enter a valid title.</p>
+      <p ion-text color="danger" translate="VALIDATION_TITLE"></p>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Description</ion-label>
+      <ion-label floating translate="DESCRIPTION"></ion-label>
       <ion-textarea autoresize type="text" formControlName="description"></ion-textarea>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Question Type</ion-label>
+      <ion-label floating translate="QUESTION_TYPE"></ion-label>
       <ion-select formControlName="questionType">
-        <ion-option value="toggle">Toggle (Switch)</ion-option>
-        <ion-option value="select">Auswahlbox</ion-option>
-        <ion-option value="file">Datei</ion-option>
-        <ion-option value="input">Eingabefeld</ion-option>
-        <ion-option value="text">Grosses Eingabefeld</ion-option>
+        <ion-option value="toggle" translate="QUESTION_TYPE_TOGGLE"></ion-option>
+        <ion-option value="select" translate="QUESTION_TYPE_SELECT"></ion-option>
+        <ion-option value="file" translate="QUESTION_TYPE_FILE"></ion-option>
+        <ion-option value="input" translate="QUESTION_TYPE_INPUT"></ion-option>
+        <ion-option value="text" translate="QUESTION_TYPE_TEXT"></ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="!subjectForm.controls.questionType.valid  && subjectForm.controls.questionType.touched" no-lines>
-      <p ion-text color="danger">Please select a quesiton type.</p>
+      <p ion-text color="danger" translate="VALIDATION_QUESTION_TYPE"></p>
     </ion-item>
 
     <ion-item *ngIf="needsQuestion">
-      <ion-label floating>Questions</ion-label>
+      <ion-label floating translate="QUESTIONS"></ion-label>
       <ion-textarea autoresize type="text" formControlName="question"></ion-textarea>
     </ion-item>
     <ion-item no-lines>
-        <p ion-text>Use comma seperated list</p>
+        <p ion-text translate="QUESTIONS_HELP"></p>
     </ion-item>
     <ion-item *ngIf="subjectForm.errors && subjectForm.errors.shouldHaveQuestion" no-lines>
-      <p ion-text color="danger">Please enter some valid questions.</p>
+      <p ion-text color="danger" translate="VALIDATION_QUESTIONS"></p>
     </ion-item>
 
   </form>

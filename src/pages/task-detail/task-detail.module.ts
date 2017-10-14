@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { TaskDetailPage } from './task-detail';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { TaskDetailPage } from './task-detail';
 import { TaskResultComponent } from './../../components/task-result/task-result';
 import { TaskItemCompnent } from './../../components/task-item/task-item';
 import { ComponentsModule } from './../../components/components.module';
@@ -17,6 +18,7 @@ import { DirectivesModule } from './../../directives/directives.module';
     IonicPageModule.forChild(TaskDetailPage),
     ComponentsModule,
     DirectivesModule,
+    TranslateModule.forChild(),
   ],
 })
 export class TaskDetailPageModule {}

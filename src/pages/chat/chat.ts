@@ -7,6 +7,7 @@ import {
   ModalController
 } from 'ionic-angular';
 import * as _ from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ChatDetailPage } from './../pages';
 import { UserProvider, User, Chat } from './../../providers/api-services/users';
@@ -25,6 +26,8 @@ export interface IChat {
 })
 export class ChatPage {
 
+  private translation;
+
   public chats: IChat[] = [];
   public userId: number;
   public loading: boolean = false;
@@ -34,7 +37,12 @@ export class ChatPage {
     private userProvider: UserProvider,
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
+    private translateService: TranslateService,
   ) {
+    this.translateService.get([
+      'CANCEL',
+      'NEW_CHAT',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public ionViewDidEnter(): void {
@@ -88,13 +96,13 @@ export class ChatPage {
     let actionSheet = this.actionSheetController.create({
       buttons: [
         {
-          text: 'New chat',
+          text: this.translation.NEW_CHAT,
           handler: () => {
             this.presentModal();
           }
         },
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }

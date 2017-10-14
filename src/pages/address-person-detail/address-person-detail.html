@@ -29,13 +29,15 @@
     </ion-row>
   </ion-grid>
 
-  <h1>Gruppen</h1>
+  <h1 translate="GROUPS" padding-left></h1>
 
-  <ion-list class="table">
-    <button ion-item *ngFor="let group of groups" (click)="goToGroup(group)">
-      {{ group.name }}
-    </button>
-  </ion-list>
-  <loader *ngIf="loading"></loader>
+  <div padding-left>
+    <ion-list class="table">
+      <button ion-item *ngFor="let group of groups" (click)="goToGroup(group)">
+        {{ group.name }}
+      </button>
+    </ion-list>
+    <loader *ngIf="loading"></loader>
+  </div>
 
 </ion-content>

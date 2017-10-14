@@ -6,7 +6,7 @@
           <ion-icon name="close"></ion-icon>
         </button>
     </ion-buttons>
-    <ion-title>Add person to Group</ion-title>
+    <ion-title>{{ 'PERSON_ADD_TO_GROUP' | translate }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
           <ion-icon name="checkmark"></ion-icon>
@@ -22,13 +22,13 @@
   <form [formGroup]="subjectForm">
 
     <ion-item>
-      <ion-label floating>Persons</ion-label>
+      <ion-label floating translate="PERSONS"></ion-label>
       <ion-select [(ngModel)]="persons" formControlName="persons" multiple="true">
         <ion-option *ngFor="let user of users" [value]="user.id">{{ user?.firstname }} {{ user?.lastname }}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item *ngIf="!subjectForm.controls.persons.valid  && subjectForm.controls.persons.touched" no-lines>
-      <p ion-text color="danger">Please select select at least one person</p>
+      <p ion-text color="danger" translate="VALIDATION_AT_LEAST_ONE_PERSON"></p>
     </ion-item>
 
   </form>

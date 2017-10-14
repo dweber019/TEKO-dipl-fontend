@@ -8,6 +8,7 @@ import {
   ModalController
 } from 'ionic-angular';
 import { NgRadio } from 'ng-radio';
+import { TranslateService } from '@ngx-translate/core';
 
 import { SubjectPage } from './../pages';
 import { LessonProvider, Lesson } from './../../providers/api-services/lessons';
@@ -24,6 +25,8 @@ import { UserInfoProvider } from './../../providers/user-info';
 })
 export class LessonDetailPage {
 
+  private translation;
+
   public tab: string = 'task';
   public lesson: Lesson;
   public subjectName: string;
@@ -37,9 +40,18 @@ export class LessonDetailPage {
     private ngRadio: NgRadio,
     private lessonProvider: LessonProvider,
     private userInfoProvider: UserInfoProvider,
+    private translateService: TranslateService,
   ) {
     this.subjectName = this.navParams.get('name');
     this.lesson = this.navParams.get('lesson');
+
+    this.translateService.get([
+      'CANCEL',
+      'NEW_TASK',
+      'EDIT_LESSON',
+      'DELETE_LESSON',
+      'NEW_COMMENT',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public ionViewDidEnter(): void {
@@ -74,7 +86,7 @@ export class LessonDetailPage {
       buttons: [
         ...this.getActionsheetButtons(),
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }
@@ -105,13 +117,13 @@ export class LessonDetailPage {
     let buttons = [];
     if (this.canModifyLesson()) {
       buttons.push({
-        text: 'Edit lesson',
+        text: this.translation.EDIT_LESSON,
         handler: () => {
           this.presentEditLessonModal();
         }
       });
       buttons.push({
-        text: 'Delete lesson',
+        text: this.translation.DELETE_LESSON,
         handler: () => {
           this.lessonProvider.destory(this.lesson.id)
             .subscribe(() => {
@@ -124,7 +136,7 @@ export class LessonDetailPage {
 
     if (this.tab === 'task' && this.canModifyLesson()) {
       buttons.push({
-        text: 'New task',
+        text: this.translation.NEW_TASK,
         handler: () => {
           this.presentNewTaskModal();
         }
@@ -132,7 +144,7 @@ export class LessonDetailPage {
     }
     if (this.tab === 'comment') {
       buttons.push({
-        text: 'Add comment',
+        text: this.translation.NEW_COMMENT,
         handler: () => {
           this.presentNewCommentModal();
         }

@@ -29,13 +29,13 @@ export class MyApp {
   @ViewChild(Nav) public nav: Nav;
 
   public pages: any[] = [
-    { title: 'Dashboard', component: DashboardPage },
-    { title: 'Fächer', component: SubjectPage },
-    { title: 'Noten', component: GradePage },
-    { title: 'Chat', component: ChatPage },
-    { title: 'Adressbuch', component: AddressPage },
-    { title: 'Einstellungen', component: SettingsPage },
-    { title: 'Tutorial', component: TutorialPage },
+    { title: 'MENU_DASHBOARD', component: DashboardPage },
+    { title: 'MENU_SUBJECT', component: SubjectPage },
+    { title: 'MENU_GRADE', component: GradePage },
+    { title: 'MENU_CHAT', component: ChatPage },
+    { title: 'MENU_ADDRESSBOOK', component: AddressPage },
+    { title: 'MENU_SETTINGS', component: SettingsPage },
+    { title: 'MENU_TUTORIAL', component: TutorialPage },
   ]
 
   constructor(

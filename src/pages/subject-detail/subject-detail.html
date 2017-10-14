@@ -22,15 +22,9 @@
 <ion-footer>
   <ion-toolbar no-border-bottom>
     <ion-segment [(ngModel)]="tab">
-      <ion-segment-button value="lesson" checked>
-        Unterricht
-      </ion-segment-button>
-      <ion-segment-button value="student">
-        Studenten
-      </ion-segment-button>
-      <ion-segment-button value="grade">
-        Noten
-      </ion-segment-button>
+      <ion-segment-button value="lesson" checked>{{ 'LESSONS' | translate }}</ion-segment-button>
+      <ion-segment-button value="student">{{ 'STUDENTS' | translate }}</ion-segment-button>
+      <ion-segment-button value="grade">{{ 'GRADES' | translate }}</ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-footer>

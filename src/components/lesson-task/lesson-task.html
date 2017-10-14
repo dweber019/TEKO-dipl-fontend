@@ -33,7 +33,8 @@
   </ion-row>
 </ion-grid>
 
-<h1>Aufgaben</h1>
+<h1 padding-left>Aufgaben</h1>
+<hr margin-left>
 
 <loader *ngIf="loading"></loader>
 <ion-card *ngFor="let task of tasks" (click)="goToTask(task)">

@@ -1,7 +1,7 @@
 <ion-grid>
   <ion-row>
     <ion-col col-auto>
-      Beschreibung:
+      {{ 'DESCRIPTION' | translate }}:
     </ion-col>
     <ion-col text-right>
       {{ task?.description }}
@@ -9,7 +9,7 @@
   </ion-row>
   <ion-row>
     <ion-col col-auto>
-      DueDate:
+      {{ 'DUE_DATE' | translate}}:
     </ion-col>
     <ion-col text-right>
       {{ task?.dueDate?.format('L') }}
@@ -17,7 +17,8 @@
   </ion-row>
 </ion-grid>
 
-<h1>Aufgaben</h1>
+<h1 padding-left translate="TASKS"></h1>
+<hr margin-left>
 
 <loader *ngIf="loading"></loader>
 

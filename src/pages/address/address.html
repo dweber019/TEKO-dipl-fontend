@@ -1,16 +1,10 @@
-<!--
-  Generated template for the AddressPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
     <ion-title>
-      Adressbuch
+      {{ 'MENU_ADDRESSBOOK' | translate }}
     </ion-title>
     <ion-buttons *ngIf="canAddPerson" end>
       <button ion-button icon-only (click)="openActions()">
@@ -31,10 +25,10 @@
   <ion-toolbar no-border-bottom>
     <ion-segment [(ngModel)]="tab">
       <ion-segment-button value="person" checked>
-        Personen
+        {{ 'PERSONS' | translate }}
       </ion-segment-button>
       <ion-segment-button value="group">
-        Gruppen
+        {{ 'GROUPS' | translate }}
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

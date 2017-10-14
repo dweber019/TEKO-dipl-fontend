@@ -6,6 +6,7 @@ import {
   ActionSheetButton,
   ModalController
 } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AddressPersonModalPage } from './../address-person-modal/address-person-modal';
 import { AddressGroupModalPage } from './../address-group-modal/address-group-modal';
@@ -18,6 +19,8 @@ import { UserInfoProvider } from './../../providers/user-info';
 })
 export class AddressPage {
 
+  private translation;
+
   public tab: string = 'person';
 
   constructor(
@@ -25,10 +28,17 @@ export class AddressPage {
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
     private userInfoProvider: UserInfoProvider,
+    private translateService: TranslateService,
   ) {
     if (this.navParams.data.segment) {
       this.tab = this.navParams.data.segment;
     }
+
+    this.translateService.get([
+      'CANCEL',
+      'NEW_PERSON',
+      'NEW_GROUP',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public get canAddPerson(): boolean {
@@ -40,7 +50,7 @@ export class AddressPage {
       buttons: [
         ...this.getActionSheetButtons(),
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }
@@ -53,7 +63,7 @@ export class AddressPage {
     if (this.tab === 'person') {
       return [
         {
-          text: 'New person',
+          text: this.translation.NEW_PERSON,
           handler: () => {
             this.presentPersonModal();
           }
@@ -62,7 +72,7 @@ export class AddressPage {
     }
     return [
       {
-        text: 'New group',
+        text: this.translation.NEW_GROUP,
         handler: () => {
           this.presentGroupModal();
         }

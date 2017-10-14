@@ -8,6 +8,7 @@ import {
   ModalController
 } from 'ionic-angular';
 import { NgRadio } from 'ng-radio';
+import { TranslateService } from '@ngx-translate/core';
 
 import { SubjectPage } from './../pages';
 import { SubjectModalPage } from './../subject-modal/subject-modal';
@@ -24,8 +25,9 @@ import { UserInfoProvider } from './../../providers/user-info';
 })
 export class SubjectDetailPage {
 
-  public tab: string = 'lesson';
+  private translation;
 
+  public tab: string = 'lesson';
   public subject: Subject;
 
   constructor(
@@ -36,8 +38,18 @@ export class SubjectDetailPage {
     private subjectProvider: SubjectProvider,
     private ngRadio: NgRadio,
     private userInfoProvider: UserInfoProvider,
+    private translateService: TranslateService,
   ) {
     this.subject = this.navParams.data;
+
+    this.translateService.get([
+      'CANCEL',
+      'EDIT_SUBJECT',
+      'DELETE_SUBJECT',
+      'NEW_LESSON',
+      'NEW_PERSON',
+      'NEW_GRADE',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public ionViewDidEnter(): void {
@@ -54,13 +66,13 @@ export class SubjectDetailPage {
     let actionSheet = this.actionSheetController.create({
       buttons: [
         {
-          text: 'Edit Subject',
+          text: this.translation.EDIT_SUBJECT,
           handler: () => {
             this.presentSubjectEditModal();
           }
         },
         {
-          text: 'Delete Subject',
+          text: this.translation.DELETE_SUBJECT,
           handler: () => {
             this.subjectProvider.destory(this.subject.id)
               .subscribe(() => this.navCtrl.pop());
@@ -68,7 +80,7 @@ export class SubjectDetailPage {
         },
         ...this.getActionsheetButtons(),
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }
@@ -105,7 +117,7 @@ export class SubjectDetailPage {
     if (this.tab === 'lesson') {
       return [
         {
-          text: 'New lesson',
+          text: this.translation.NEW_LESSON,
           handler: () => {
             this.presentNewLessonModal();
           }
@@ -115,7 +127,7 @@ export class SubjectDetailPage {
     if (this.tab === 'student') {
       return [
         {
-          text: 'Add person',
+          text: this.translation.NEW_PERSON,
           handler: () => {
             this.presentNewStudentModal();
           }
@@ -125,7 +137,7 @@ export class SubjectDetailPage {
     if (this.tab === 'grade') {
       return [
         {
-          text: 'New grade',
+          text: this.translation.NEW_GRADE,
           handler: () => {
             this.presentNewGradeModal();
           }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DashboardPage } from './dashboard';
 import { ComponentsModule } from './../../components/components.module';
@@ -10,7 +11,8 @@ import { ComponentsModule } from './../../components/components.module';
   ],
   imports: [
     IonicPageModule.forChild(DashboardPage),
-    ComponentsModule
+    ComponentsModule,
+    TranslateModule.forChild(),
   ],
 })
 export class DashboardPageModule {}

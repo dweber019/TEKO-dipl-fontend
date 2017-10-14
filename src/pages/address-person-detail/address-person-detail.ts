@@ -7,6 +7,7 @@ import {
   ActionSheetButton,
   ModalController,
 } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AddressPage, AddressGroupDetailPage } from '../../pages/pages';
 import { UserProvider, User, Group } from './../../providers/api-services/users';
@@ -20,6 +21,8 @@ import { UserInfoProvider } from './../../providers/user-info';
 })
 export class AddressPersonDetailPage {
 
+  private translation;
+
   public user: User;
   public groups: Group[];
   public loading: boolean = false;
@@ -31,8 +34,15 @@ export class AddressPersonDetailPage {
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
     private userInfoProvider: UserInfoProvider,
+    private translateService: TranslateService,
   ) {
     this.user = this.navParams.data;
+
+    this.translateService.get([
+      'CANCEL',
+      'EDIT_PERSON',
+      'DELETE_PERSON',
+    ]).subscribe(translation => this.translation = translation);
   }
 
   public get isAdmin(): boolean {
@@ -66,7 +76,7 @@ export class AddressPersonDetailPage {
       buttons: [
         ...this.getActionSheetbuttons(),
         {
-          text: 'Cancel',
+          text: this.translation.CANCEL,
           role: 'cancel',
           handler: () => void 0
         }
@@ -80,7 +90,7 @@ export class AddressPersonDetailPage {
 
     if (this.isAdmin || this.isOwnUser) {
       buttons.push({
-        text: 'Edit person',
+        text: this.translation.EDIT_PERSON,
         handler: () => {
           this.presentPersonModal();
         }
@@ -89,7 +99,7 @@ export class AddressPersonDetailPage {
 
     if (this.isAdmin) {
       buttons.push({
-        text: 'Delete person',
+        text: this.translation.DELETE_PERSON,
         role: 'destructive',
         handler: () => {
           this.userProvider.destory(this.user.id)
