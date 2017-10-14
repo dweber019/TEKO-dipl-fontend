@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { NgRadio } from 'ng-radio';
 
 import { LessonDetailPage } from './../../pages/pages';
-
 import { SubjectProvider, Subject, Lesson } from './../../providers/api-services/subjects';
 
 @Component({
@@ -19,6 +19,7 @@ export class SubjectLessonComponent {
     private navCtrl: NavController,
     private navParams: NavParams,
     private subjectProvider: SubjectProvider,
+    private ngRadio: NgRadio,
   ) {
     this.subject = this.navParams.data;
   }
@@ -27,6 +28,9 @@ export class SubjectLessonComponent {
     if (this.subject.id) {
       this.loadLessons();
     }
+
+    this.ngRadio.on('subject:lesson:*')
+      .subscribe(() => this.loadLessons());
   }
 
   public goToLesson(lesson: Lesson): void {

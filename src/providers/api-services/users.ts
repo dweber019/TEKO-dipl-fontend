@@ -3,16 +3,19 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { Api } from './../api/api';
-import { User } from './../../models/User';
+import { User, UserType } from './../../models/User';
 import { ChatProvider, Chat } from './chats';
 import { GroupProvider, Group } from './groups';
 import { GradeProvider, Grade } from './grades';
+import { NotificationProvider, Notification } from './notifications';
 
 export {
   User,
   Group,
   Chat,
   Grade,
+  Notification,
+  UserType,
 };
 
 export interface IUserCreate {
@@ -57,7 +60,7 @@ export class UserProvider {
       .map(data => UserProvider.toModel(data));
   }
 
-  public update(user: User): Observable<User> {
+  public update(user: { id: number, firstname: string, lastname: string, type: string }): Observable<User> {
     return this.api.put<User>(UserProvider.RESOURCE + '/' + user.id, user)
       .map(data => UserProvider.toModel(data));
   }
@@ -89,9 +92,18 @@ export class UserProvider {
     return this.api.post<void>(UserProvider.RESOURCE + '/' + user1 + '/' + ChatProvider.RESOURCE + '/' + user2 + '/read', null);
   }
 
-  public getGrades(id: number): Observable<Grade[]> {
-    return this.api.get<Grade[]>(UserProvider.RESOURCE + '/' + id + '/' + GradeProvider.RESOURCE)
+  public getGrades(): Observable<Grade[]> {
+    return this.api.get<Grade[]>(UserProvider.RESOURCE + '/me/' + GradeProvider.RESOURCE)
       .map(data => data.map(item => GradeProvider.toSubjectModel(item)));
+  }
+
+  public getNotifications(): Observable<Notification[]> {
+    return this.api.get<Notification[]>(UserProvider.RESOURCE + '/me/' + NotificationProvider.RESOURCE)
+      .map(data => data.map(item => NotificationProvider.toModel(item)));
+  }
+
+  public notificationRead(notificationId: number): Observable<void> {
+    return this.api.post<void>(UserProvider.RESOURCE + '/me/' + NotificationProvider.RESOURCE + '/' + notificationId + '/read', null);
   }
 
   public static toModel(json: User): User {

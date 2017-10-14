@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { Api } from './../api/api';
-import { Lesson } from './../../models/Lesson';
+import { Lesson, LessonType } from './../../models/Lesson';
 import { NoteProvider, Note } from './notes';
 import { CommentProvider, Comment } from './comments';
-import { TaskProvider, Task } from './tasks';
+import { TaskProvider, Task, ITaskPost } from './tasks';
 
 export {
   Lesson,
@@ -14,6 +14,15 @@ export {
   Comment,
   Task,
 };
+
+export interface ILessonPost {
+  startDate: string;
+  endDate: string;
+  location: string;
+  room: string;
+  canceled: boolean;
+  type: LessonType;
+}
 
 @Injectable()
 export class LessonProvider {
@@ -23,6 +32,20 @@ export class LessonProvider {
   constructor(
     private api: Api
   ) { }
+
+  public get(id: number): Observable<Lesson> {
+    return this.api.get<Lesson>(LessonProvider.RESOURCE + '/' + id)
+      .map(data => LessonProvider.toModel(data));
+  }
+
+  public update(id: number, lesson: ILessonPost): Observable<Lesson> {
+    return this.api.put<Lesson>(LessonProvider.RESOURCE + '/' + id, lesson)
+      .map(data => LessonProvider.toModel(data));
+  }
+
+  public destory(id: number): Observable<void> {
+    return this.api.delete<void>(LessonProvider.RESOURCE + '/' + id);
+  }
 
   public getNote(id: number): Observable<Note> {
     return this.api.get<Note>(LessonProvider.RESOURCE + '/' + id + '/' + NoteProvider.RESOURCE)
@@ -49,6 +72,11 @@ export class LessonProvider {
       .map(data => data.map(item => TaskProvider.toModel(item)));
   }
 
+  public createTask(id: number, task: ITaskPost): Observable<Task> {
+    return this.api.post<Task>(LessonProvider.RESOURCE + '/' + id + '/' + TaskProvider.RESOURCE, task)
+      .map(data => TaskProvider.toModel(data));
+  }
+
   public static toModel(json: Lesson): Lesson {
     return new Lesson(
       json.id,
@@ -59,6 +87,7 @@ export class LessonProvider {
       !!json.canceled,
       json.type,
       json.status,
+      json.subjectId,
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),
     );

@@ -6,7 +6,7 @@ import { Api } from './../api/api';
 import { Task } from './../../models/task';
 import { NoteProvider, Note } from './notes';
 import { CommentProvider, Comment } from './comments';
-import { TaskItemProvider, TaskItem } from './taskitems';
+import { TaskItemProvider, TaskItem, ITaskItemPost } from './taskitems';
 
 export {
   Task,
@@ -14,6 +14,12 @@ export {
   Comment,
   TaskItem,
 };
+
+export interface ITaskPost {
+  name: string;
+  description: string;
+  dueDate: string;
+}
 
 @Injectable()
 export class TaskProvider {
@@ -23,6 +29,20 @@ export class TaskProvider {
   constructor(
     private api: Api
   ) { }
+
+  public get(id: number): Observable<Task> {
+    return this.api.get<Task>(TaskProvider.RESOURCE + '/' + id)
+      .map(data => TaskProvider.toModel(data));
+  }
+
+  public update(id: number, task: ITaskPost): Observable<Task> {
+    return this.api.put<Task>(TaskProvider.RESOURCE + '/' + id, task)
+      .map(data => TaskProvider.toModel(data));
+  }
+
+  public destory(id: number): Observable<void> {
+    return this.api.delete<void>(TaskProvider.RESOURCE + '/' + id);
+  }
 
   public getNote(id: number): Observable<Note> {
     return this.api.get<Note>(TaskProvider.RESOURCE + '/' + id + '/' + NoteProvider.RESOURCE)
@@ -47,6 +67,11 @@ export class TaskProvider {
   public getTaskItems(id: number): Observable<TaskItem[]> {
     return this.api.get<TaskItem[]>(TaskProvider.RESOURCE + '/' + id + '/' + TaskItemProvider.RESOURCE)
       .map(data => data.map(item => TaskItemProvider.toModel(item)));
+  }
+
+  public createTaskItem(id: number, taskItem: ITaskItemPost): Observable<TaskItem> {
+    return this.api.post<TaskItem>(TaskProvider.RESOURCE + '/' + id + '/' + TaskItemProvider.RESOURCE, taskItem)
+      .map(data => TaskItemProvider.toModel(data));
   }
 
   public static toModel(json: Task): Task {

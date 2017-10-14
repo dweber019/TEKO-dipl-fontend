@@ -11,6 +11,7 @@ export class Grade extends BaseModel{
     public name: string,
     public archived: boolean,
     public teacher: User,
+    public teacherId: number,
     public grade: number,
     public gradeDate: moment.Moment,
     public createdAt: moment.Moment,
@@ -26,6 +27,7 @@ export class Grade extends BaseModel{
       this.archived,
       null,
       this.teacher,
+      this.teacherId,
       this.createdAt,
       this.updatedAt
     )

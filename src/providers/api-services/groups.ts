@@ -30,12 +30,12 @@ export class GroupProvider {
       .map(data => GroupProvider.toModel(data));
   }
 
-  public create(group: Group): Observable<Group> {
+  public create(group: { name: string }): Observable<Group> {
     return this.api.post<Group>(GroupProvider.RESOURCE, group)
       .map(data => GroupProvider.toModel(data));
   }
 
-  public update(group: Group): Observable<Group> {
+  public update(group: { id: number, name: string }): Observable<Group> {
     return this.api.put<Group>(GroupProvider.RESOURCE + '/' + group.id, group)
       .map(data => GroupProvider.toModel(data));
   }
@@ -50,7 +50,7 @@ export class GroupProvider {
   }
 
   public addUser(groupId: number, userId: number): Observable<void> {
-    return this.api.post<void>(GroupProvider.RESOURCE + '/' + groupId + '/' + UserProvider.RESOURCE + '/' + userId, null);
+    return this.api.post<void>(GroupProvider.RESOURCE + '/' + groupId + '/' + UserProvider.RESOURCE + '/' + userId, null, { responseType: 'text' });
   }
 
   public removeUser(groupId: number, userId: number): Observable<void> {

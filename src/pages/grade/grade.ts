@@ -32,25 +32,23 @@ export class GradePage {
   public ionViewDidEnter(): void {
     this.metaGrades = [];
     this.loading = true;
-    this.userProvider.getMe().subscribe(user => {
-      this.userProvider.getGrades(user.id)
-        .subscribe(data => {
-          const ids = _.uniq(_.map(data, item => item.id));
-          ids.forEach(id => {
-            const grades = data.filter(item => item.id === id);
-            const grade = _.meanBy(grades, item => item.grade);
-            const color = grade > 5 && 'secondary' || grade > 4 && 'primary' || 'danger';
-            this.metaGrades.push({
-              name: grades[0].name,
-              grade: grade.toFixed(2),
-              teacher: grades[0].teacher,
-              color,
-              grades,
-            });
+    this.userProvider.getGrades()
+      .subscribe(data => {
+        const ids = _.uniq(_.map(data, item => item.id));
+        ids.forEach(id => {
+          const grades = data.filter(item => item.id === id);
+          const grade = _.meanBy(grades, item => item.grade);
+          const color = grade >= 5 && 'secondary' || grade >= 4 && 'primary' || 'danger';
+          this.metaGrades.push({
+            name: grades[0].name,
+            grade: grade.toFixed(2),
+            teacher: grades[0].teacher,
+            color,
+            grades,
           });
-          this.loading = false;
         });
-    })
+        this.loading = false;
+      });
   }
 
   public goToSubject(grade: Grade): void {

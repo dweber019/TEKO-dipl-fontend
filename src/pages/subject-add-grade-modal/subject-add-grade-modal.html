@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>Add grade to person</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating>Person</ion-label>
+      <ion-select [(ngModel)]="person" formControlName="person">
+        <ion-option *ngFor="let user of users" [value]="user.id">{{ user?.firstname }} {{ user?.lastname }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.person.valid  && subjectForm.controls.person.touched" no-lines>
+      <p ion-text color="danger">Please select select at least one person</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Grade</ion-label>
+      <ion-input type="number" formControlName="grade"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.grade.valid  && subjectForm.controls.grade.touched" no-lines>
+      <p ion-text color="danger">Please enter a valid number.</p>
+    </ion-item>
+
+  </form>
+
+</ion-content>

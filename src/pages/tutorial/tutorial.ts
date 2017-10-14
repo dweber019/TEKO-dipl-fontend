@@ -29,8 +29,8 @@ export class TutorialPage {
     private platform: Platform,
     private nativeStorage: NativeStorage,
   ) {
-    this.dir = platform.dir();
-    translate.get(["TUTORIAL_SLIDE1_TITLE",
+    this.dir = this.platform.dir();
+    this.translate.get(["TUTORIAL_SLIDE1_TITLE",
       "TUTORIAL_SLIDE1_DESCRIPTION",
       "TUTORIAL_SLIDE2_TITLE",
       "TUTORIAL_SLIDE2_DESCRIPTION",

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
-import { Api } from './../api/api';
 import { Note } from './../../models/Note';
 
 export {
@@ -12,10 +11,6 @@ export {
 export class NoteProvider {
 
   public static RESOURCE = 'note';
-
-  constructor(
-    // private api: Api
-  ) { }
 
   public static toModel(json: Note): Note {
     return new Note(

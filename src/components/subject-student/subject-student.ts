@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { NgRadio } from 'ng-radio';
 
 import { AddressPersonDetailPage } from './../../pages/pages';
 import { SubjectProvider, Subject, User } from './../../providers/api-services/subjects';
@@ -18,16 +19,26 @@ export class SubjectStudentCompnent {
     private navCtrl: NavController,
     private navParams: NavParams,
     private subjectProvider: SubjectProvider,
+    private ngRadio: NgRadio,
   ) {
     this.subject = this.navParams.data;
   }
 
   public ngOnInit(): void {
     this.loadUsers();
+
+    this.ngRadio.on('subject:student:*')
+      .subscribe(() => this.loadUsers());
   }
 
   public goToDetail(user: User): void {
     this.navCtrl.push(AddressPersonDetailPage, user);
+  }
+
+  public removeStudent($event: Event, user: User): void {
+    $event.stopPropagation();
+    this.subjectProvider.removeUser(this.subject.id, user.id)
+      .subscribe(() => this.loadUsers());
   }
 
   private loadUsers(): void {

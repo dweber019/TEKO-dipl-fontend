@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NavParams } from 'ionic-angular';
+import { NgRadio } from 'ng-radio';
 
 import { LessonProvider, Comment } from './../../providers/api-services/lessons';
 import { TaskProvider } from './../../providers/api-services/tasks';
@@ -20,10 +21,14 @@ export class CommentComponent {
     private navParams: NavParams,
     private lessonProvider: LessonProvider,
     private taskProvider: TaskProvider,
+    private ngRadio: NgRadio,
   ) { }
 
   public ngOnInit(): void {
     this.loadComments();
+
+    this.ngRadio.on('lesson:comment:*').subscribe(() => this.loadComments());
+    this.ngRadio.on('task:comment:*').subscribe(() => this.loadComments());
   }
 
   private loadComments(): void {

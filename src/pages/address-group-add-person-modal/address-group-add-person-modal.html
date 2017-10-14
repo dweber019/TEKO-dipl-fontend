@@ -1,0 +1,36 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>Add person to Group</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating>Persons</ion-label>
+      <ion-select [(ngModel)]="persons" formControlName="persons" multiple="true">
+        <ion-option *ngFor="let user of users" [value]="user.id">{{ user?.firstname }} {{ user?.lastname }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.persons.valid  && subjectForm.controls.persons.touched" no-lines>
+      <p ion-text color="danger">Please select select at least one person</p>
+    </ion-item>
+
+  </form>
+
+</ion-content>

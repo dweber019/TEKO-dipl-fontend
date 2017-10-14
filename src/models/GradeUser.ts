@@ -2,6 +2,7 @@ import * as moment from 'moment';
 
 import { BaseModel } from './Base';
 import { User } from './User';
+import { UserType } from './UserType';
 
 export class GradeUser extends BaseModel {
 
@@ -9,9 +10,10 @@ export class GradeUser extends BaseModel {
     public id: number,
     public firstname: string,
     public lastname: string,
-    public type: string,
+    public type: UserType,
     public calenderToken: string,
     public picture: string,
+    public gradeId: number,
     public grade: number,
     public gradeDate: moment.Moment,
     public createdAt: moment.Moment,

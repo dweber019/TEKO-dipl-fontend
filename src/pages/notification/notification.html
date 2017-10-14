@@ -1,9 +1,3 @@
-<!--
-  Generated template for the NotificationPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -13,10 +7,23 @@
 </ion-header>
 
 <ion-content>
-  tab: {{ tab }}
   <div [ngSwitch]="tab">
-    <component-notification-read *ngSwitchCase="'read'"></component-notification-read>
-    <component-notification-unread *ngSwitchCase="'unread'"></component-notification-unread>
+    <div *ngSwitchCase="'read'">
+      <ion-list>
+        <button ion-item *ngFor="let notification of unreadNotifications" (click)="goToDetailAndClear(notification)">
+          {{ notification.message }}
+        </button>
+      </ion-list>
+      <loader *ngIf="loading"></loader>
+    </div>
+    <div *ngSwitchCase="'unread'">
+      <ion-list>
+        <button ion-item *ngFor="let notification of readNotifications" (click)="goToDetail(notification)">
+          {{ notification.message }}
+        </button>
+      </ion-list>
+      <loader *ngIf="loading"></loader>
+    </div>
   </div>
 </ion-content>>
 

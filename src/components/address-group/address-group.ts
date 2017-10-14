@@ -19,16 +19,20 @@ export class AddressGroupComonent {
   ) { }
 
   public ngOnInit(): void {
+    this.loadGroups();
+  }
+
+  public goToDetail(group: Group): void {
+    this.navCtrl.push(AddressGroupDetailPage, group);
+  }
+
+  private loadGroups(): void {
     this.loading = true;
     this.groupProvider.getAll()
       .subscribe(data => {
         this.loading = false;
         this.groups = data;
       });
-  }
-
-  public goToDetail(group: Group): void {
-    this.navCtrl.push(AddressGroupDetailPage, group);
   }
 
 }

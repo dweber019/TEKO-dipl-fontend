@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 
 import { LessonProvider, Note } from './../../providers/api-services/lessons';
 import { TaskProvider } from './../../providers/api-services/tasks';
@@ -17,7 +17,6 @@ export class NoteComponent {
   public id: number;
 
   constructor(
-    private navCtrl: NavController,
     private navParams: NavParams,
     private lessonProvider: LessonProvider,
     private taskProvider: TaskProvider,

@@ -17,6 +17,7 @@ import {
 } from '../pages/pages';
 import { EnvVariables } from '../modules/environment-variables/environment-variables.token';
 import { AuthenticationProvider } from './../providers/authentication/authentication';
+import { UserInfoProvider } from './../providers/user-info';
 
 @Component({
   templateUrl: 'app.html'
@@ -46,11 +47,12 @@ export class MyApp {
     @Inject(EnvVariables) private envVariables,
     private authenticationProvider: AuthenticationProvider,
     private nativeStorage: NativeStorage,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.initTranslate();
     this.initMoment();
 
-    console.log('Env variables', envVariables);
+    console.info(this.envVariables);
   }
 
   public ngOnInit(): void {
@@ -73,6 +75,8 @@ export class MyApp {
         this.authenticationProvider.isTokenExpired().then(shouldGoToLogin => {
           if (shouldGoToLogin) {
             this.authenticationProvider.goToLogin();
+          } else {
+            this.loadUserInfo();
           }
         });
       } else {
@@ -81,6 +85,8 @@ export class MyApp {
           this.authenticationProvider.isTokenExpired().then(shouldGoToLogin => {
             if (shouldGoToLogin) {
               this.authenticationProvider.goToLogin();
+            } else {
+              this.loadUserInfo();
             }
           });
         }
@@ -97,13 +103,18 @@ export class MyApp {
     });
   }
 
-  private initMoment(): void {
-    moment.locale('de');
-  }
-
   public openPage(page): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  private initMoment(): void {
+    moment.locale('de');
+  }
+
+  private loadUserInfo(): void {
+    this.userInfoProvider.loadUser()
+      .subscribe();
   }
 }
