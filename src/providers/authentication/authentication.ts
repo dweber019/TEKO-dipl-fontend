@@ -5,6 +5,7 @@ import * as jwtDecode from 'jwt-decode';
 import * as moment from 'moment';
 import * as queryString from 'query-string';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { NgRadio } from 'ng-radio';
 
 import { EnvVariables, IEnvVariables } from './../../modules/environment-variables/environment-variables.token';
 import { TutorialPage, LoginPage, DashboardPage } from './../../pages/pages';
@@ -23,7 +24,8 @@ export class AuthenticationProvider {
     @Inject(EnvVariables) private envVariables: IEnvVariables,
     private nativeStorage: NativeStorage,
     private iab: InAppBrowser,
-    private platform: Platform
+    private platform: Platform,
+    private ngRadio: NgRadio,
   ) { }
 
   public authenticate(): void {
@@ -50,6 +52,7 @@ export class AuthenticationProvider {
   public checkAuth(): boolean {
     if (this.isRedirectUrl()) {
       this.saveToken(this.extractTokenFromHash());
+      this.ngRadio.cast('login');
       this.goToMainPage();
       return true;
     }
@@ -58,6 +61,7 @@ export class AuthenticationProvider {
 
   public logoutPreActions(): void {
     this.removeToken();
+    this.ngRadio.cast('logout');
   }
 
   public logout(): void {
