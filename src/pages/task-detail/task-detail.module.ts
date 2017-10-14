@@ -16,9 +16,9 @@ import { DirectivesModule } from './../../directives/directives.module';
   ],
   imports: [
     IonicPageModule.forChild(TaskDetailPage),
+    TranslateModule.forChild(),
     ComponentsModule,
     DirectivesModule,
-    TranslateModule.forChild(),
   ],
 })
 export class TaskDetailPageModule {}

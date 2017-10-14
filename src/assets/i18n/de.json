@@ -122,5 +122,6 @@
   "EDIT_TASK": "Aufgabe editieren",
   "DELETE_TASK": "Aufgabe löschen",
   "NEW_TASK_ITEM": "Neue Teilaufgabe",
-  "NEW_COMMENT": "Neuer Kommentar"
+  "NEW_COMMENT": "Neuer Kommentar",
+  "CURRENT_FILE": "Aktuelle Datei"
 }

@@ -44,7 +44,11 @@
           </ion-select>
         </ion-item>
 
-        <ion-item *ngSwitchCase="'file'" no-padding>file</ion-item>
+        <ion-item *ngSwitchCase="'file'" no-padding>
+          <p *ngIf="getTaskItemResult(taskItem)"><a *ngIf="taskItem.questionType === 'file'" [attr.href]="getTaskItemResult(taskItem)" translate="CURRENT_FILE"></a></p>
+
+          <br>
+        </ion-item>
 
         <ion-item *ngSwitchCase="'input'" no-padding>
           <ion-input type="text" [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-input>
