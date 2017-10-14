@@ -20,3 +20,18 @@
   </ion-item>
 </ion-card>
 <loader *ngIf="loading"></loader>
+
+<div *ngIf="!loading">
+  <br>
+  <br>
+  <h2 padding-left>Old Lessons</h2>
+  <hr margin-left>
+  <ion-card *ngFor="let lesson of oldLessons" (click)="goToLesson(lesson)">
+    <ion-item [ngClass]="'line-' + lesson.getStatusColor()">
+      <h1 ion-text [color]="lesson.getStatusColor()">{{ lesson.startDate.format('lll') }} - {{ lesson.endDate.format('LT') }}</h1>
+      <p class="text-muted">{{ lesson.location }}</p>
+      <p class="text-muted">{{ lesson.room }}</p>
+      <ion-icon name="checkmark-circle" item-end [color]="lesson.getStatusColor()"></ion-icon>
+    </ion-item>
+  </ion-card>
+</div>

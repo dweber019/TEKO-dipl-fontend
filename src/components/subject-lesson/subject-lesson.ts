@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NgRadio } from 'ng-radio';
+import * as moment from 'moment';
 
 import { LessonDetailPage } from './../../pages/pages';
 import { SubjectProvider, Subject, Lesson } from './../../providers/api-services/subjects';
@@ -13,6 +14,7 @@ export class SubjectLessonComponent {
 
   public subject: Subject;
   public lessons: Lesson[];
+  public oldLessons: Lesson[];
   public loading: boolean = false;
 
   constructor(
@@ -39,11 +41,13 @@ export class SubjectLessonComponent {
 
   private loadLessons(): void {
     this.lessons = [];
+    this.oldLessons = [];
     this.loading = true;
     this.subjectProvider.getLessons(this.subject.id)
       .subscribe(data => {
         this.loading = false;
-        this.lessons = data;
+        this.lessons = data.filter(item => item.canceled === false && item.startDate.isSameOrAfter(moment(), 'day'));
+        this.oldLessons = data.filter(item => item.canceled === true || item.startDate.isBefore(moment(), 'day'));
       })
   }
 

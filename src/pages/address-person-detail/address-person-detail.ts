@@ -4,12 +4,14 @@ import {
   NavController,
   NavParams,
   ActionSheetController,
+  ActionSheetButton,
   ModalController,
 } from 'ionic-angular';
 
 import { AddressPage, AddressGroupDetailPage } from '../../pages/pages';
 import { UserProvider, User, Group } from './../../providers/api-services/users';
 import { AddressPersonModalPage } from './../address-person-modal/address-person-modal';
+import { UserInfoProvider } from './../../providers/user-info';
 
 @IonicPage()
 @Component({
@@ -28,8 +30,17 @@ export class AddressPersonDetailPage {
     private userProvider: UserProvider,
     private actionSheetController: ActionSheetController,
     private modalController: ModalController,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.user = navParams.data;
+  }
+
+  public get isAdmin(): boolean {
+    return this.userInfoProvider.isAdmin();
+  }
+
+  public get isOwnUser(): boolean {
+    return this.userInfoProvider.getUser().id === this.user.id;
   }
 
   public ionViewDidLoad(): void {
@@ -53,20 +64,7 @@ export class AddressPersonDetailPage {
   public openActions(): void {
     let actionSheet = this.actionSheetController.create({
       buttons: [
-        {
-          text: 'Edit person',
-          handler: () => {
-            this.presentPersonModal();
-          }
-        },
-        {
-          text: 'Delete person',
-          role: 'destructive',
-          handler: () => {
-            this.userProvider.destory(this.user.id)
-              .subscribe(() => this.backToPerson());
-          }
-        },
+        ...this.getActionSheetbuttons(),
         {
           text: 'Cancel',
           role: 'cancel',
@@ -75,6 +73,32 @@ export class AddressPersonDetailPage {
       ]
     });
     actionSheet.present();
+  }
+
+  private getActionSheetbuttons(): ActionSheetButton[] {
+    let buttons = [];
+
+    if (this.isAdmin || this.isOwnUser) {
+      buttons.push({
+        text: 'Edit person',
+        handler: () => {
+          this.presentPersonModal();
+        }
+      });
+    }
+
+    if (this.isAdmin) {
+      buttons.push({
+        text: 'Delete person',
+        role: 'destructive',
+        handler: () => {
+          this.userProvider.destory(this.user.id)
+            .subscribe(() => this.backToPerson());
+        }
+      });
+    }
+
+    return buttons;
   }
 
   private backToPerson(): void {

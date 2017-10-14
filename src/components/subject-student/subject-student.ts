@@ -4,6 +4,7 @@ import { NgRadio } from 'ng-radio';
 
 import { AddressPersonDetailPage } from './../../pages/pages';
 import { SubjectProvider, Subject, User } from './../../providers/api-services/subjects';
+import { UserInfoProvider } from './../../providers/user-info';
 
 @Component({
   selector: 'component-subject-student',
@@ -20,6 +21,7 @@ export class SubjectStudentCompnent {
     private navParams: NavParams,
     private subjectProvider: SubjectProvider,
     private ngRadio: NgRadio,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.subject = this.navParams.data;
   }
@@ -29,6 +31,10 @@ export class SubjectStudentCompnent {
 
     this.ngRadio.on('subject:student:*')
       .subscribe(() => this.loadUsers());
+  }
+
+  public get canModifySubject(): boolean {
+    return this.userInfoProvider.isAdmin() || this.userInfoProvider.isTeacherOf(this.subject.teacherId);
   }
 
   public goToDetail(user: User): void {

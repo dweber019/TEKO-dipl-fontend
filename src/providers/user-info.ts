@@ -23,7 +23,7 @@ export class UserInfoProvider {
   }
 
   public getUser(): User {
-    return this.user;
+    return this.user || <any>{};
   }
 
   public loadUser(): Observable<User> {
@@ -40,6 +40,14 @@ export class UserInfoProvider {
 
   public isStudent(): boolean {
     return this.user && this.user.type === UserType.STUDENT;
+  }
+
+  public isTeacherOrAdmin(): boolean {
+    return this.isTeacher() || this.isAdmin();
+  }
+
+  public isTeacherOf(id: number): boolean {
+    return this.isTeacher() && this.getUser().id === id;
   }
 
   public reset(): void {

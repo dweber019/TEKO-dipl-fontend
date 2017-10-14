@@ -89,7 +89,7 @@ export class UserProvider {
   }
 
   public chatsRead(user1: number, user2: number): Observable<void> {
-    return this.api.post<void>(UserProvider.RESOURCE + '/' + user1 + '/' + ChatProvider.RESOURCE + '/' + user2 + '/read', null);
+    return this.api.post<void>(UserProvider.RESOURCE + '/' + user1 + '/' + ChatProvider.RESOURCE + '/' + user2 + '/read', null, { responseType: 'text' });
   }
 
   public getGrades(): Observable<Grade[]> {
@@ -103,7 +103,7 @@ export class UserProvider {
   }
 
   public notificationRead(notificationId: number): Observable<void> {
-    return this.api.post<void>(UserProvider.RESOURCE + '/me/' + NotificationProvider.RESOURCE + '/' + notificationId + '/read', null);
+    return this.api.post<void>(UserProvider.RESOURCE + '/me/' + NotificationProvider.RESOURCE + '/' + notificationId + '/read', null, { responseType: 'text' });
   }
 
   public static toModel(json: User): User {

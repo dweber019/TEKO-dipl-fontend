@@ -15,6 +15,7 @@ import { SubjectProvider, Subject } from './../../providers/api-services/subject
 import { SubjectAddPersonModalPage } from './../subject-add-person-modal/subject-add-person-modal';
 import { SubjectAddGradeModalPage } from './../subject-add-grade-modal/subject-add-grade-modal';
 import { LessonModalPage } from './../lesson-modal/lesson-modal';
+import { UserInfoProvider } from './../../providers/user-info';
 
 @IonicPage()
 @Component({
@@ -34,6 +35,7 @@ export class SubjectDetailPage {
     private modalController: ModalController,
     private subjectProvider: SubjectProvider,
     private ngRadio: NgRadio,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.subject = this.navParams.data;
   }
@@ -44,6 +46,10 @@ export class SubjectDetailPage {
     }
   }
 
+  public get canModifySubject(): boolean {
+    return this.userInfoProvider.isAdmin() || this.userInfoProvider.isTeacherOf(this.subject.teacherId);
+  }
+
   public openActions(): void {
     let actionSheet = this.actionSheetController.create({
       buttons: [
@@ -51,6 +57,13 @@ export class SubjectDetailPage {
           text: 'Edit Subject',
           handler: () => {
             this.presentSubjectEditModal();
+          }
+        },
+        {
+          text: 'Delete Subject',
+          handler: () => {
+            this.subjectProvider.destory(this.subject.id)
+              .subscribe(() => this.navCtrl.pop());
           }
         },
         ...this.getActionsheetButtons(),

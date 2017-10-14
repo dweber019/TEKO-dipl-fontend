@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-title>{{ user.firstname }} {{ user.lastname }}</ion-title>
-    <ion-buttons end>
+    <ion-buttons *ngIf="isAdmin || isOwnUser" end>
       <button ion-button icon-only (click)="openActions()">
         <ion-icon name="more"></ion-icon>
       </button>

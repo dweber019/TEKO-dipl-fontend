@@ -15,6 +15,7 @@ import { SubjectProvider } from './../../providers/api-services/subjects';
 import { CommentModalPage } from './../comment-modal/comment-modal';
 import { LessonModalPage } from './../lesson-modal/lesson-modal';
 import { TaskModalPage } from './../task-modal/task-modal';
+import { UserInfoProvider } from './../../providers/user-info';
 
 @IonicPage()
 @Component({
@@ -35,6 +36,7 @@ export class LessonDetailPage {
     private modalController: ModalController,
     private ngRadio: NgRadio,
     private lessonProvider: LessonProvider,
+    private userInfoProvider: UserInfoProvider,
   ) {
     this.subjectName = this.navParams.get('name');
     this.lesson = this.navParams.get('lesson');
@@ -49,15 +51,27 @@ export class LessonDetailPage {
     }
   }
 
+  public get shouldShowMore(): boolean {
+    if (this.tab === 'task' && this.canModifyLesson()) {
+      return true;
+    }
+    if (this.tab === 'note' && this.canModifyLesson()) {
+      return true;
+    }
+    if (this.tab === 'comment') {
+      return true;
+    }
+
+    return false;
+  }
+
+  public canModifyLesson(): boolean {
+    return this.userInfoProvider.isAdmin() || this.userInfoProvider.isTeacher();
+  }
+
   public openActions(): void {
     let actionSheet = this.actionSheetController.create({
       buttons: [
-        {
-          text: 'Edit lesson',
-          handler: () => {
-            this.presentEditLessonModal();
-          }
-        },
         ...this.getActionsheetButtons(),
         {
           text: 'Cancel',
@@ -88,26 +102,44 @@ export class LessonDetailPage {
   }
 
   private getActionsheetButtons(): ActionSheetButton[] {
-    if (this.tab === 'task') {
-      return [
-        {
-          text: 'New task',
-          handler: () => {
-            this.presentNewTaskModal();
-          }
-        },
-      ];
+    let buttons = [];
+    if (this.canModifyLesson()) {
+      buttons.push({
+        text: 'Edit lesson',
+        handler: () => {
+          this.presentEditLessonModal();
+        }
+      });
+      buttons.push({
+        text: 'Delete lesson',
+        handler: () => {
+          this.lessonProvider.destory(this.lesson.id)
+            .subscribe(() => {
+              this.navCtrl.pop();
+              this.ngRadio.cast('subject:lesson:delete');
+            });
+        }
+      });
+    }
+
+    if (this.tab === 'task' && this.canModifyLesson()) {
+      buttons.push({
+        text: 'New task',
+        handler: () => {
+          this.presentNewTaskModal();
+        }
+      });
     }
     if (this.tab === 'comment') {
-      return [
-        {
-          text: 'Add comment',
-          handler: () => {
-            this.presentNewCommentModal();
-          }
-        },
-      ];
+      buttons.push({
+        text: 'Add comment',
+        handler: () => {
+          this.presentNewCommentModal();
+        }
+      });
     }
+
+    return buttons;
   }
 
 }

@@ -21,50 +21,52 @@
 
 <loader *ngIf="loading"></loader>
 
-<ion-card *ngFor="let taskItem of taskItems">
-  <ion-card-content>
-    <h1>{{ taskItem?.title }}</h1>
-    <p wrap>{{ taskItem?.description }}</p>
+<div *ngIf="!loading">
+  <ion-card *ngFor="let taskItem of taskItems">
+    <ion-card-content>
+      <h1>{{ taskItem?.title }}</h1>
+      <p wrap>{{ taskItem?.description }}</p>
 
-    <hr>
+      <hr>
 
-    <div [ngSwitch]="taskItem?.questionType">
+      <div [ngSwitch]="taskItem?.questionType">
 
-      <ion-item *ngSwitchCase="'toggle'" no-padding>
-        <ion-label>{{ taskItem?.question }}</ion-label>
-        <ion-toggle [ngModel]="taskItem?.users[0]?.result" (ngModelChange)="changeTaskItem($event, taskItem)" [checked]="taskItem?.users[0]?.result"></ion-toggle>
-      </ion-item>
+        <ion-item *ngSwitchCase="'toggle'" no-padding>
+          <ion-label>{{ taskItem?.question }}</ion-label>
+          <ion-toggle [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)" [checked]="getTaskItemResult(taskItem)"></ion-toggle>
+        </ion-item>
 
-      <ion-item *ngSwitchCase="'select'" no-padding>
-        <ion-select [ngModel]="taskItem?.users[0]?.result" (ngModelChange)="changeTaskItem($event, taskItem)">
-          <ion-option value="" selected="true">Wähle deine Antwort</ion-option>
-          <ion-option *ngFor="let option of getSelectOptions(taskItem)" [value]="option">{{ option }}</ion-option>
-        </ion-select>
-      </ion-item>
+        <ion-item *ngSwitchCase="'select'" no-padding>
+          <ion-select [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)">
+            <ion-option value="" selected="true">Wähle deine Antwort</ion-option>
+            <ion-option *ngFor="let option of getSelectOptions(taskItem)" [value]="option">{{ option }}</ion-option>
+          </ion-select>
+        </ion-item>
 
-      <ion-item *ngSwitchCase="'file'" no-padding>file</ion-item>
+        <ion-item *ngSwitchCase="'file'" no-padding>file</ion-item>
 
-      <ion-item *ngSwitchCase="'input'" no-padding>
-        <ion-input type="text" [ngModel]="taskItem?.users[0]?.result" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-input>
-      </ion-item>
+        <ion-item *ngSwitchCase="'input'" no-padding>
+          <ion-input type="text" [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-input>
+        </ion-item>
 
-      <ion-item *ngSwitchCase="'text'" no-padding>
-        <ion-textarea autoresize type="text" [ngModel]="taskItem?.users[0]?.result" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-textarea>
-      </ion-item>
-    </div>
+        <ion-item *ngSwitchCase="'text'" no-padding>
+          <ion-textarea autoresize type="text" [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-textarea>
+        </ion-item>
+      </div>
 
-  </ion-card-content>
+    </ion-card-content>
 
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small (click)="presentEditModal(taskItem)">
-        <ion-icon name="brush"></ion-icon>
-        <div>Edit</div>
-      </button>
-      <button ion-button icon-left clear small color="danger" (click)="deleteTaskItem(taskItem)">
-        <ion-icon name="trash"></ion-icon>
-        <div>Delete</div>
-      </button>
-    </ion-col>
-  </ion-row>
-</ion-card>
+    <ion-row *ngIf="canEditTaskItem">
+      <ion-col>
+        <button ion-button icon-left clear small (click)="presentEditModal(taskItem)">
+          <ion-icon name="brush"></ion-icon>
+          <div>Edit</div>
+        </button>
+        <button ion-button icon-left clear small color="danger" (click)="deleteTaskItem(taskItem)">
+          <ion-icon name="trash"></ion-icon>
+          <div>Delete</div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</div>

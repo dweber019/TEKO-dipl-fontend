@@ -6,7 +6,7 @@
     <ion-title>
       Fächer
     </ion-title>
-    <ion-buttons end>
+    <ion-buttons *ngIf="canAddSubject" end>
       <button ion-button icon-only (click)="openActions()">
         <ion-icon name="more"></ion-icon>
       </button>
@@ -24,4 +24,18 @@
     </ion-item>
   </ion-card>
   <loader *ngIf="loading"></loader>
+
+  <div *ngIf="!loading">
+    <br>
+    <br>
+    <h2 padding-left>Archiviert</h2>
+    <hr margin-left>
+    <ion-card *ngFor="let subject of archivedSubjects" (click)="goToDetail(subject)">
+      <ion-item [ngClass]="'line-' + subject.getStatusColor()">
+        <h1 ion-text [color]="subject.getStatusColor()">{{ subject.name }}</h1>
+        <h2>{{ subject?.teacher?.firstname }} {{ subject?.teacher?.lastname }}</h2>
+        <ion-icon name="checkmark-circle" item-end [color]="subject.getStatusColor()"></ion-icon>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>
