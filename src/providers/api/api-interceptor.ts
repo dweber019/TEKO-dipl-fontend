@@ -24,13 +24,21 @@ export class ApiInterceptor implements HttpInterceptor {
       // switch the token with the next.hanlde method (avoid nested observables)
       .switchMap(token => {
 
-        request = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'applicaiton/json',
-            'Content-Type': 'applicaiton/json',
-          }
-        });
+        if (request.url.match(/taskItems\/\d+\/file/g)) {
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+            }
+          });
+        } else {
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'applicaiton/json',
+              'Content-Type': 'applicaiton/json',
+            }
+          });
+        }
 
         return next.handle(request);
       })

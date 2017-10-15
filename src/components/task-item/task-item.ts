@@ -17,6 +17,8 @@ export class TaskItemCompnent {
   public taskItems: any[];
   public loading: boolean = false;
 
+  private files: { [key:number]: File; } = {};
+
   constructor(
     private navParams: NavParams,
     private taskProvider: TaskProvider,
@@ -37,12 +39,29 @@ export class TaskItemCompnent {
     }
   }
 
+  public fileChangeEvent($event, taskItem: TaskItem): void {
+    const target = $event.target;
+    if (target.files && target.files[0]) {
+      this.files[taskItem.id] = target.files[0];
+    }
+  }
+
+  public upload(taskItem: TaskItem) {
+    if (this.files[taskItem.id]) {
+      const formData = new FormData();
+      formData.append("file", this.files[taskItem.id]);
+      this.taskItemProvider.uploadFile(taskItem.id, formData)
+        .subscribe(() => {
+          this.loadTaskItems();
+        });
+    }
+  }
+
   public get canEditTaskItem(): boolean {
     return this.userInfoProvider.isTeacherOrAdmin();
   }
 
   public changeTaskItem($event, taskItem: TaskItem): void {
-    console.log($event, taskItem, this.userInfoProvider.isStudent());
     if (this.userInfoProvider.isStudent()) {
       this.taskItemProvider.work(taskItem.id, $event).subscribe();
     }

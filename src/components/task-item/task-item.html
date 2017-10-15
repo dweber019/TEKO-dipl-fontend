@@ -48,6 +48,9 @@
           <p *ngIf="getTaskItemResult(taskItem)"><a *ngIf="taskItem.questionType === 'file'" [attr.href]="getTaskItemResult(taskItem)" translate="CURRENT_FILE"></a></p>
 
           <br>
+          <input [attr.id]="'file-upload-' + taskItem.id" type="file" #fileInput style="display: none;" (change)="fileChangeEvent($event, taskItem)"/>
+          <label [attr.for]="'file-upload-' + taskItem.id" ion-button>Select file</label>
+          <button ion-button type="button" (click)="upload(taskItem)">Upload</button>
         </ion-item>
 
         <ion-item *ngSwitchCase="'input'" no-padding>
