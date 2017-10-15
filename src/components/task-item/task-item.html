@@ -45,12 +45,15 @@
         </ion-item>
 
         <ion-item *ngSwitchCase="'file'" no-padding>
-          <p *ngIf="getTaskItemResult(taskItem)"><a *ngIf="taskItem.questionType === 'file'" [attr.href]="getTaskItemResult(taskItem)" translate="CURRENT_FILE"></a></p>
+          <p *ngIf="getTaskItemResult(taskItem)"><a *ngIf="taskItem.questionType === 'file'" [attr.href]="getTaskItemUrl(taskItem)">{{ getTaskItemResult(taskItem) }}</a></p>
 
           <br>
           <input [attr.id]="'file-upload-' + taskItem.id" type="file" #fileInput style="display: none;" (change)="fileChangeEvent($event, taskItem)"/>
-          <label [attr.for]="'file-upload-' + taskItem.id" ion-button>Select file</label>
-          <button ion-button type="button" (click)="upload(taskItem)">Upload</button>
+          <label [attr.for]="'file-upload-' + taskItem.id" ion-button>{{ 'SELECT_FILE' | translate }}</label>
+          <button ion-button type="button" (click)="upload(taskItem)">{{ 'UPLOAD' | translate }}</button>
+        </ion-item>
+        <ion-item *ngSwitchCase="'file'" no-lines no-padding>
+          <p ion-text translate="VALIDATION_FILE_HELP"></p>
         </ion-item>
 
         <ion-item *ngSwitchCase="'input'" no-padding>

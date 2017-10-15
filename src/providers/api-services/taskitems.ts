@@ -56,7 +56,8 @@ export class TaskItemProvider {
       json.order,
       json.users && json.users.map(item => ({
         result: json.questionType === QuestionType.TOGGLE ? !!item.result : item.result,
-        user: UserProvider.toModel(item.user)
+        user: UserProvider.toModel(item.user),
+        fileUrl: item.fileUrl,
       })),
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),

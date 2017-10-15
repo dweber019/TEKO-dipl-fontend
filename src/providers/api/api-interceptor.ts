@@ -1,4 +1,4 @@
-import { App, NavController } from 'ionic-angular';
+import { App, NavController, ToastController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,7 +12,8 @@ export class ApiInterceptor implements HttpInterceptor {
 
   constructor(
     private authenticationProvider: AuthenticationProvider,
-    private app: App
+    private app: App,
+    private toastController: ToastController,
   ) { }
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -51,6 +52,12 @@ export class ApiInterceptor implements HttpInterceptor {
           if (err.status === 401) {
             // redirect to the login route
             this.navCtrl.setRoot(LoginPage);
+          } else {
+            let toast = this.toastController.create({
+              message: 'Error',
+              duration: 2000
+            });
+            toast.present();
           }
         }
       });

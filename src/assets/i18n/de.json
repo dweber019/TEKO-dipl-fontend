@@ -123,5 +123,14 @@
   "DELETE_TASK": "Aufgabe löschen",
   "NEW_TASK_ITEM": "Neue Teilaufgabe",
   "NEW_COMMENT": "Neuer Kommentar",
-  "CURRENT_FILE": "Aktuelle Datei"
+  "CURRENT_FILE": "Aktuelle Datei",
+  "LOADING": "Bitte warten...",
+  "SELECT_FILE": "Datei wählen...",
+  "UPLOAD": "Hochladen",
+  "UPLOAD_SUCCESS": "Die Datei erfolgreich hochgeladen",
+  "HTTP_ERROR": "Ein Fehler ist aufgetretten",
+  "FILE_TO_BIG": "Die Datei darf nicht grösser als 100mb sein",
+  "FILE_WRONG_EXT": "Die Datei Typ ist nicht zulässig",
+  "SELECT_A_FILE": "Wählen sie eine Datei",
+  "VALIDATION_FILE_HELP": "Die Datei darf nicht grösser als 100mb sein und muss folgende Dateiendung haben: jpeg,jpg,bmp,png,pdf,doc,docx,ppt,pptx,txt,md"
 }
