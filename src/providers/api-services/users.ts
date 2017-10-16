@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
-import { Api } from './../api/Api';
+import { Api } from './../api/api';
 import { User, UserType } from './../../models/User';
 import { ChatProvider, Chat } from './chats';
 import { GroupProvider, Group } from './groups';
