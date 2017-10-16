@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { Api } from './../api/api';
-import { Comment } from './../../models/comment';
+import { Comment } from './../../models/Comment';
 
 export {
   Comment,

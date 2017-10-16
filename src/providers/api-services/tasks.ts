@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 import { Api } from './../api/api';
-import { Task } from './../../models/task';
+import { Task } from './../../models/Task';
 import { NoteProvider, Note } from './notes';
 import { CommentProvider, Comment } from './comments';
 import { TaskItemProvider, TaskItem, ITaskItemPost } from './taskitems';

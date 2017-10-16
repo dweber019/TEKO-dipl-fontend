@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
-import { Grade } from './../../models/grade';
-import { GradeUser } from './../../models/gradeuser';
+import { Grade } from './../../models/Grade';
+import { GradeUser } from './../../models/GradeUser';
 import { UserProvider } from './users';
 
 export {
