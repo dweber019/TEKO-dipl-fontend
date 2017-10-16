@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { HttpHeaders } from '@angular/common/http';
 
 import { Api } from './../api/api';
 import { TaskItem } from './../../models/TaskItem';
@@ -42,7 +41,6 @@ export class TaskItemProvider {
   }
 
   public uploadFile(id: number, formData): Observable<void> {
-    const headers = new HttpHeaders();
     return this.api.post<void>(TaskItemProvider.RESOURCE + '/' + id + '/file', formData, { responseType: 'text' });
   }
 

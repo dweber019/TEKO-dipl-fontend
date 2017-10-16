@@ -44,6 +44,7 @@ export class AddressPage {
   }
 
   public get canAddPerson(): boolean {
+    console.log('canAddPerson', this.userInfoProvider.isAdmin());
     return this.userInfoProvider.isAdmin();
   }
 

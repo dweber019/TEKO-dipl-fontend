@@ -4,7 +4,6 @@ import { NgRadio } from 'ng-radio';
 
 import { TaskProvider, Task } from './../../providers/api-services/tasks';
 import { TaskItem } from './../../providers/api-services/taskitems';
-import { QuestionType } from './../../models/QuestionType';
 
 @Component({
   selector: 'component-task-result',

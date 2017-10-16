@@ -18,7 +18,10 @@ export class UserInfoProvider {
     private userProvider: UserProvider,
     private ngRadio: NgRadio,
   ) {
-    this.ngRadio.on('login').subscribe(() => this.loadUser());
+    this.ngRadio.on('login').subscribe(() => {
+      console.log('loadUser');
+      this.loadUser();
+    });
     this.ngRadio.on('logout').subscribe(() => this.reset());
   }
 

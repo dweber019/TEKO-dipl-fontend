@@ -48,12 +48,12 @@
           <p *ngIf="getTaskItemResult(taskItem)"><a *ngIf="taskItem.questionType === 'file'" [attr.href]="getTaskItemUrl(taskItem)">{{ getTaskItemResult(taskItem) }}</a></p>
 
           <br>
-          <input [attr.id]="'file-upload-' + taskItem.id" type="file" #fileInput style="display: none;" (change)="fileChangeEvent($event, taskItem)"/>
-          <label [attr.for]="'file-upload-' + taskItem.id" ion-button>{{ 'SELECT_FILE' | translate }}</label>
+          <input [attr.id]="'file-upload-' + taskItem.id" type="file" accept="*" (change)="fileChangeEvent($event, taskItem)"/>
+          <br>
           <button ion-button type="button" (click)="upload(taskItem)">{{ 'UPLOAD' | translate }}</button>
         </ion-item>
         <ion-item *ngSwitchCase="'file'" no-lines no-padding>
-          <p ion-text translate="VALIDATION_FILE_HELP"></p>
+          <p ion-text translate="VALIDATION_FILE_HELP" wrap></p>
         </ion-item>
 
         <ion-item *ngSwitchCase="'input'" no-padding>

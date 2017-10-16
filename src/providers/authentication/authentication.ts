@@ -42,6 +42,7 @@ export class AuthenticationProvider {
       oauthBrowserInstance.on('loadstart').subscribe(event => {
         if (this.isRedirectUrl(event.url)) {
           this.saveToken(this.extractTokenFromHash(event.url));
+          this.ngRadio.cast('login');
           this.goToMainPage();
           oauthBrowserInstance.close();
         }

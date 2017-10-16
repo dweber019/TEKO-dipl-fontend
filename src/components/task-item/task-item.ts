@@ -1,4 +1,3 @@
-import { Lesson } from './../../models/Lesson';
 import { Component } from '@angular/core';
 import { NavParams, ModalController, LoadingController, ToastController } from 'ionic-angular';
 import { NgRadio } from 'ng-radio';
