@@ -6,10 +6,10 @@ notifications:
 
 install:
   - npm install -g ionic cordova
-  - npm install
+  - yarn install
 
 script:
-  - ionic build browser
+  - ionic cordova build browser
 
 deploy:
   skip_cleanup: true
