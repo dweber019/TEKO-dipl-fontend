@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { HttpHeaders } from '@angular/common/http';
 
 import { Api } from './../api/api';
 import { TaskItem } from './../../models/TaskItem';
@@ -40,6 +41,11 @@ export class TaskItemProvider {
     return this.api.put<TaskItem>(TaskItemProvider.RESOURCE + '/' + id + '/work', { result }, { responseType: 'text' });
   }
 
+  public uploadFile(id: number, formData): Observable<void> {
+    const headers = new HttpHeaders();
+    return this.api.post<void>(TaskItemProvider.RESOURCE + '/' + id + '/file', formData, { responseType: 'text' });
+  }
+
   public static toModel(json: TaskItem): TaskItem {
     return new TaskItem(
       json.id,
@@ -50,7 +56,8 @@ export class TaskItemProvider {
       json.order,
       json.users && json.users.map(item => ({
         result: json.questionType === QuestionType.TOGGLE ? !!item.result : item.result,
-        user: UserProvider.toModel(item.user)
+        user: UserProvider.toModel(item.user),
+        fileUrl: item.fileUrl,
       })),
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),

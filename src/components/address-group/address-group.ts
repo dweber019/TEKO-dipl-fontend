@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { NgRadio } from 'ng-radio';
 
 import { AddressGroupDetailPage } from './../../pages/pages';
 import { GroupProvider, Group } from './../../providers/api-services/groups';
@@ -15,8 +16,11 @@ export class AddressGroupComonent {
 
   constructor(
     private navCtrl: NavController,
-    private groupProvider: GroupProvider
-  ) { }
+    private groupProvider: GroupProvider,
+    private ngRadio: NgRadio,
+  ) {
+    this.ngRadio.on('group:*').subscribe(() => this.loadGroups());
+  }
 
   public ngOnInit(): void {
     this.loadGroups();

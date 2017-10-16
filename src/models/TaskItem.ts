@@ -16,6 +16,7 @@ export class TaskItem extends BaseModel{
     public users: {
       result: string | boolean,
       user: User,
+      fileUrl: string,
     }[],
     public createdAt: moment.Moment,
     public updatedAt: moment.Moment,

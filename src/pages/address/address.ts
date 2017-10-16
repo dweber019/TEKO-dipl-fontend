@@ -7,6 +7,7 @@ import {
   ModalController
 } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+import { NgRadio } from 'ng-radio';
 
 import { AddressPersonModalPage } from './../address-person-modal/address-person-modal';
 import { AddressGroupModalPage } from './../address-group-modal/address-group-modal';
@@ -29,6 +30,7 @@ export class AddressPage {
     private modalController: ModalController,
     private userInfoProvider: UserInfoProvider,
     private translateService: TranslateService,
+    private ngRadio: NgRadio,
   ) {
     if (this.navParams.data.segment) {
       this.tab = this.navParams.data.segment;
@@ -82,11 +84,13 @@ export class AddressPage {
 
   private presentPersonModal(): void {
     let modal = this.modalController.create(AddressPersonModalPage);
+    modal.onDidDismiss(() => this.ngRadio.cast('person:add'));
     modal.present();
   }
 
   private presentGroupModal(): void {
     let modal = this.modalController.create(AddressGroupModalPage);
+    modal.onDidDismiss(() => this.ngRadio.cast('group:add'));
     modal.present();
   }
 

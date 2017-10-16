@@ -4,6 +4,7 @@ import { NgRadio } from 'ng-radio';
 
 import { TaskProvider, Task } from './../../providers/api-services/tasks';
 import { TaskItem } from './../../providers/api-services/taskitems';
+import { QuestionType } from './../../models/QuestionType';
 
 @Component({
   selector: 'component-task-result',
@@ -29,6 +30,13 @@ export class TaskResultComponent {
 
       this.ngRadio.on('taskitem:add').subscribe(() => this.loadTaskItems());
     }
+  }
+
+  public fileSplitName(name: string): string {
+    if (name) {
+      return (<string>name).split(';')[0];
+    }
+    return name;
   }
 
   private loadTaskItems(): void {

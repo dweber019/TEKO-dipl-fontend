@@ -10,7 +10,8 @@
     <ion-list class="table" *ngIf="taskItem.users.length > 0">
       <ion-item *ngFor="let item of taskItem.users">
         <h2>{{ item?.user?.firstname }} {{ item?.user?.lastname }}</h2>
-        <p wrap>{{ item?.result }}</p>
+        <p *ngIf="taskItem.questionType !== 'file'" wrap>{{ item?.result }}</p>
+        <a *ngIf="taskItem.questionType === 'file'" [attr.href]="item?.fileUrl">{{ fileSplitName(item.result) }}</a>
       </ion-item>
     </ion-list>
 
