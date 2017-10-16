@@ -9,7 +9,7 @@ install:
   - yarn install
 
 script:
-  - ionic cordova build browser
+  - ionic cordova build browser --prod
 
 deploy:
   skip_cleanup: true

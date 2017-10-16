@@ -1,13 +1,12 @@
 import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { GroupProvider, Group } from './../../providers/api-services/groups';
 import { UserProvider, User } from './../../providers/api-services/users';
 import { UserType } from './../../models/UserType';
 
-@IonicPage()
 @Component({
   selector: 'page-address-group-add-person-modal',
   templateUrl: 'address-group-add-person-modal.html',

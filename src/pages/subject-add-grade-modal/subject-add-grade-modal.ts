@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
 import { User } from './../../providers/api-services/users';
 
-@IonicPage()
 @Component({
   selector: 'page-subject-add-grade-modal',
   templateUrl: 'subject-add-grade-modal.html',

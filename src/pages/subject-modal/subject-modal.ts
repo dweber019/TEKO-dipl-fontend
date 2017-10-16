@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { UserProvider, User } from './../../providers/api-services/users';
 import { UserType } from './../../models/UserType';
 import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
 
-@IonicPage()
 @Component({
   selector: 'page-subject-modal',
   templateUrl: 'subject-modal.html',

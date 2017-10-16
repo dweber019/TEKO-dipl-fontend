@@ -1,11 +1,10 @@
 import { UserInfoProvider } from './../../providers/user-info';
 import { Component } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { UserProvider, User } from './../../providers/api-services/users';
 
-@IonicPage()
 @Component({
   selector: 'page-chat-modal',
   templateUrl: 'chat-modal.html',

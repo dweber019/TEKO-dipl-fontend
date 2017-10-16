@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 
 import { TaskProvider, Task } from './../../providers/api-services/tasks';
 import { LessonProvider, Lesson } from './../../providers/api-services/lessons';
 
-@IonicPage()
 @Component({
   selector: 'page-task-modal',
   templateUrl: 'task-modal.html',

@@ -1,13 +1,12 @@
 import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { SubjectProvider, Subject } from './../../providers/api-services/subjects';
 import { UserProvider, User } from './../../providers/api-services/users';
 import { UserType } from './../../models/UserType';
 
-@IonicPage()
 @Component({
   selector: 'page-subject-add-person-modal',
   templateUrl: 'subject-add-person-modal.html',

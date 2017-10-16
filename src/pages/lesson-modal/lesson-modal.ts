@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 
@@ -7,7 +7,6 @@ import { SubjectProvider, Subject } from './../../providers/api-services/subject
 import { LessonProvider, Lesson } from './../../providers/api-services/lessons';
 import { LessonType } from './../../models/LessonType';
 
-@IonicPage()
 @Component({
   selector: 'page-lesson-modal',
   templateUrl: 'lesson-modal.html',
