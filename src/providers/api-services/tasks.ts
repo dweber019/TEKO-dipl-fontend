@@ -49,6 +49,10 @@ export class TaskProvider {
       .map(data => NoteProvider.toModel(data));
   }
 
+  public doneTask(id: number): Observable<void> {
+    return this.api.put<void>(TaskProvider.RESOURCE + '/' + id + '/done', null, { responseType: 'text' });
+  }
+
   public updateNote(id: number, note: string): Observable<Note> {
     return this.api.put<Note>(TaskProvider.RESOURCE + '/' + id + '/' + NoteProvider.RESOURCE, { note })
       .map(data => NoteProvider.toModel(data));

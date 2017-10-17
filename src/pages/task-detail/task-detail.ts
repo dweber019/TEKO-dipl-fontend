@@ -47,6 +47,7 @@ export class TaskDetailPage {
       'DELETE_TASK',
       'NEW_TASK_ITEM',
       'NEW_COMMENT',
+      'TASK_SUBMIT',
     ]).subscribe(translation => this.translation = translation);
   }
 
@@ -57,10 +58,10 @@ export class TaskDetailPage {
   }
 
   public get shouldShowMore(): boolean {
-    if (this.tab === 'task' && this.canModifyTask()) {
+    if (this.tab === 'task') {
       return true;
     }
-    if (this.tab === 'note' && this.canModifyTask()) {
+    if (this.tab === 'note') {
       return true;
     }
     if (this.tab === 'comment') {
@@ -139,6 +140,14 @@ export class TaskDetailPage {
         text: this.translation.NEW_TASK_ITEM,
         handler: () => {
           this.presentNewTaskItemModal();
+        }
+      });
+    }
+    if (this.userInfoProvider.isStudent()) {
+      buttons.push({
+        text: this.translation.TASK_SUBMIT,
+        handler: () => {
+          this.taskProvider.doneTask(this.task.id).subscribe(() => this.navCtrl.pop());
         }
       });
     }

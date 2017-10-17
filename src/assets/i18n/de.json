@@ -115,7 +115,7 @@
   "EDIT_SUBJECT": "Fach editieren",
   "DELETE_SUBJECT": "Fach löschen",
   "NEW_GRADE": "Note hinzufügen",
-  "NEW_LESSSON": "Neue Lektion",
+  "NEW_LESSON": "Neue Lektion",
   "EDIT_LESSON": "Lektion editieren",
   "DELETE_LESSON": "Lektion löschen",
   "NEW_TASK": "Neue Aufgabe",
@@ -132,5 +132,6 @@
   "FILE_TO_BIG": "Die Datei darf nicht grösser als 100mb sein",
   "FILE_WRONG_EXT": "Die Datei Typ ist nicht zulässig",
   "SELECT_A_FILE": "Wählen sie eine Datei",
-  "VALIDATION_FILE_HELP": "Die Datei darf nicht grösser als 100mb sein und muss folgende Dateiendung haben: jpeg,jpg,bmp,png,pdf,doc,docx,ppt,pptx,txt,md"
+  "VALIDATION_FILE_HELP": "Die Datei darf nicht grösser als 100mb sein und muss folgende Dateiendung haben: jpeg,jpg,bmp,png,pdf,doc,docx,ppt,pptx,txt,md",
+  "TASK_SUBMIT": "Abgeben"
 }
