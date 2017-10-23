@@ -121,7 +121,7 @@ export class AuthenticationProvider {
   }
 
   private extractTokenFromHash(url?: string): string {
-    const parseUrl = url ? url.replace(window.location.origin + '/#', '') : window.location.hash.substring(1);
+    const parseUrl = url ? url.replace('http://localhost:8100/#', '') : window.location.hash.substring(1);
     const accessToken = queryString.parse(parseUrl).access_token;
     return accessToken;
   }
