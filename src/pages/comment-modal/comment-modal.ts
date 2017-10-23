@@ -3,7 +3,8 @@ import { NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { TaskProvider, Task } from './../../providers/api-services/tasks';
-import { LessonProvider, Lesson } from './../../providers/api-services/lessons';
+import { LessonProvider, Lesson, Comment } from './../../providers/api-services/lessons';
+import { CommentProvider } from './../../providers/api-services/comments';
 
 @Component({
   selector: 'page-comment-modal',
@@ -14,6 +15,7 @@ export class CommentModalPage {
   public subjectForm: FormGroup;
   private lesson: Lesson;
   private task: Task;
+  private comment: Comment;
 
   constructor(
     private navParams: NavParams,
@@ -21,12 +23,14 @@ export class CommentModalPage {
     private formBuilder: FormBuilder,
     private lessonProvider: LessonProvider,
     private taskProvider: TaskProvider,
+    private commentProvider: CommentProvider,
   ) {
     this.lesson = this.navParams.get('lesson') || {};
     this.task = this.navParams.get('task') || {};
+    this.comment = this.navParams.get('comment') || {};
 
     this.subjectForm = this.formBuilder.group({
-      message: new FormControl('', Validators.compose([Validators.maxLength(512), Validators.required])),
+      message: new FormControl(this.comment.message, Validators.compose([Validators.maxLength(512), Validators.required])),
     });
   }
 
@@ -36,12 +40,17 @@ export class CommentModalPage {
 
   public save(): void {
     if (this.subjectForm.valid) {
-      if (this.lesson.id) {
-        this.lessonProvider.createComment(this.lesson.id, this.subjectForm.get('message').value)
+      if (this.comment.id) {
+        this.commentProvider.update(this.comment.id, this.subjectForm.get('message').value)
           .subscribe(() => this.viewController.dismiss());
       } else {
-        this.taskProvider.createComment(this.task.id, this.subjectForm.get('message').value)
-          .subscribe(() => this.viewController.dismiss());
+        if (this.lesson.id) {
+          this.lessonProvider.createComment(this.lesson.id, this.subjectForm.get('message').value)
+            .subscribe(() => this.viewController.dismiss());
+        } else {
+          this.taskProvider.createComment(this.task.id, this.subjectForm.get('message').value)
+            .subscribe(() => this.viewController.dismiss());
+        }
       }
     }
   }

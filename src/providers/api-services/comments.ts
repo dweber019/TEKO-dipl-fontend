@@ -4,6 +4,7 @@ import * as moment from 'moment';
 
 import { Api } from './../api/api';
 import { Comment } from './../../models/Comment';
+import { UserProvider } from './users';
 
 export {
   Comment,
@@ -19,7 +20,7 @@ export class CommentProvider {
   ) { }
 
   public update(id: number, message: string): Observable<Comment> {
-    return this.api.put<Comment>(CommentProvider.RESOURCE + '/' + id, message)
+    return this.api.put<Comment>(CommentProvider.RESOURCE + '/' + id, { message })
       .map(data => CommentProvider.toModel(data));
   }
 
@@ -31,7 +32,7 @@ export class CommentProvider {
     return new Comment(
       json.id,
       json.message,
-      json.user,
+      json.user && UserProvider.toModel(json.user),
       json.createdAt && moment(json.createdAt),
       json.updatedAt && moment(json.updatedAt),
     );

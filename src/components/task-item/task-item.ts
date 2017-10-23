@@ -56,7 +56,7 @@ export class TaskItemCompnent {
   public fileChangeEvent($event, taskItem: TaskItem): void {
     const target = $event.target;
     if (target.files && target.files[0]) {
-      if (target.files[0].size > 100000) {
+      if (target.files[0].size > 104857600) {
         this.showFileToBig();
         return;
       }
@@ -85,7 +85,8 @@ export class TaskItemCompnent {
           });
           toast.present();
           this.loadTaskItems();
-        });
+        },
+        () => loader.dismiss());
     } else {
       let toast = this.toastController.create({
         message: this.translation.SELECT_A_FILE,

@@ -22,4 +22,8 @@ export class User extends BaseModel {
     super(id, createdAt, updatedAt);
   }
 
+  public getFullname(): string {
+    return `${this.firstname} ${this.lastname}`.trim();
+  }
+
 }
