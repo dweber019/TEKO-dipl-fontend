@@ -56,18 +56,11 @@ export class MyApp {
   }
 
   public ngOnInit(): void {
-    this.nativeStorage.getItem('hideTutorial').then(hide => {
-      if (hide) {
-        this.rootPage = DashboardPage;
-      } else {
-        this.rootPage = TutorialPage;
-      }
-    });
-
     this.platform.ready().then((source) => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#f8f8f8');
       this.splashScreen.hide();
 
       if (this.platform.is('ios') || this.platform.is('android')) {
@@ -76,7 +69,7 @@ export class MyApp {
           if (shouldGoToLogin) {
             this.authenticationProvider.goToLogin();
           } else {
-            this.loadUserInfo();
+            this.startApp();
           }
         });
       } else {
@@ -86,11 +79,11 @@ export class MyApp {
             if (shouldGoToLogin) {
               this.authenticationProvider.goToLogin();
             } else {
-              this.loadUserInfo();
+              this.startApp();
             }
           });
         } else {
-          this.loadUserInfo();
+          this.startApp();
         }
       }
     });
@@ -122,5 +115,16 @@ export class MyApp {
   private loadUserInfo(): void {
     this.userInfoProvider.loadUser()
       .subscribe();
+  }
+
+  private startApp(): void {
+    this.loadUserInfo();
+    this.nativeStorage.getItem('hideTutorial').then(hide => {
+      if (hide) {
+        this.rootPage = DashboardPage;
+      } else {
+        this.rootPage = TutorialPage;
+      }
+    });
   }
 }
