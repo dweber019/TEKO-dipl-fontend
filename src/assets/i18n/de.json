@@ -94,6 +94,7 @@
 	"VALIDATION_NAME": "Wähle einen Namen.",
 	"VALIDATION_NUMBER": "Wähle eine valide Nummer.",
 	"VALIDATION_ONE_VALID_PERSON": "Bitte gib eine Person an.",
+	"VALIDATION_ONE_VALID_PERSON_OR_GROUP": "Bitte gib mindestens eine Person oder eine Gruppe an.",
 	"VALIDATION_PERSON_TYPE": "Wähle einen Personentype.",
 	"VALIDATION_QUESTIONS": "Wähle Antwortmöglichkeiten.",
 	"VALIDATION_QUESTION_TYPE": "Wähle einen Fragetyp.",
@@ -133,5 +134,6 @@
   "FILE_WRONG_EXT": "Die Datei Typ ist nicht zulässig",
   "SELECT_A_FILE": "Wählen sie eine Datei",
   "VALIDATION_FILE_HELP": "Die Datei darf nicht grösser als 100mb sein und muss folgende Dateiendung haben: jpeg,jpg,bmp,png,pdf,doc,docx,ppt,pptx,txt,md",
-  "TASK_SUBMIT": "Abgeben"
+  "TASK_SUBMIT": "Abgeben",
+  "OR": "Oder"
 }

@@ -27,8 +27,23 @@
         <ion-option *ngFor="let user of users" [value]="user.id">{{ user?.firstname }} {{ user?.lastname }}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item *ngIf="!subjectForm.controls.persons.valid  && subjectForm.controls.persons.touched" no-lines>
-      <p ion-text color="danger" translate="VALIDATION_ONE_VALID_PERSON"></p>
+    <ion-item *ngIf="subjectForm.errors && subjectForm.errors.personsOrGroup" no-lines>
+        <p ion-text color="danger" translate="VALIDATION_ONE_VALID_PERSON_OR_GROUP"></p>
+    </ion-item>
+
+    <ion-item no-lines>
+      <br>
+      <h2 translate="OR"></h2>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating translate="GROUP"></ion-label>
+      <ion-select [(ngModel)]="group" formControlName="group">
+        <ion-option *ngFor="let group of groups" [value]="group.id">{{ group?.name }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="subjectForm.errors && subjectForm.errors.personsOrGroup" no-lines>
+        <p ion-text color="danger" translate="VALIDATION_ONE_VALID_PERSON_OR_GROUP"></p>
     </ion-item>
 
   </form>
