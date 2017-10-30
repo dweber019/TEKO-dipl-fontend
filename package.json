@@ -1,8 +1,8 @@
 {
-    "name": "frontend",
-    "version": "0.0.1",
-    "author": "Ionic Framework",
-    "homepage": "http://ionicframework.com/",
+    "name": "easy-learn",
+    "version": "1.0.0",
+    "author": "David Weber",
+    "homepage": "https://w3tec.ch/",
     "private": true,
     "scripts": {
         "clean": "ionic-app-scripts clean",
