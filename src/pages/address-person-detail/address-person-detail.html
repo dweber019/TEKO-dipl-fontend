@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ user.firstname }} {{ user.lastname }}</ion-title>
+    <ion-buttons *ngIf="isAdmin || isOwnUser" end>
+      <button ion-button icon-only (click)="openActions()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-auto>
+        <ion-avatar style="max-width: 150px;">
+          <img src="{{ user.picture }}">
+        </ion-avatar>
+      </ion-col>
+      <ion-col col-auto>
+        <h1>{{ user.firstname }}</h1>
+        <h1>{{ user.lastname }}</h1>
+        <p>{{ user.type }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <h1 translate="GROUPS" padding-left></h1>
+
+  <div padding-left>
+    <ion-list class="table">
+      <button ion-item *ngFor="let group of groups" (click)="goToGroup(group)">
+        {{ group.name }}
+      </button>
+    </ion-list>
+    <loader *ngIf="loading"></loader>
+  </div>
+
+</ion-content>

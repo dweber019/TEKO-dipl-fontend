@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ group.name }}</ion-title>
+    <ion-buttons end>
+      <button *ngIf="isAdmin" ion-button icon-only (click)="openActions()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h1 padding-left translate="PERSONS"></h1>
+
+  <div padding-left>
+    <ion-list class="table">
+      <button ion-item *ngFor="let user of users" (click)="goToUser(user)">
+        <ion-avatar item-start>
+          <img src="{{ user.picture }}">
+        </ion-avatar>
+        <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+        <p>{{ user.type }}</p>
+        <button *ngIf="isAdmin" ion-button clear item-end icon-only color="danger" (click)="removeUser($event, user)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </button>
+    </ion-list>
+    <loader *ngIf="loading"></loader>
+  </div>
+</ion-content>

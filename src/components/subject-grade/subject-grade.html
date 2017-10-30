@@ -1,0 +1,21 @@
+<ion-card *ngFor="let user of users" (click)="goToUser(user)">
+  <ion-item [ngClass]="'line-' + user.color">
+    <h1 ion-text [color]="user.color">{{ user.name }}</h1>
+    <ion-badge name="checkmark-circle" item-end [color]="user.color" class="h1">{{ user.grade }}</ion-badge>
+  </ion-item>
+
+  <ion-card-content>
+    <ion-list class="table">
+
+      <button ion-item *ngFor="let grade of user.grades">
+        {{ grade.grade }} - {{ grade.gradeDate.format('L') }}
+        <button *ngIf="canModifySubject" ion-button clear item-end icon-only color="danger" (click)="removeGrade($event, grade)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </button>
+
+    </ion-list>
+
+  </ion-card-content>
+</ion-card>
+<loader *ngIf="loading"></loader>

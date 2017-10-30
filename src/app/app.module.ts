@@ -1,74 +1,96 @@
 import { ErrorHandler, NgModule } from '@angular/core';
-import { Http, HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { Camera } from '@ionic-native/camera';
-import { GoogleMaps } from '@ionic-native/google-maps';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { IonicStorageModule, Storage } from '@ionic/storage';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { NgRadio } from 'ng-radio';
 
-import { Items } from '../mocks/providers/items';
-import { Settings } from '../providers/providers';
-import { User } from '../providers/providers';
-import { Api } from '../providers/providers';
+import { EnvironmentsModule } from '../modules/environment-variables/environment-variables.module';
 import { MyApp } from './app.component';
+import { ApiInterceptor } from './../providers/api/api-interceptor';
+import { prodviders } from './../providers/providers';
+import { NativeStorageMock } from './../native-mocks';
+import { ComponentsModule } from './../components/components.module';
+import { DirectivesModule } from './../directives/directives.module';
+import { SubjectModalPage } from './../pages/subject-modal/subject-modal';
+import { AddressPersonModalPage } from './../pages/address-person-modal/address-person-modal';
+import { AddressGroupModalPage } from './../pages/address-group-modal/address-group-modal';
+import { AddressGroupAddPersonModalPage } from './../pages/address-group-add-person-modal/address-group-add-person-modal';
+import { SubjectAddPersonModalPage } from './../pages/subject-add-person-modal/subject-add-person-modal';
+import { SubjectAddGradeModalPage } from './../pages/subject-add-grade-modal/subject-add-grade-modal';
+import { ChatModalPage } from './../pages/chat-modal/chat-modal';
+import { LessonModalPage } from './../pages/lesson-modal/lesson-modal';
+import { CommentModalPage } from './../pages/comment-modal/comment-modal';
+import { TaskModalPage } from './../pages/task-modal/task-modal';
+import { TaskItemModalPage } from './../pages/task-item-modal/task-item-modal';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
-export function HttpLoaderFactory(http: Http) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+export function HttpLoaderFactory(httpClient: HttpClient) {
 
-export function provideSettings(storage: Storage) {
-  /**
-   * The Settings provider takes a set of default settings for your app.
-   *
-   * You can add new settings options at any time. Once the settings are saved,
-   * these values will not overwrite the saved values (this can be done manually if desired).
-   */
-  return new Settings(storage, {
-    option1: true,
-    option2: 'Ionitron J. Framework',
-    option3: '3',
-    option4: 'Hello'
-  });
+  return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    SubjectModalPage,
+    AddressPersonModalPage,
+    AddressGroupModalPage,
+    AddressGroupAddPersonModalPage,
+    ChatModalPage,
+    SubjectAddPersonModalPage,
+    SubjectAddGradeModalPage,
+    LessonModalPage,
+    CommentModalPage,
+    TaskModalPage,
+    TaskItemModalPage,
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [Http]
+        deps: [HttpClient]
       }
     }),
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    EnvironmentsModule,
+    ComponentsModule,
+    DirectivesModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    SubjectModalPage,
+    AddressPersonModalPage,
+    AddressGroupModalPage,
+    AddressGroupAddPersonModalPage,
+    ChatModalPage,
+    SubjectAddPersonModalPage,
+    SubjectAddGradeModalPage,
+    LessonModalPage,
+    CommentModalPage,
+    TaskModalPage,
+    TaskItemModalPage,
   ],
   providers: [
-    Api,
-    Items,
-    User,
-    Camera,
-    GoogleMaps,
+    ...prodviders,
     SplashScreen,
     StatusBar,
-    { provide: Settings, useFactory: provideSettings, deps: [Storage] },
+    InAppBrowser,
+    { provide: NativeStorage, useClass: NativeStorageMock }, // Has to be changed in the feature
     // Keep this to enable Ionic's runtime error handling during development
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
+    NgRadio,
   ]
 })
 export class AppModule { }

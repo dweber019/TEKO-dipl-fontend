@@ -1,0 +1,83 @@
+<ion-grid>
+  <ion-row>
+    <ion-col col-auto>
+      {{ 'DESCRIPTION' | translate }}:
+    </ion-col>
+    <ion-col text-right>
+      {{ task?.description }}
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col col-auto>
+      {{ 'DUE_DATE' | translate}}:
+    </ion-col>
+    <ion-col text-right>
+      {{ task?.dueDate?.format('L') }}
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<h1 padding-left translate="TASKS"></h1>
+<hr margin-left>
+
+<loader *ngIf="loading"></loader>
+
+<div *ngIf="!loading">
+  <ion-card *ngFor="let taskItem of taskItems">
+    <ion-card-content>
+      <h1>{{ taskItem?.title }}</h1>
+      <p wrap>{{ taskItem?.description }}</p>
+
+      <hr>
+
+      <div [ngSwitch]="taskItem?.questionType">
+
+        <ion-item *ngSwitchCase="'toggle'" no-padding>
+          <ion-label>{{ taskItem?.question }}</ion-label>
+          <ion-toggle [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)" [checked]="getTaskItemResult(taskItem)"></ion-toggle>
+        </ion-item>
+
+        <ion-item *ngSwitchCase="'select'" no-padding>
+          <ion-select [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)">
+            <ion-option value="" selected="true">Wähle deine Antwort</ion-option>
+            <ion-option *ngFor="let option of getSelectOptions(taskItem)" [value]="option">{{ option }}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngSwitchCase="'file'" no-padding>
+          <p *ngIf="getTaskItemResult(taskItem)"><a *ngIf="taskItem.questionType === 'file'" [attr.href]="getTaskItemUrl(taskItem)">{{ getTaskItemResult(taskItem) }}</a></p>
+
+          <br>
+          <input [attr.id]="'file-upload-' + taskItem.id" type="file" accept="*" (change)="fileChangeEvent($event, taskItem)"/>
+          <br>
+          <button ion-button type="button" (click)="upload(taskItem)">{{ 'UPLOAD' | translate }}</button>
+        </ion-item>
+        <ion-item *ngSwitchCase="'file'" no-lines no-padding>
+          <p ion-text translate="VALIDATION_FILE_HELP" wrap></p>
+        </ion-item>
+
+        <ion-item *ngSwitchCase="'input'" no-padding>
+          <ion-input type="text" [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-input>
+        </ion-item>
+
+        <ion-item *ngSwitchCase="'text'" no-padding>
+          <ion-textarea autoresize type="text" [ngModel]="getTaskItemResult(taskItem)" (ngModelChange)="changeTaskItem($event, taskItem)" placeholder="Enter your Answser"></ion-textarea>
+        </ion-item>
+      </div>
+
+    </ion-card-content>
+
+    <ion-row *ngIf="canEditTaskItem">
+      <ion-col>
+        <button ion-button icon-left clear small (click)="presentEditModal(taskItem)">
+          <ion-icon name="brush"></ion-icon>
+          <div>Edit</div>
+        </button>
+        <button ion-button icon-left clear small color="danger" (click)="deleteTaskItem(taskItem)">
+          <ion-icon name="trash"></ion-icon>
+          <div>Delete</div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</div>

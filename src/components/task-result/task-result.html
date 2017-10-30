@@ -1,0 +1,20 @@
+<ion-card *ngFor="let taskItem of taskItems">
+  <ion-item class="line-primary">
+    <h1 ion-text color="primary">{{ taskItem?.title }}</h1>
+    <p *ngIf="taskItem.description" wrap>{{ taskItem?.description }}</p>
+    <hr>
+    <p *ngIf="taskItem.question">Mögliche Antworten: {{ taskItem?.question }}</p>
+  </ion-item>
+
+  <ion-card-content>
+    <ion-list class="table" *ngIf="taskItem.users.length > 0">
+      <ion-item *ngFor="let item of taskItem.users">
+        <h2>{{ item?.user?.firstname }} {{ item?.user?.lastname }}</h2>
+        <p *ngIf="taskItem.questionType !== 'file'" wrap>{{ item?.result }}</p>
+        <a *ngIf="taskItem.questionType === 'file'" [attr.href]="item?.fileUrl">{{ fileSplitName(item.result) }}</a>
+      </ion-item>
+    </ion-list>
+
+  </ion-card-content>
+</ion-card>
+<loader *ngIf="loading"></loader>

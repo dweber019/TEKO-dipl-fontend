@@ -1,0 +1,6 @@
+<ion-list>
+  <ion-item *ngFor="let group of groups" (click)="goToDetail(group)">
+    {{ group.name }}
+  </ion-item>
+</ion-list>
+<loader *ngIf="loading"></loader>

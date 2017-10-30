@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>
+      {{ 'MENU_ADDRESSBOOK' | translate }}
+    </ion-title>
+    <ion-buttons *ngIf="canAddPerson" end>
+      <button ion-button icon-only (click)="openActions()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="tab">
+    <component-address-person *ngSwitchCase="'person'"></component-address-person>
+    <component-address-group *ngSwitchCase="'group'"></component-address-group>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="person" checked>
+        {{ 'PERSONS' | translate }}
+      </ion-segment-button>
+      <ion-segment-button value="group">
+        {{ 'GROUPS' | translate }}
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

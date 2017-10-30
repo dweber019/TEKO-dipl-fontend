@@ -1,0 +1,34 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>{{ 'COMMENT' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating translate="MESSAGE"></ion-label>
+      <ion-textarea autoresize type="text" formControlName="message"></ion-textarea>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.message.valid  && subjectForm.controls.message.touched" no-lines>
+      <p ion-text color="danger" translate="VALIDATION_MESSAGE"></p>
+    </ion-item>
+
+  </form>
+
+</ion-content>

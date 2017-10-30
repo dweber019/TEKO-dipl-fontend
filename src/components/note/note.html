@@ -1,0 +1,10 @@
+<loader *ngIf="loading"></loader>
+
+<ckeditor
+  *ngIf="showEditor"
+  [(ngModel)]="ckeditorContent"
+  [config]="{height: '420', extraPlugins: 'divarea'}"
+  [readonly]="false"
+  (change)="onChange($event)"
+  debounce="500">
+</ckeditor>

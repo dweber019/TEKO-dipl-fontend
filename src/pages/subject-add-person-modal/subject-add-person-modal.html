@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>{{ 'PERSON_ADD_SUBJECT' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating translate="PERSONS"></ion-label>
+      <ion-select [(ngModel)]="persons" formControlName="persons" multiple="true">
+        <ion-option *ngFor="let user of users" [value]="user.id">{{ user?.firstname }} {{ user?.lastname }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="subjectForm.errors && subjectForm.errors.personsOrGroup" no-lines>
+        <p ion-text color="danger" translate="VALIDATION_ONE_VALID_PERSON_OR_GROUP"></p>
+    </ion-item>
+
+    <ion-item no-lines>
+      <br>
+      <h2 translate="OR"></h2>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating translate="GROUP"></ion-label>
+      <ion-select [(ngModel)]="group" formControlName="group">
+        <ion-option *ngFor="let group of groups" [value]="group.id">{{ group?.name }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="subjectForm.errors && subjectForm.errors.personsOrGroup" no-lines>
+        <p ion-text color="danger" translate="VALIDATION_ONE_VALID_PERSON_OR_GROUP"></p>
+    </ion-item>
+
+  </form>
+
+</ion-content>

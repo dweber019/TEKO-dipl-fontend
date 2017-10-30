@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>{{ 'GRADE_ADD_PERSON' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating translate="PERSON"></ion-label>
+      <ion-select [(ngModel)]="person" formControlName="person">
+        <ion-option *ngFor="let user of users" [value]="user.id">{{ user?.firstname }} {{ user?.lastname }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.person.valid  && subjectForm.controls.person.touched" no-lines>
+      <p ion-text color="danger" translate="VALIDATION_ONE_VALID_PERSON"></p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating translate="GRADE"></ion-label>
+      <ion-input type="number" formControlName="grade"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.grade.valid  && subjectForm.controls.grade.touched" no-lines>
+      <p ion-text color="danger" translate="VALIDATION_NUMBER"></p>
+    </ion-item>
+
+  </form>
+
+</ion-content>

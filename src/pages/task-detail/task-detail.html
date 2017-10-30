@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ task?.name }}</ion-title>
+    <ion-buttons *ngIf="shouldShowMore" end>
+      <button ion-button icon-only (click)="openActions()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div [ngSwitch]="tab">
+    <compnent-task-item *ngSwitchCase="'task'"></compnent-task-item>
+    <component-task-result *ngSwitchCase="'result'"></component-task-result>
+    <component-note *ngSwitchCase="'note'" entity="task"></component-note>
+    <component-comment *ngSwitchCase="'comment'" entity="task"></component-comment>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="task" checked>{{ 'TASK' | translate }}</ion-segment-button>
+      <ion-segment-button value="result" *ngIf="showResult">{{ 'RESULTS' | translate }}</ion-segment-button>
+      <ion-segment-button value="note">{{ 'NOTES' | translate }}</ion-segment-button>
+      <ion-segment-button value="comment">{{ 'COMMENTS' | translate }}</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

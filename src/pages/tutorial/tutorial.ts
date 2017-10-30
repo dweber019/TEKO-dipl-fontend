@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, MenuController, NavController, Platform } from 'ionic-angular';
-
 import { TranslateService } from '@ngx-translate/core';
+import { NativeStorage } from '@ionic-native/native-storage';
+
+import { MainPage } from '../pages';
 
 export interface Slide {
   title: string;
@@ -15,13 +17,20 @@ export interface Slide {
   templateUrl: 'tutorial.html'
 })
 export class TutorialPage {
-  slides: Slide[];
-  showSkip = true;
-  dir: string = 'ltr';
 
-  constructor(public navCtrl: NavController, public menu: MenuController, translate: TranslateService, public platform: Platform) {
-    this.dir = platform.dir();
-    translate.get(["TUTORIAL_SLIDE1_TITLE",
+  public slides: Slide[];
+  public showSkip = true;
+  public dir: string = 'ltr';
+
+  constructor(
+    private navCtrl: NavController,
+    private menu: MenuController,
+    private translate: TranslateService,
+    private platform: Platform,
+    private nativeStorage: NativeStorage,
+  ) {
+    this.dir = this.platform.dir();
+    this.translate.get(["TUTORIAL_SLIDE1_TITLE",
       "TUTORIAL_SLIDE1_DESCRIPTION",
       "TUTORIAL_SLIDE2_TITLE",
       "TUTORIAL_SLIDE2_DESCRIPTION",
@@ -29,46 +38,57 @@ export class TutorialPage {
       "TUTORIAL_SLIDE3_DESCRIPTION",
     ]).subscribe(
       (values) => {
-        console.log('Loaded values', values);
         this.slides = [
           {
             title: values.TUTORIAL_SLIDE1_TITLE,
             description: values.TUTORIAL_SLIDE1_DESCRIPTION,
-            image: 'assets/img/ica-slidebox-img-1.png',
+            image: 'assets/img/if_calendar.svg',
           },
           {
             title: values.TUTORIAL_SLIDE2_TITLE,
             description: values.TUTORIAL_SLIDE2_DESCRIPTION,
-            image: 'assets/img/ica-slidebox-img-2.png',
+            image: 'assets/img/if_compose.svg',
           },
           {
             title: values.TUTORIAL_SLIDE3_TITLE,
             description: values.TUTORIAL_SLIDE3_DESCRIPTION,
-            image: 'assets/img/ica-slidebox-img-3.png',
+            image: 'assets/img/if_trophy.svg',
           }
         ];
       });
+
+
   }
 
-  startApp() {
-    this.navCtrl.setRoot('WelcomePage', {}, {
-      animate: true,
-      direction: 'forward'
-    });
-  }
-
-  onSlideChangeStart(slider) {
-    this.showSkip = !slider.isEnd();
-  }
-
-  ionViewDidEnter() {
+  public ionViewDidEnter(): void {
     // the root left menu should be disabled on the tutorial page
     this.menu.enable(false);
   }
 
-  ionViewWillLeave() {
+  public ionViewWillLeave(): void {
     // enable the root left menu when leaving the tutorial page
     this.menu.enable(true);
+  }
+
+  public startApp(): void {
+    this.goToMainPage();
+  }
+
+  public startAppRemember(): void {
+    this.nativeStorage.setItem('hideTutorial', true);
+
+    this.goToMainPage();
+  }
+
+  public onSlideChangeStart(slider): void {
+    this.showSkip = !slider.isEnd();
+  }
+
+  private goToMainPage(): void {
+    this.navCtrl.setRoot(MainPage, {}, {
+      animate: true,
+      direction: 'forward'
+    });
   }
 
 }

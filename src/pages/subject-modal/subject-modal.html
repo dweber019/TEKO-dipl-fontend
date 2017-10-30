@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>{{ 'SUBJECT' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating translate="NAME"></ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.name.valid  && subjectForm.controls.name.touched" no-lines>
+      <p ion-text color="danger" translate="VALIDATION_NAME"></p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating translate="TEACHER"></ion-label>
+      <ion-select [(ngModel)]="subject.teacherId" formControlName="teacherId">
+        <ion-option *ngFor="let user of users" [value]="user.id">{{ user?.firstname }} {{ user?.lastname }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.teacherId.valid  && subjectForm.controls.teacherId.touched" no-lines>
+      <p ion-text color="danger" translate="VALIDATION_TEACHER"></p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label translate="ARCHIVED"></ion-label>
+      <ion-toggle [checked]="archived" formControlName="archived"></ion-toggle>
+    </ion-item>
+
+  </form>
+
+</ion-content>

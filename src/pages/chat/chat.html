@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>{{ 'MENU_CHAT' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openActions()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let chat of chats" (click)="goToChat(chat)">
+      <ion-avatar item-start>
+        <img src="{{ chat.partner.picture }}">
+      </ion-avatar>
+      <h2>{{ chat.partner.firstname }} {{ chat.partner.lastname }}</h2>
+      <p>{{ chat.partner.type }}</p>
+      <ion-badge *ngIf="chat.count > 0" item-end>{{ chat.count }}</ion-badge>
+    </button>
+  </ion-list>
+  <loader *ngIf="loading"></loader>
+</ion-content>

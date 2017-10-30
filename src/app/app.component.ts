@@ -1,82 +1,130 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
+import * as moment from 'moment';
+import { NativeStorage } from '@ionic-native/native-storage';
 
-import { FirstRunPage } from '../pages/pages';
-import { Settings } from '../providers/providers';
+import {
+  TutorialPage,
+  DashboardPage,
+  SubjectPage,
+  GradePage,
+  ChatPage,
+  AddressPage,
+  SettingsPage
+} from '../pages/pages';
+import { EnvVariables } from '../modules/environment-variables/environment-variables.token';
+import { AuthenticationProvider } from './../providers/authentication/authentication';
+import { UserInfoProvider } from './../providers/user-info';
 
 @Component({
-  template: `<ion-menu [content]="content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Pages</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content>
-      <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-      </ion-list>
-    </ion-content>
-
-  </ion-menu>
-  <ion-nav #content [root]="rootPage"></ion-nav>`
+  templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = FirstRunPage;
 
-  @ViewChild(Nav) nav: Nav;
+  public rootPage;
 
-  pages: any[] = [
-    { title: 'Tutorial', component: 'TutorialPage' },
-    { title: 'Welcome', component: 'WelcomePage' },
-    { title: 'Tabs', component: 'TabsPage' },
-    { title: 'Cards', component: 'CardsPage' },
-    { title: 'Content', component: 'ContentPage' },
-    { title: 'Login', component: 'LoginPage' },
-    { title: 'Signup', component: 'SignupPage' },
-    { title: 'Map', component: 'MapPage' },
-    { title: 'Master Detail', component: 'ListMasterPage' },
-    { title: 'Menu', component: 'MenuPage' },
-    { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Search', component: 'SearchPage' }
+  @ViewChild(Nav) public nav: Nav;
+
+  public pages: any[] = [
+    { title: 'MENU_DASHBOARD', component: DashboardPage },
+    { title: 'MENU_SUBJECT', component: SubjectPage },
+    { title: 'MENU_GRADE', component: GradePage },
+    { title: 'MENU_CHAT', component: ChatPage },
+    { title: 'MENU_ADDRESSBOOK', component: AddressPage },
+    { title: 'MENU_SETTINGS', component: SettingsPage },
+    { title: 'MENU_TUTORIAL', component: TutorialPage },
   ]
 
-  constructor(private translate: TranslateService, private platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(
+    private translate: TranslateService,
+    private platform: Platform,
+    private config: Config,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen,
+    @Inject(EnvVariables) private envVariables,
+    private authenticationProvider: AuthenticationProvider,
+    private nativeStorage: NativeStorage,
+    private userInfoProvider: UserInfoProvider,
+  ) {
     this.initTranslate();
+    this.initMoment();
+
+    console.info(this.envVariables);
   }
 
-  ionViewDidLoad() {
-    this.platform.ready().then(() => {
+  public ngOnInit(): void {
+    this.platform.ready().then((source) => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#f8f8f8');
       this.splashScreen.hide();
+
+      if (this.platform.is('ios') || this.platform.is('android')) {
+        // Check if token is expiered
+        this.authenticationProvider.isTokenExpired().then(shouldGoToLogin => {
+          if (shouldGoToLogin) {
+            this.authenticationProvider.goToLogin();
+          } else {
+            this.startApp();
+          }
+        });
+      } else {
+        if (!this.authenticationProvider.checkAuth()) {
+          // Check if token is expiered
+          this.authenticationProvider.isTokenExpired().then(shouldGoToLogin => {
+            if (shouldGoToLogin) {
+              this.authenticationProvider.goToLogin();
+            } else {
+              this.startApp();
+            }
+          });
+        } else {
+          this.startApp();
+        }
+      }
     });
   }
 
-  initTranslate() {
+  public initTranslate(): void {
     // Set the default language for translation strings, and the current language.
-    this.translate.setDefaultLang('en');
-
-    if (this.translate.getBrowserLang() !== undefined) {
-      this.translate.use(this.translate.getBrowserLang());
-    } else {
-      this.translate.use('en'); // Set your language here
-    }
+    this.translate.setDefaultLang('de');
 
     this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
       this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
     });
   }
 
-  openPage(page) {
+  public openPage(page): void {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if (this.userInfoProvider.user) {
+      this.nav.setRoot(page.component);
+    } else {
+      this.userInfoProvider.loadUser().subscribe(() => this.nav.setRoot(page.component));
+    }
+  }
+
+  private initMoment(): void {
+    moment.locale('de');
+  }
+
+  private loadUserInfo(): void {
+    this.userInfoProvider.loadUser()
+      .subscribe();
+  }
+
+  private startApp(): void {
+    this.loadUserInfo();
+    this.nativeStorage.getItem('hideTutorial').then(hide => {
+      if (hide) {
+        this.rootPage = DashboardPage;
+      } else {
+        this.rootPage = TutorialPage;
+      }
+    });
   }
 }

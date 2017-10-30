@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{ 'TASK_ITEM' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="save()" [disabled]="!subjectForm.valid">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="subjectForm">
+
+    <ion-item>
+      <ion-label floating translate="TITLE"></ion-label>
+      <ion-input type="text" formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.title.valid  && subjectForm.controls.title.touched" no-lines>
+      <p ion-text color="danger" translate="VALIDATION_TITLE"></p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating translate="DESCRIPTION"></ion-label>
+      <ion-textarea autoresize type="text" formControlName="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating translate="QUESTION_TYPE"></ion-label>
+      <ion-select formControlName="questionType">
+        <ion-option value="toggle" translate="QUESTION_TYPE_TOGGLE"></ion-option>
+        <ion-option value="select" translate="QUESTION_TYPE_SELECT"></ion-option>
+        <ion-option value="file" translate="QUESTION_TYPE_FILE"></ion-option>
+        <ion-option value="input" translate="QUESTION_TYPE_INPUT"></ion-option>
+        <ion-option value="text" translate="QUESTION_TYPE_TEXT"></ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="!subjectForm.controls.questionType.valid  && subjectForm.controls.questionType.touched" no-lines>
+      <p ion-text color="danger" translate="VALIDATION_QUESTION_TYPE"></p>
+    </ion-item>
+
+    <ion-item *ngIf="needsQuestion">
+      <ion-label floating translate="QUESTIONS"></ion-label>
+      <ion-textarea autoresize type="text" formControlName="question"></ion-textarea>
+    </ion-item>
+    <ion-item no-lines>
+        <p ion-text translate="QUESTIONS_HELP"></p>
+    </ion-item>
+    <ion-item *ngIf="subjectForm.errors && subjectForm.errors.shouldHaveQuestion" no-lines>
+      <p ion-text color="danger" translate="VALIDATION_QUESTIONS"></p>
+    </ion-item>
+
+  </form>
+
+</ion-content>

@@ -1,0 +1,13 @@
+<ion-list>
+  <button ion-item *ngFor="let user of users" (click)="goToDetail(user)">
+    <ion-avatar item-start>
+      <img src="{{ user.picture }}">
+    </ion-avatar>
+    <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+    <p>{{ user.type }}</p>
+    <button *ngIf="canModifySubject" ion-button clear item-end icon-only color="danger" (click)="removeStudent($event, user)">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </button>
+</ion-list>
+<loader *ngIf="loading"></loader>

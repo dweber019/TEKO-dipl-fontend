@@ -1,0 +1,10 @@
+<ion-list>
+  <ion-item *ngFor="let comment of comments" (click)="canDelete(comment) && editComment($event, comment)">
+    <h2>{{ comment?.user?.getFullname() }}</h2>
+    <p item-end>{{ comment.updatedAt.format('L') }}</p>
+    <button *ngIf="canDelete(comment)" ion-button clear item-end icon-only color="danger" (click)="removeComment($event, comment)">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+    <p>{{ comment.message }}</p>
+  </ion-item>
+</ion-list>

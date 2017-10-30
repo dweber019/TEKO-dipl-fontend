@@ -2,5 +2,7 @@
   "name": "frontend",
   "app_id": "5d1ddb26",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }

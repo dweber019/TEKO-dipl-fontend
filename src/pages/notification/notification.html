@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ 'NOTIFICATIONS' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'read'">
+      <ion-list>
+        <button ion-item *ngFor="let notification of unreadNotifications" (click)="goToDetailAndClear(notification)">
+          {{ notification.message }}
+        </button>
+      </ion-list>
+      <loader *ngIf="loading"></loader>
+    </div>
+    <div *ngSwitchCase="'unread'">
+      <ion-list>
+        <button ion-item *ngFor="let notification of readNotifications" (click)="goToDetail(notification)">
+          {{ notification.message }}
+        </button>
+      </ion-list>
+      <loader *ngIf="loading"></loader>
+    </div>
+  </div>
+</ion-content>>
+
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="read" checked>{{ 'NOTIFICATION_READ' | translate }}</ion-segment-button>
+      <ion-segment-button value="unread">{{ 'NOTIFICATION_UNREAD' | translate }}</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>
